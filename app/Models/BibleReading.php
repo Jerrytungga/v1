@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bible extends Model
+class BibleReading extends Model
 {
     use HasFactory;
     protected $table = 'bible';
     protected $fillable = [
+        'id',
         'asisten_id',
         'nip',
         'pl_pb',       // Use 'pl_pb' instead of 'pl/pb'

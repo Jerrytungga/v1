@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BibleController;
+use App\Http\Controllers\BibleReadingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,17 +25,8 @@ Route::get('/Trainee', function () {
 ["title" => "Home"]);
 })->name('trainee.Home');
 
-Route::get('/Trianee/Bible', function () {
-    return view('Trainee.content.biblereading',
-["title" => "Bible Reading"]);
-})->name('trainee.bible');
 
-// mengirim data bible ke database
-Route::get('/Trainee/content/biblereading', [BibleController::class, 'index'])->name('bible');
-Route::post('/Trianee/Bible', [BibleController::class, 'store'])->name('input-bible');
-
-
-
+Route::resource('BibleReading', BibleReadingController::class);
 
 
 

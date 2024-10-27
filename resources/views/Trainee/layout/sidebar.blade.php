@@ -21,7 +21,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
           <li class="nav-header bg-blue rounded">DAILY</li>
           <li class="nav-item">
-            <a href="{{ route('trainee.bible') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('BibleReading.index') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active bg-dark' :'' }}">
               <p>
                 Bible Reading
               </p>
