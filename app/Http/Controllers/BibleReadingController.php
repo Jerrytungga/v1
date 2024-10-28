@@ -6,68 +6,83 @@ use Illuminate\Http\Request;
 
 class BibleReadingController extends Controller
 {
- 
-    public function index()
+    public function index(Request $request)
     {
-        return view('Trainee.content.BibleReading.index', [
-            "title" => "Bible Reading",
-            'entrys' => BibleReading::orderBy('created_at', 'DESC')->get(),
-        ]);
+        // Inisialisasi query
+        $query = BibleReading::query();
 
-        
-        
+        // Cek apakah ada filter yang diterima
+        if ($request->has("filter")) {
+            $filter = $request->input("filter");
+            if ($filter === "Old Testament") {
+                $query->where("pl_pb", "Old Testament");
+            } elseif ($filter === "New Testament") {
+                $query->where("pl_pb", "New Testament");
+            }
+        }
+
+        // Ambil data berdasarkan filter yang diterapkan
+        $entrys = $query->orderBy("created_at", "DESC")->get();
+
+        return view("Trainee.content.BibleReading.index", [
+            "title" => "Bible Reading",
+            "entrys" => $entrys,
+        ]);
     }
 
     public function create()
     {
         //
-        return view('Trainee.content.biblereading.create', [
-            "title" => "Add Bible Reading"
+        return view("Trainee.content.biblereading.create", [
+            "title" => "Add Bible Reading",
         ]);
-      
     }
 
     public function store(Request $request)
     {
         //
-        $today = now()->format('Y-m-d'); // Format tanggal saat ini
-        $entryCount = BibleReading::whereDate('created_at', $today)->count();
-           // Cek apakah sudah ada 2 entri
-            if ($entryCount >= 2) {
-                return redirect()->route('BibleReading.index')->with('error', 'You have entered data 2 times today');
-            }
-      
-        $request->validate([
-            'asisten' => 'required|string',
-            'nip' => 'required|string',
-            'kitab' => 'required|string|in:Old Testament,New Testament',
-            'kitab_pl' => 'required_if:kitab,Old Testament|string', // For Old Testament
-            'kitab_pb' => 'required_if:kitab,New Testament|string', // For New Testament
-            'verse' => 'required|integer',
-            'terang' => 'required|string',
-        ]);
-        
-        $book = $request->kitab === 'Old Testament' ? $request->kitab_pl : $request->kitab_pb;
-        BibleReading::create([
-            'asisten_id' => $request->asisten,
-            'nip' => $request->nip,
-            'pl_pb' => $request->kitab,
-            'book' => $request->kitab_pl,
-            'book' => $book,
-            'verse' => $request->verse,
-            'phrase_light' => $request->terang,
-        ]);
-        return redirect()->route('BibleReading.index');
+        $today = now()->format("Y-m-d"); // Format tanggal saat ini
+        $entryCount = BibleReading::whereDate("created_at", $today)->count();
+        // Cek apakah sudah ada 2 entri
+        if ($entryCount >= 2) {
+            return redirect()
+                ->route("BibleReading.index")
+                ->with("error", "You have entered data 2 times today");
+        }
 
+        $request->validate([
+            "asisten" => "required|string",
+            "nip" => "required|string",
+            "kitab" => "required|string|in:Old Testament,New Testament",
+            "kitab_pl" => "required_if:kitab,Old Testament|string", // For Old Testament
+            "kitab_pb" => "required_if:kitab,New Testament|string", // For New Testament
+            "verse" => "required|integer",
+            "terang" => "required|string",
+        ]);
+
+        $book =
+            $request->kitab === "Old Testament"
+                ? $request->kitab_pl
+                : $request->kitab_pb;
+        BibleReading::create([
+            "asisten_id" => $request->asisten,
+            "nip" => $request->nip,
+            "pl_pb" => $request->kitab,
+            "book" => $request->kitab_pl,
+            "book" => $book,
+            "verse" => $request->verse,
+            "phrase_light" => $request->terang,
+        ]);
+        return redirect()->route("BibleReading.index");
     }
     public function edit(string $id)
     {
         //
         $bibleReading = BibleReading::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
 
-        return view('Trainee.content.BibleReading.edit', [
+        return view("Trainee.content.BibleReading.edit", [
             "title" => "Edit Bible Reading",
-            "bibleReading" => $bibleReading // Kirim data ke view
+            "bibleReading" => $bibleReading, // Kirim data ke view
         ]);
     }
 
@@ -76,35 +91,35 @@ class BibleReadingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       // Validasi input
-       $request->validate([
-        'kitab' => 'required|string',
-        'verse' => 'required|integer',
-        'terang' => 'required|string',
-        'kitab_pl' => 'nullable|string',
-        'kitab_pb' => 'nullable|string',
-    ]);
+        // Validasi input
+        $request->validate([
+            "kitab" => "required|string",
+            "verse" => "required|integer",
+            "terang" => "required|string",
+            "kitab_pl" => "nullable|string",
+            "kitab_pb" => "nullable|string",
+        ]);
 
-    // Temukan data berdasarkan ID
-    $bibleReading = BibleReading::findOrFail($id);
+        // Temukan data berdasarkan ID
+        $bibleReading = BibleReading::findOrFail($id);
 
-    // Update data berdasarkan input yang diterima
-    if ($request->kitab === 'Old Testament') {
-        $bibleReading->book = $request->kitab_pl; // Update untuk Old Testament
-    } else {
-        $bibleReading->book = $request->kitab_pb; // Update untuk New Testament
+        // Update data berdasarkan input yang diterima
+        if ($request->kitab === "Old Testament") {
+            $bibleReading->book = $request->kitab_pl; // Update untuk Old Testament
+        } else {
+            $bibleReading->book = $request->kitab_pb; // Update untuk New Testament
+        }
+
+        $bibleReading->verse = $request->verse;
+        $bibleReading->phrase_light = $request->terang;
+        $bibleReading->pl_pb = $request->kitab; // Menyimpan jenis kitab
+
+        // Simpan perubahan
+        $bibleReading->save();
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()
+            ->route("BibleReading.index")
+            ->with("success", "Bible Reading updated successfully!");
     }
-
-    $bibleReading->verse = $request->verse;
-    $bibleReading->phrase_light = $request->terang;
-    $bibleReading->pl_pb = $request->kitab; // Menyimpan jenis kitab
-
-    // Simpan perubahan
-    $bibleReading->save();
-
-    // Redirect ke halaman index dengan pesan sukses
-    return redirect()->route('BibleReading.index')->with('success', 'Bible Reading updated successfully!');
-
-    }
-
 }

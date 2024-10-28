@@ -33,20 +33,24 @@
           <div class="col-sm-6">
             <h1>Bible Reading</h1>
           </div>
-        
+
         </div>
         <div class="goup" style="text-align: right;">
-        <button  class="btn btn-outline-success ml-2 text-capitalize">Old Testament</button>
-        <button  class="btn btn-outline-success ml-2 text-capitalize">New Testament</button>
-        <button  class="btn btn-outline-success ml-2 text-capitalize">All</button>
+            <div class="goup" style="text-align: right;">
+                <form action="{{ route('BibleReading.index') }}" method="GET">
+                    <button name="filter" value="Old Testament" class="btn btn-outline-success ml-2 text-capitalize">Old Testament</button>
+                    <button name="filter" value="New Testament" class="btn btn-outline-success ml-2 text-capitalize">New Testament</button>
+                    <button name="filter" value="All" class="btn btn-outline-success ml-2 text-capitalize">All</button>
+                </form>
+            </div>
     </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
- 
+
   <!-- /.content-wrapper -->
 
-  
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -98,7 +102,7 @@
       </div>
       <!-- /.container-fluid -->
     </section>
-   
+
 
 
 @endsection
