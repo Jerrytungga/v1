@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BibleReadingController;
+use App\Http\Controllers\MemorizingVersesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,13 +28,9 @@ Route::get('/Trainee', function () {
 
 
 Route::resource('BibleReading', BibleReadingController::class);
+Route::resource('MemorizingVerses', MemorizingVersesController::class);
 
 
-
-Route::get('/Trianee/Memorizing', function () {
-    return view('Trainee.content.Memorizing',
-["title" => "Memorizing Verses"]);
-})->name('trainee.Memorizing');
 
 Route::get('/Trianee/Hymn', function () {
     return view('Trainee.content.hymn',

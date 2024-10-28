@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.Memorizing') }}" class="nav-link {{ ($title == "Memorizing Verses") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('MemorizingVerses.index') }}" class="nav-link {{ ($title == "Memorizing Verses") ? 'active bg-dark' :'' }}">
               <p>
                 Memorizing Verses
               </p>

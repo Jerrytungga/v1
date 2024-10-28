@@ -11,8 +11,11 @@ class BibleReadingController extends Controller
     {
         return view('Trainee.content.BibleReading.index', [
             "title" => "Bible Reading",
-            'entrys' => BibleReading::orderBy('id', 'desc')->get(),
+            'entrys' => BibleReading::orderBy('created_at', 'DESC')->get(),
         ]);
+
+        
+        
     }
 
     public function create()

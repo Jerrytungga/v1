@@ -1,6 +1,7 @@
 @extends('Trainee.layout.main')
 @section('content')
 
+
 {{-- alert --}}
 @if (session('success'))
 <script>
@@ -35,9 +36,10 @@
         
         </div>
         <div class="goup" style="text-align: right;">
-          <button class="btn btn-outline-success ml-2 text-capitalize">Old Testament</button>
-          <button class="btn btn-outline-success ml-2 text-capitalize">New Testament</button>
-        </div>
+        <button  class="btn btn-outline-success ml-2 text-capitalize">Old Testament</button>
+        <button  class="btn btn-outline-success ml-2 text-capitalize">New Testament</button>
+        <button  class="btn btn-outline-success ml-2 text-capitalize">All</button>
+    </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -77,7 +79,9 @@
                         <td>{{ $bible->verse }}</td>
                         <td>{{ $bible->phrase_light }}</td>
                         <td>
-                       <a href="{{ route('BibleReading.edit', $bible->id) }}" class="btn btn-warning">Edit</a>
+                        @if (\Carbon\Carbon::parse($bible->created_at)->diffInDays() < 1)
+                            <a href="{{ route('BibleReading.edit', $bible->id) }}" class="btn btn-warning">Edit</a>
+                        @endif
                         </td>
                     </tr>
                     @endforeach
@@ -94,5 +98,7 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+   
+
 
 @endsection

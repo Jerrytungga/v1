@@ -15,4 +15,6 @@
   <link rel="stylesheet" href="{{ asset('../plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css')}}">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </head>
