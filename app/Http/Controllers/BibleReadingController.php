@@ -9,18 +9,17 @@ class BibleReadingController extends Controller
  
     public function index()
     {
+        // Menampilkan data dari database ke halaman index
         return view('Trainee.content.BibleReading.index', [
             "title" => "Bible Reading",
             'entrys' => BibleReading::orderBy('created_at', 'DESC')->get(),
         ]);
 
-        
-        
     }
 
     public function create()
     {
-        //
+        // Ke halaman form input
         return view('Trainee.content.biblereading.create', [
             "title" => "Add Bible Reading"
         ]);
@@ -29,7 +28,7 @@ class BibleReadingController extends Controller
 
     public function store(Request $request)
     {
-        //
+        // Insert data ke Database
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
         $entryCount = BibleReading::whereDate('created_at', $today)->count();
            // Cek apakah sudah ada 2 entri
@@ -57,23 +56,21 @@ class BibleReadingController extends Controller
             'verse' => $request->verse,
             'phrase_light' => $request->terang,
         ]);
-        return redirect()->route('BibleReading.index');
+        return redirect()->route('BibleReading.index')->with('success', 'Input Bible Reading successfully!');
 
     }
     public function edit(string $id)
     {
-        //
+        // Pengambilan data berdasarkan id
         $bibleReading = BibleReading::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
-
+        // Ke halaman form edit data
         return view('Trainee.content.BibleReading.edit', [
             "title" => "Edit Bible Reading",
             "bibleReading" => $bibleReading // Kirim data ke view
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
        // Validasi input

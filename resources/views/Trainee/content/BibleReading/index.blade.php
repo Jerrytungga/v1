@@ -1,29 +1,27 @@
 @extends('Trainee.layout.main')
 @section('content')
-
-
-{{-- alert --}}
+{{-- Alert --}}
 @if (session('success'))
 <script>
     Swal.fire({
         icon: 'success',
         title: 'Success!',
-        text: '{{ session('success') }}',
+        text: '{{ session("success") }}',
         confirmButtonText: 'OK'
     });
 </script>
 @endif
 @if (session('error'))
 <script>
-   Swal.fire({
-      title: 'Error',
-      text: '{{ session('error') }}',
-      icon: 'error',
-      confirmButtonText: 'OK',
-      customClass: {
-          confirmButton: 'btn btn-primary' // Ganti dengan kelas Bootstrap yang sesuai
-      }
-  });
+    Swal.fire({
+        title: 'Error',
+        text: '{{ session("error") }}',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        customClass: {
+            confirmButton: 'btn btn-primary' // Change to the appropriate Bootstrap class
+        }
+    });
 </script>
 @endif
     <!-- Content Header (Page header) -->
@@ -59,7 +57,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2"  class="table table-bordered table-hover">
-                  <thead class="text-center">
+                  <thead class="text-center font-weight-bold bg-primary">
                   <tr>
                     <th rowspan="2" class="col-1">Date</th>
                     <th rowspan="2" class="col-1">Book</th>

@@ -33,7 +33,7 @@
                                 <option value="Old Testament" {{ $bibleReading->testament == 'Old Testament' ? 'selected' : '' }}>Old Testament</option>
                                 <option value="New Testament" {{ $bibleReading->testament == 'New Testament' ? 'selected' : '' }}>New Testament</option>
                             </select>
-                            <div id="oldTestament" style="{{ $bibleReading->testament == 'old' ? '' : 'display: none;' }}">
+                           <div id="oldTestament" style="{{ $bibleReading->testament == 'old' ? '' : 'display: none;' }}">
                                 <select class="custom-select" name="kitab_pl">
                                     <option value="{{ $bibleReading->book }}">{{ $bibleReading->book }}</option>
                                     <!-- Daftar buku Alkitab Lama -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MemorizingVerses;
 use Illuminate\Http\Request;
 
 class MemorizingVersesController extends Controller
@@ -11,45 +12,74 @@ class MemorizingVersesController extends Controller
         //halaman utama Memorizing Verse
         return view('Trainee.content.MemorizingVerses.index', [
             "title" => "Memorizing Verses",
+            'entrys' => MemorizingVerses::orderBy('created_at', 'DESC')->get(),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // ke halaan form input
+        return view('Trainee.content.MemorizingVerses.create', [
+            "title" => "Add Memorizing Verses"
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $today = now()->format('Y-m-d'); // Format tanggal saat ini
+        $entryCount = MemorizingVerses::whereDate('created_at', $today)->count();
+           // Cek apakah sudah ada 1 entri
+            if ($entryCount >= 1) {
+                return redirect()->route('BibleReading.index')->with('error', 'You have entered data 1 times today');
+            }
+        // Pengecekan form input
+        $request->validate([
+            'asisten' => 'required|string',
+            'nip' => 'required|string',
+            'ayat' => 'required|string',
+            'paraf' => 'required|string', 
+        ]);
+
+        MemorizingVerses::create([
+            'nip' => $request->nip,
+            'asisten_id' => $request->asisten,
+            'bible' => $request->ayat,
+            'paraf' => $request->paraf,
+           
+        ]);
+        return redirect()->route('MemorizingVerses.index')->with('success', 'Input Memorizing Verses successfully!');
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
+        $MemorizingVerses = MemorizingVerses::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
+
+        return view('Trainee.content.MemorizingVerses.edit', [
+            "title" => "Edit Memorizing Verses",
+            "MemorizingVerses" => $MemorizingVerses // Kirim data ke view
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'ayat' => 'required|string',
+            'paraf' => 'required|string',
+        ]);
+        // Temukan data berdasarkan ID
+            $MemorizingVerses = MemorizingVerses::findOrFail($id);
+            $MemorizingVerses->bible = $request->ayat;
+            $MemorizingVerses->paraf = $request->paraf;
+            // Simpan perubahan
+            $MemorizingVerses->save();
+
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('MemorizingVerses.index')->with('success', 'Memorizing Verses updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
