@@ -29,19 +29,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Bible Reading</h1>
+            <h1>My Hymns</h1>
           </div>
-        
         </div>
-        <div class="goup" style="text-align: right;">
-            <div class="goup" style="text-align: right;">
-                <form action="{{ route('BibleReading.index') }}" method="GET">
-                    <button name="filter" value="Old Testament" class="btn btn-outline-success ml-2 text-capitalize">Old Testament</button>
-                    <button name="filter" value="New Testament" class="btn btn-outline-success ml-2 text-capitalize">New Testament</button>
-                    <button name="filter" value="All" class="btn btn-outline-success ml-2 text-capitalize">All</button>
-                </form>
-            </div>
-    </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -56,7 +46,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-            <a href="{{ route('BibleReading.create') }}" class="btn btn-success">Input Bible Reading</a>
+            <a href="{{ route('Hymns.create') }}" class="btn btn-success">Input Hymns</a>
             </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -64,8 +54,8 @@
                   <thead class="text-center font-weight-bold bg-primary">
                   <tr>
                     <th rowspan="2" class="col-1">Date</th>
-                    <th rowspan="2" class="col-1">Book</th>
-                    <th rowspan="2" class="col-1">Chapter</th>
+                    <th rowspan="2" class="col-1">Number Hymns</th>
+                    <th rowspan="2" class="col-1">Stanza</th>
                     <th>Inspiration</th>
                     <th rowspan="2" class="col-1">Action</th>
                   </tr>
@@ -74,19 +64,20 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @foreach($entrys as $bible)
+                  @foreach($entrys as $hymns)
                     <tr>
-                        <td>{{ $bible->created_at }}</td>
-                        <td>{{ $bible->book }}</td>
-                        <td>{{ $bible->verse }}</td>
-                        <td>{{ $bible->phrase_light }}</td>
+                        <td>{{ $hymns->created_at }}</td>
+                        <td>{{ $hymns->no_Hymns }}</td>
+                        <td>{{ $hymns->stanza }}</td>
+                        <td>{{ $hymns->frase }}</td>
                         <td>
-                        @if (\Carbon\Carbon::parse($bible->created_at)->diffInDays() < 1)
-                            <a href="{{ route('BibleReading.edit', $bible->id) }}" class="btn btn-warning">Edit</a>
+                        @if (\Carbon\Carbon::parse($hymns->created_at)->diffInDays() < 1)
+                            <a href="{{ route('Hymns.edit', $hymns->id) }}" class="btn btn-warning">Edit</a>
                         @endif
                         </td>
                     </tr>
                     @endforeach
+                 
                   </tbody>
                 </table>
               </div>

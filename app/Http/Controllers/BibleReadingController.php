@@ -7,14 +7,28 @@ use Illuminate\Http\Request;
 class BibleReadingController extends Controller
 {
  
-    public function index()
+    public function index(Request $request)
     {
-        // Menampilkan data dari database ke halaman index
-        return view('Trainee.content.BibleReading.index', [
-            "title" => "Bible Reading",
-            'entrys' => BibleReading::orderBy('created_at', 'DESC')->get(),
-        ]);
+        // Inisialisasi query
+        $query = BibleReading::query();
 
+         // Cek apakah ada filter yang diterima
+         if ($request->has("filter")) {
+            $filter = $request->input("filter");
+            if ($filter === "Old Testament") {
+                $query->where("pl_pb", "Old Testament");
+            } elseif ($filter === "New Testament") {
+                $query->where("pl_pb", "New Testament");
+            }
+        }
+
+        // Ambil data berdasarkan filter yang diterapkan
+        $entrys = $query->orderBy("created_at", "DESC")->get();
+
+        return view("Trainee.content.BibleReading.index", [
+            "title" => "Bible Reading",
+            "entrys" => $entrys,
+        ]);
     }
 
     public function create()

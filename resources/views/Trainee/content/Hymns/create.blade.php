@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Form Input Memorizing Verses</h1>
+            <h1>Form Input Hymns</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,22 +18,26 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header bg-primary">
-           <a href="{{ route('MemorizingVerses.index') }}" class="btn text-light bg-dark ">Back To View Memorizing Verses</a>
+           <a href="{{ route('Hymns.index') }}" class="btn text-light bg-dark ">Back To View Hymns</a>
             </div>
               <!-- /.card-header --> 
               <div class="card-body">
-              <form action="{{ route('MemorizingVerses.index') }}" method="post">
+              <form action="{{ route('Hymns.index') }}" method="post">
                   @csrf
                   <div class="modal-body">
                   <input type="hidden" name="asisten" value="123" id="">
                   <input type="hidden" name="nip" value="123" id="">
                   <div class="mt-2">
-                    <label for="Bible">Bible [Alamat Ayat Hafalan]</label>
-                    <input type="text" class="form-control" name="ayat" required placeholder="Example [Yohanes 1:1]">
+                    <label for="Numver">Hymns Number [Nomor Kidung]</label>
+                    <input type="text" class="form-control" required name="kidung" placeholder="Example [kidung 147]">
                   </div>
                   <div class="mt-2">
-                    <label for="Paraf">Initial</label>
-                    <input type="text" class="form-control" name="paraf" required placeholder="Input nip trainee ">
+                    <label for="stanza">Stanza [Bait Kidung]</label>
+                    <input type="number" class="form-control" required name="stanza" placeholder=" Example [1] ">
+                  </div>
+                  <div class="mt-2">
+                    <label for="Inspiration">Inspiration [Kata/Frase yang menjamah]</label>
+                    <textarea name="frase" cols="4" rows="4" required placeholder=" Example [Mulia bagi Tuhan! Alam s'mesta bers'ru, Puji Tuhan!] " class="form-control"></textarea>
                   </div>
                    
                   </div>

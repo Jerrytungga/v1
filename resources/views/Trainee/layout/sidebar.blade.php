@@ -35,7 +35,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.Hymn') }}" class="nav-link {{ ($title == "Hymn") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('Hymns.index') }}" class="nav-link {{ ($title == "My Hymns") ? 'active bg-dark' :'' }}">
               <p>
                 Hymn
               </p>
