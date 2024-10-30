@@ -1,36 +1,45 @@
 <?php
 
-use App\Http\Controllers\BibleReadingController;
-use App\Http\Controllers\HymnsController;
-use App\Http\Controllers\MemorizingVersesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HymnsController;
+use App\Http\Controllers\TraineeController;
+use App\Http\Controllers\BibleReadingController;
+use App\Http\Controllers\MemorizingVersesController;
 
 
 
-Route::get('/', function () {
-    return view('auth.login');
+
+// alur login
+Route::get('/', [AuthController::class, 'Halaman_Login'])->name('auth.index');
+Route::post('/', [AuthController::class, 'login'])->name('auth.login');
+Route::get('/Checking-Data', [AuthController::class, 'cek'])->name('auth.cek');
+Route::post('/Checking-Data', [AuthController::class, 'cekNip'])->name('cek.nip');
+Route::get('/Register', [AuthController::class, 'regis'])->name('auth.register');
+Route::post('/Register', [TraineeController::class, 'register'])->name('auth.form');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+
+
+
+Route::middleware(['check.role:trainee'])->group(function () {
+    Route::get('/Trainee', function () {
+        return view('Trainee.content.home',
+    ["title" => "Home"]);
+    })->name('trainee.Home');
+    Route::resource('BibleReading', BibleReadingController::class);
+    Route::resource('MemorizingVerses', MemorizingVersesController::class);
+    Route::resource('Hymns', HymnsController::class);
+    // Tambahkan rute lainnya di sini
 });
 
-// Registration Route
-Route::get('register', function () {
-    return view('auth.register');
-});
-
-// Check Data Route
-Route::get('cek', function () {
-    return view('auth.cek');
-});
-
-// View Trainee
-Route::get('/Trainee', function () {
-    return view('Trainee.content.home',
-["title" => "Home"]);
-})->name('trainee.Home');
 
 
-Route::resource('BibleReading', BibleReadingController::class);
-Route::resource('MemorizingVerses', MemorizingVersesController::class);
-Route::resource('Hymns', HymnsController::class);
+
+
+
+
+
 
 
 Route::get('/Trianee/5 Times Prayer', function () {

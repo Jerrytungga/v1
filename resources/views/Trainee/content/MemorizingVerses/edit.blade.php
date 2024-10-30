@@ -26,8 +26,6 @@
               @csrf
               @method('PUT')
                   <div class="modal-body">
-                  <input type="hidden" name="asisten" value="123" id="">
-                  <input type="hidden" name="nip" value="123" id="">
                   <div class="mt-2">
                     <label for="Bible">Bible [Alamat Ayat Hafalan]</label>
                     <input type="text" value="{{ old('ayat', $MemorizingVerses->bible) }}" class="form-control" name="ayat" placeholder="Example [Yohanes 1:1]">

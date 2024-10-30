@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('asisten_id');
             $table->string('batch');
             $table->string('status');
-            $table->string('username');
+            $table->string('semester');
             $table->string('password');
             $table->timestamps();
         });

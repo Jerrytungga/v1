@@ -48,6 +48,7 @@
             <div class="card-header">
             <a href="{{ route('Hymns.create') }}" class="btn btn-success">Input Hymns</a>
             </div>
+        
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2"  class="table table-bordered table-hover">

@@ -37,7 +37,7 @@
           <li class="nav-item">
             <a href="{{ route('Hymns.index') }}" class="nav-link {{ ($title == "My Hymns") ? 'active bg-dark' :'' }}">
               <p>
-                Hymn
+                Hymns
               </p>
             </a>
           </li>

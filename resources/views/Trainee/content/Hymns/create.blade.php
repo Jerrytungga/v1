@@ -25,8 +25,8 @@
               <form action="{{ route('Hymns.index') }}" method="post">
                   @csrf
                   <div class="modal-body">
-                  <input type="hidden" name="asisten" value="123" id="">
-                  <input type="hidden" name="nip" value="123" id="">
+                  <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">
+                  <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
                     <label for="Numver">Hymns Number [Nomor Kidung]</label>
                     <input type="text" class="form-control" required name="kidung" placeholder="Example [kidung 147]">

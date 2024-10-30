@@ -15,7 +15,7 @@
             height: 100vh;
         }
         .card {
-            margin-top: 200px;
+            margin-top: 400px;
             background-color: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(2px);
             border-radius: 15px;
@@ -43,19 +43,26 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title custom-title text-center">JURNAL <br> FTTI</h1>
-                    <form action="" method="post">
+                    <form action="{{ route('auth.login') }}" method="post">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">NIP</label>
-                            <input type="text" class="form-control" name="username" id="nip" required>
+                            <input type="text" class="form-control" name="nip" id="nip" required>
+                            @if ($errors->has('nip'))
+                                <div class="text-danger">{{ $errors->first('nip') }}</div>
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
                             <input type="password" class="form-control" name="password" required>
+                            @if ($errors->has('password'))
+                                <div class="text-danger">{{ $errors->first('password') }}</div>
+                            @endif
                         </div>
                         <button type="submit" class="btn btn-custom w-100">Login</button>
-                        <a class="btn btn-info w-100 mt-2" href="{{ url('/cek') }}">Cek Data</a>
+                        <a class="btn btn-info w-100 mt-2" href="{{ route('auth.cek') }}">Cek Data</a>
                     </form>
+                    
                     <div class="text-center mt-3">
                         <p>FULL TIME TRAINING INDONESIA</p>
                     </div>

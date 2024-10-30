@@ -25,8 +25,8 @@
               <form action="{{ route('BibleReading.index') }}" method="post">
                   @csrf
                   <div class="modal-body">
-                  <input type="hidden" name="asisten" value="123" id="">
-                  <input type="hidden" name="nip" value="123" id="">
+                  <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">
+                  <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                       <div>
                           <label for="Book">Book</label><span> [kitab]</span>
                           <select id="testament" class="custom-select mb-1" required name="kitab" onchange="showBooks()">

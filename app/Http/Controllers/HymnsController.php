@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hymns;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 class HymnsController extends Controller
 {
     /**
@@ -12,10 +12,16 @@ class HymnsController extends Controller
      */
     public function index()
     {
+
+        if (!Session::has('role') || Session::get('role') !== 'trainee') {
+            return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
         //
+       
         return view('Trainee.content.Hymns.index', [
             "title" => "My Hymns",
             'entrys' => Hymns::orderBy('created_at', 'DESC')->get(),
+           
         ]);
 
     }
@@ -26,8 +32,12 @@ class HymnsController extends Controller
     public function create()
     {
         //
+        $nipTrainee = Session::get('nip');
+        $id_asisten = Session::get('asisten');
         return view('Trainee.content.Hymns.create', [
             "title" => "Add Hymns",
+            'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
+            'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
     }
 
@@ -92,7 +102,7 @@ class HymnsController extends Controller
         // Validasi input
        $request->validate([
         'kidung' => 'required|string',
-        'number' => 'required|string',
+        'stanza' => 'required|string',
         'frase' => 'required|string',
     
     ]);
@@ -100,7 +110,7 @@ class HymnsController extends Controller
     // Temukan data berdasarkan ID
     $hymns = Hymns::findOrFail($id);
     $hymns->no_Hymns = $request->kidung;
-    $hymns->stanza = $request->number;
+    $hymns->stanza = $request->stanza;
     $hymns->frase = $request->frase; // Menyimpan jenis kitab
 
     // Simpan perubahan
@@ -110,6 +120,8 @@ class HymnsController extends Controller
     return redirect()->route('Hymns.index')->with('success', 'Hymns updated successfully!');
 
     }
+
+    
 
  
 }

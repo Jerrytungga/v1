@@ -18,7 +18,11 @@
         </a>
       </li>
       <li class="nav-item">
-       <button class="btn btn-outline-danger">Logout</button>
+      <form action="{{ route('auth.logout') }}" method="POST" id="logout-form">
+    @csrf
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+
       </li>
     </ul>
   </nav>

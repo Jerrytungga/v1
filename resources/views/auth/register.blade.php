@@ -15,7 +15,7 @@
             height: 100vh;
         }
         .card {
-            margin-top: 200px;
+            margin-top: 300px;
             margin-bottom: auto;
             background-color: rgba(255, 255, 255, 0.4); /* Warna putih dengan transparansi 80% */
             backdrop-filter: blur(2px); /* Efek blur di belakang card */
@@ -44,39 +44,51 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title custom-title text-capitalize text-bold text-center">JURNAL <BR> FTTI</BR></h1>
-                    <form action="{{ route('trainee.register') }}" method="post">
+                    <form action="{{ route('auth.form') }}" method="post">
                         @csrf
                         <div class="mb-3">
                             <center>
                                 <div>
-                                    <label class="form-label">Nip</label>
+                                    <label class="form-label">Enter Your Nip</label>
                                     <input type="text" class="form-control" name="nip" id="nip" required>
                                 </div>
                                 <div class="mt-2">
-                                    <label class="form-label">Masukan Nama Saudara/i</label>
+                                    <label class="form-label">Enter Your Name</label>
                                     <input type="text" class="form-control" name="nama" id="username" required>
                                 </div>
                                 <div class="mt-2">
-                                    <label class="form-label">Silahkan Pilih Asisten Saudara/i</label>
-                                   <select name="asisten" id="" class="form-control">
-                                    <option value="1">Elohim</option>
-                                    <option value="2">Jerri</option>
-                                   </select>
+                                    <label class="form-label">Please Select Your Assistant</label>
+                                    <select name="asisten" class="form-control">
+                                        <option value="">Pilih</option>
+                                        @foreach ($asistens as $asisten)
+                                            <option value="{{ $asisten->nip }}">{{ $asisten->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mt-2">
-                                    <label class="form-label">Silahkan Pilih Angkatan Saudara/i</label>
+                                    <label class="form-label">Please Select Your Batch</label>
                                    <select name="angkatan" id="" class="form-control">
                                     <option value="50">50</option>
                                     <option value="51">51</option>
                                    </select>
                                 </div>
                                 <div class="mt-2">
-                                    <label class="form-label">Masukan Password Saudara/i</label>
+                                    <label class="form-label">Please Select Your Semester</label>
+                                   <select name="semester" id="" class="form-control">
+                                    <option value="S1">Semester 1</option>
+                                    <option value="S2">Semester 2</option>
+                                    <option value="S3">Semester 3</option>
+                                    <option value="S4">Semester 4</option>
+                                 
+                                   </select>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Enter Your Password</label>
                                     <input type="text" class="form-control" name="sandi" id="username" required>
                                 </div>
                             </center>
                         </div>
-                        <button type="submit" name="daftar" class="btn btn-custom w-100">Daftar</button>
+                        <button type="submit" name="daftar" class="btn btn-custom w-100">Register</button>
                     </form>
                     <p></p>
                     @if (session('success'))

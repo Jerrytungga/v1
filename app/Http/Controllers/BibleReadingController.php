@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\BibleReading;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BibleReadingController extends Controller
 {
@@ -34,8 +35,12 @@ class BibleReadingController extends Controller
     public function create()
     {
         // Ke halaman form input
+        $nipTrainee = Session::get('nip');
+        $id_asisten = Session::get('asisten');
         return view('Trainee.content.biblereading.create', [
-            "title" => "Add Bible Reading"
+            "title" => "Add Bible Reading",
+            'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
+            'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
       
     }

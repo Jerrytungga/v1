@@ -26,8 +26,6 @@
               @csrf
               @method('PUT')
                   <div class="modal-body">
-                  <input type="hidden" name="asisten" value="123" id="">
-                  <input type="hidden" name="nip" value="123" id="">
                   <div class="mt-2">
                     <label for="Number">Hymns Number [Nomor Kidung]</label>
                     <input type="text" class="form-control" value="{{ old('kidung', $hymns->no_Hymns) }}" required name="kidung" placeholder="Example [kidung 147]">

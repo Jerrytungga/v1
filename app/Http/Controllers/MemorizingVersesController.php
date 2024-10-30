@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MemorizingVerses;
 use Illuminate\Http\Request;
+use App\Models\MemorizingVerses;
+use Illuminate\Support\Facades\Session;
 
 class MemorizingVersesController extends Controller
 {
@@ -18,9 +19,13 @@ class MemorizingVersesController extends Controller
 
     public function create()
     {
+        $nipTrainee = Session::get('nip');
+        $id_asisten = Session::get('asisten');
         // ke halaan form input
         return view('Trainee.content.MemorizingVerses.create', [
-            "title" => "Add Memorizing Verses"
+            "title" => "Add Memorizing Verses",
+            'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
+            'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
     }
 

@@ -11,15 +11,6 @@ class Asisten extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password'];
-
-    // Jika Anda ingin menambahkan cara untuk meng-hash password secara otomatis
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($asisten) {
-            $asisten->password = bcrypt($asisten->password);
-        });
-    }
+    protected $table = 'asisten';
+    protected $fillable = ['id', 'name', 'nip', 'status', 'username', 'password'];
 }

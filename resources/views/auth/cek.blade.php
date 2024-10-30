@@ -15,7 +15,7 @@
             height: 100vh;
         }
         .card {
-            margin-top: 200px;
+            margin-top: 400px;
             margin-bottom: auto;
             background-color: rgba(255, 255, 255, 0.4); /* Warna putih dengan transparansi 80% */
             backdrop-filter: blur(2px); /* Efek blur di belakang card */
@@ -37,14 +37,15 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="card-title custom-title text-capitalize text-bold text-center">JURNAL <BR> FTTI</BR></h1>
-                    <form action="{{ route('trainee.cek') }}" method="post">
+                    <h1 class="card-title custom-title text-capitalize text-bold text-center">
+                        JURNAL <br> FTTI
+                    </h1>
+                    <form action="{{ route('cek.nip') }}" method="post">
                         @csrf
                         <div class="mb-3">
                             <center>
@@ -52,25 +53,27 @@
                                     <label class="form-label">Nip</label>
                                     <input type="text" class="form-control" name="Cek_nip" value="{{ old('Cek_nip') }}" id="nip" required>
                                 </div>
-                               
                             </center>
                         </div>
                         <button type="submit" class="btn btn-custom w-100">Cek data</button>
                     </form>
-                    <p></p>
-                    @if (session('success'))
-                    <div class="alert alert-success">
-                            {{ session('success') }}
-                            <a href="{{ url('/') }}">Login</a>
+
+                    <!-- Menampilkan pesan error jika NIP tidak ditemukan -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            {{ $errors->first() }} <br>
+                            <a href="{{route('auth.register')}}">Please register to create an account.</a>
                         </div>
                     @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                            <a href="{{ url('/register') }}">Daftar</a>
+                    <!-- Menampilkan pesan sukses jika NIP ditemukan -->
+                    @if (session('status'))
+                        <div class="alert alert-success mt-3">
+                            {{ session('status') }} <br>
+                           <a href="{{route('auth.index')}}">Please log in using your NIP and password.</a>
                         </div>
                     @endif
+                    
                     <div class="text-center mt-3">
                         <p>FULL TIME TRAINING INDONESIA</p>
                     </div>
@@ -79,6 +82,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
