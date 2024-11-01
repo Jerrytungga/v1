@@ -15,7 +15,7 @@
             height: 100vh;
         }
         .card {
-            margin-top: 300px;
+            margin-top: 150px;
             margin-bottom: auto;
             background-color: rgba(255, 255, 255, 0.4); /* Warna putih dengan transparansi 80% */
             backdrop-filter: blur(2px); /* Efek blur di belakang card */
@@ -75,10 +75,10 @@
                                 <div class="mt-2">
                                     <label class="form-label">Please Select Your Semester</label>
                                    <select name="semester" id="" class="form-control">
-                                    <option value="S1">Semester 1</option>
-                                    <option value="S2">Semester 2</option>
-                                    <option value="S3">Semester 3</option>
-                                    <option value="S4">Semester 4</option>
+                                    <option value="1">Semester 1</option>
+                                    <option value="2">Semester 2</option>
+                                    <option value="3">Semester 3</option>
+                                    <option value="4">Semester 4</option>
                                  
                                    </select>
                                 </div>

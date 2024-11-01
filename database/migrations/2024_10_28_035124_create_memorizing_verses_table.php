@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('asisten_id'); // The book name
             $table->string('bible'); // Chapter number
             $table->string('paraf'); // Specific verse number
+            $table->text('semester');
+            $table->text('week')->nullable();
+            $table->string('catatan')->nullable();
             $table->timestamps(); // Created at and updated at
         });
     }

@@ -15,7 +15,7 @@
             height: 100vh;
         }
         .card {
-            margin-top: 400px;
+            margin-top: 200px;
             margin-bottom: auto;
             background-color: rgba(255, 255, 255, 0.4); /* Warna putih dengan transparansi 80% */
             backdrop-filter: blur(2px); /* Efek blur di belakang card */

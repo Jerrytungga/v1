@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trainee;
 use App\Models\BibleReading;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 
 class BibleReadingController extends Controller
@@ -11,7 +12,8 @@ class BibleReadingController extends Controller
     public function index(Request $request)
     {
         // Inisialisasi query
-        $query = BibleReading::query();
+        $nipTrainee = Session::get('nip');
+        $query = BibleReading::where('nip', $nipTrainee);
 
          // Cek apakah ada filter yang diterima
          if ($request->has("filter")) {
@@ -64,7 +66,7 @@ class BibleReadingController extends Controller
             'verse' => 'required|integer',
             'terang' => 'required|string',
         ]);
-        
+        $semester = Session::get('semester');
         $book = $request->kitab === 'Old Testament' ? $request->kitab_pl : $request->kitab_pb;
         BibleReading::create([
             'asisten_id' => $request->asisten,
@@ -74,6 +76,7 @@ class BibleReadingController extends Controller
             'book' => $book,
             'verse' => $request->verse,
             'phrase_light' => $request->terang,
+            'semester' => $semester,
         ]);
         return redirect()->route('BibleReading.index')->with('success', 'Input Bible Reading successfully!');
 

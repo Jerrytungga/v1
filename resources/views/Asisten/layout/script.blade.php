@@ -24,5 +24,23 @@
     });
   });
 </script>
+
+
+{{-- JavaScript Section --}}
+   @push('scripts')
+       <script>
+           // Menghilangkan alert secara otomatis setelah 5 detik (5000 ms)
+           setTimeout(() => {
+               const alert = document.querySelector('.alert');
+               if (alert) {
+                   alert.classList.remove('show');
+                   alert.classList.add('fade');
+                   setTimeout(() => {
+                       alert.remove();
+                   }, 300); // waktu untuk fade out
+               }
+           }, 5000); // waktu untuk menghilangkan alert (dalam ms)
+       </script>
+   @endpush
 </body>
 </html>

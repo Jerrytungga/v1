@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trainee;
 
 use Illuminate\Http\Request;
 use App\Models\MemorizingVerses;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 
 class MemorizingVersesController extends Controller
@@ -11,9 +12,10 @@ class MemorizingVersesController extends Controller
     public function index()
     {
         //halaman utama Memorizing Verse
+        $nipTrainee = Session::get('nip');
         return view('Trainee.content.MemorizingVerses.index', [
             "title" => "Memorizing Verses",
-            'entrys' => MemorizingVerses::orderBy('created_at', 'DESC')->get(),
+            'entrys' => MemorizingVerses::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
         ]);
     }
 
@@ -35,7 +37,7 @@ class MemorizingVersesController extends Controller
         $entryCount = MemorizingVerses::whereDate('created_at', $today)->count();
            // Cek apakah sudah ada 1 entri
             if ($entryCount >= 1) {
-                return redirect()->route('BibleReading.index')->with('error', 'You have entered data 1 times today');
+                return redirect()->route('MemorizingVerses.index')->with('error', 'You have entered data 1 times today');
             }
         // Pengecekan form input
         $request->validate([
@@ -44,12 +46,13 @@ class MemorizingVersesController extends Controller
             'ayat' => 'required|string',
             'paraf' => 'required|string', 
         ]);
-
+        $semester = Session::get('semester');
         MemorizingVerses::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
             'bible' => $request->ayat,
             'paraf' => $request->paraf,
+            'semester' => $semester,
            
         ]);
         return redirect()->route('MemorizingVerses.index')->with('success', 'Input Memorizing Verses successfully!');

@@ -17,8 +17,8 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header bg-primary">
-           <a href="{{ route('Hymns.index') }}" class="btn text-light bg-dark ">Back To View Hymns</a>
+            <div class="card-header bg-warning">
+           <a href="{{ route('Hymns.index') }}" class="btn text-dark btn-light ">Back To View Hymns</a>
             </div>
               <!-- /.card-header --> 
               <div class="card-body">

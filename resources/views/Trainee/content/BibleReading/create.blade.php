@@ -110,7 +110,7 @@
                           </div>
                       </div>
                       <div class="mt-2">
-                          <label for="Verse">Verse</label><span> [Pasal]</span>
+                          <label for="Chapter">Chapter</label><span> [Pasal]</span>
                           <input type="number" name="verse" class="form-control" required>
                       </div>
                       <div class="mt-2">

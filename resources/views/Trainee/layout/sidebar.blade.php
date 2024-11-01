@@ -42,21 +42,21 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.TimesPrayer') }}" class="nav-link {{ ($title == "5 Times Prayer") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('fiveTimesPrayer.index') }}" class="nav-link {{ ($title == "5 Times Prayer") ? 'active bg-dark' :'' }}">
               <p>
                 5 Times Prayer
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.Personalgoals') }}" class="nav-link {{ ($title == "Personal goals") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('personalgoal.index') }}" class="nav-link {{ ($title == "Personal Goals") ? 'active bg-dark' :'' }}">
               <p>
                 Personal goals
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.GoodLand') }}" class="nav-link {{ ($title == "Good Land") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('goodland.index') }}" class="nav-link {{ ($title == "Good Land") ? 'active bg-dark' :'' }}">
               <p>
                 Good Land
               </p>

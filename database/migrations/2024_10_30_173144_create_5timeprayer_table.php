@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create('Hymns', function (Blueprint $table) {
+        Schema::create('5timeprayer', function (Blueprint $table) {
             $table->id();
             $table->string('nip'); // The text of the verse
             $table->string('asisten_id'); // The book name
-            $table->string('no_Hymns'); // Chapter number
-            $table->string('stanza'); // Specific verse number
-            $table->string('frase'); // Specific verse number
-            $table->text('semester');
-            $table->text('week')->nullable();
+            $table->string('poin_prayer'); // Chapter number
             $table->string('catatan')->nullable();
+            $table->text('week')->nullable();
+            $table->text('semester');
             $table->timestamps(); // Created at and updated at
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('timeprayer');
     }
 };

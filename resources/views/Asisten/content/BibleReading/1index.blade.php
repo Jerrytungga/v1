@@ -7,7 +7,6 @@
           <div class="col-sm-6">
             <h1>Bible Reading</h1>
           </div>
-          
         </div>
         <div class="goup" style="text-align: right;">
           <button class="btn btn-outline-success ml-2 text-capitalize">Old Testament</button>
@@ -45,15 +44,16 @@
                   </tr>
                   </thead>
                   <tbody>
+                  @foreach($bibles as $bible)
                     <tr>
-                      <td>21-10-2024</td>
-                      <td>Yohanes</td>
-                      <td>1</td>
-                      <td>Ayat 1 Firman itu adalah Allah yang berinkarnasi menjadi Manusia yang sekarang Dia adalah Roh itu</td>
-                      <td>
-                        <Button class="btn btn-warning">Edit</Button>
-                      </td>
+                        <td>{{ $bible->created_at }}</td>
+                        <td>{{ $bible->book }}</td>
+                        <td>{{ $bible->verse }}</td>
+                        <td>{{ $bible->phrase_light }}</td>
+                        <td></td>
+                       
                     </tr>
+                    @endforeach
                   </tbody>
                  
                 </table>
@@ -70,4 +70,5 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+
 @endsection

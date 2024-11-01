@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('book');
             $table->integer('verse');
             $table->text('phrase_light');
+            $table->text('semester');
+            $table->text('week')->nullable();
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }

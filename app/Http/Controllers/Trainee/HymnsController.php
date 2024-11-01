@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trainee;
 
 use App\Models\Hymns;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+
 class HymnsController extends Controller
 {
     /**
@@ -17,10 +19,10 @@ class HymnsController extends Controller
             return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
         }
         //
-       
+        $nipTrainee = Session::get('nip');
         return view('Trainee.content.Hymns.index', [
             "title" => "My Hymns",
-            'entrys' => Hymns::orderBy('created_at', 'DESC')->get(),
+            'entrys' => Hymns::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
            
         ]);
 
@@ -61,13 +63,14 @@ class HymnsController extends Controller
             'stanza' => 'required|string', 
             'frase' => 'required|string', 
         ]);
-
+        $semester = Session::get('semester');
         Hymns::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
             'no_Hymns' => $request->kidung,
             'stanza' => $request->stanza,
             'frase' => $request->frase,
+            'semester' => $semester,
            
         ]);
         return redirect()->route('Hymns.index')->with('success', 'Input Hymns successfully!');

@@ -13,7 +13,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> -->
         <div class="info">
-          <a href="{{ route('Asisten.A_home') }}" class="d-block text-light">JERRI CHRISTIAN</a>
+          <a href="{{ route('asisten.Home') }}" class="d-block text-light">JERRI CHRISTIAN</a>
         </div>
       </div>
 
@@ -23,7 +23,7 @@
           <li class="nav-header rounded"style="
     background-color: #EAD8B1;">DAILY</li>
           <li class="nav-item">
-            <a href="{{ route('Asisten.A_biblereading') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active bg-info' :'' }}">
+            <a href="{{ route('BibleReading.index') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active bg-info' :'' }}">
               <p class="text-light">
                 Bible Reading
               </p>
@@ -126,4 +126,13 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+
+    <!-- Alert untuk mengakses ke halaman lain -->
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+    <div class="alert m-3 alert-danger" role="alert">
+    {{ $error }}
+    </div>
+    @endforeach
+   @endif
   </aside>

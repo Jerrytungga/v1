@@ -16,6 +16,9 @@ class Hymns extends Model
         'no_Hymns',       // Use 'pl_pb' instead of 'pl/pb'
         'stanza',
         'frase',
+        'semester',
+        'catatan',
+        'week',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here
     ];

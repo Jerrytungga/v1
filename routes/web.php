@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\Asisten\Asisten_BibleReadingController;
+use App\Http\Controllers\Asisten\AsistenController;
+use App\Models\Asisten;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HymnsController;
-use App\Http\Controllers\TraineeController;
-use App\Http\Controllers\BibleReadingController;
-use App\Http\Controllers\MemorizingVersesController;
-
-
-
+use App\Http\Controllers\Trainee\HymnsController;
+use App\Http\Controllers\Trainee\TraineeController;
+use App\Http\Controllers\Trainee\BibleReadingController;
+use App\Http\Controllers\Trainee\GoodlandController;
+use App\Http\Controllers\Trainee\MemorizingVersesController;
+use App\Http\Controllers\Trainee\PersonalgoalController;
+use App\Http\Controllers\Trainee\TimePrayerController;
 
 // alur login
 Route::get('/', [AuthController::class, 'Halaman_Login'])->name('auth.index');
@@ -22,88 +25,95 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 
 
-Route::middleware(['check.role:trainee'])->group(function () {
+Route::group(['middleware' => ['role:trainee']], function() {
     Route::get('/Trainee', function () {
         return view('Trainee.content.home',
     ["title" => "Home"]);
     })->name('trainee.Home');
-    Route::resource('BibleReading', BibleReadingController::class);
-    Route::resource('MemorizingVerses', MemorizingVersesController::class);
-    Route::resource('Hymns', HymnsController::class);
+    Route::resource('Trainee/BibleReading', BibleReadingController::class);
+    Route::resource('Trainee/MemorizingVerses', MemorizingVersesController::class);
+    Route::resource('Trainee/Hymns', HymnsController::class);
+    Route::resource('Trainee/fiveTimesPrayer', TimePrayerController::class);
+    Route::resource('Trainee/personalgoal', PersonalgoalController::class);
+    Route::resource('Trainee/goodland', GoodlandController::class);
+    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'inputpengalaman'])->name('goodland.inputpengalaman');
+    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'savepengalaman'])->name('goodland.savepengalaman');
+    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_2'])->name('goodland.experience_2');
+    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_2'])->name('goodland.saveexperience_2');
+    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_3'])->name('goodland.experience_3');
+    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_3'])->name('goodland.saveexperience_3');
+    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_4'])->name('goodland.experience_4');
+    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_4'])->name('goodland.saveexperience_4');
+    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_5'])->name('goodland.experience_5');
+    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_5'])->name('goodland.saveexperience_5');
+    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_6'])->name('goodland.experience_6');
+    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_6'])->name('goodland.saveexperience_6');
     // Tambahkan rute lainnya di sini
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    Route::get('/Trianee/Prayer Book', function () {
+        return view('Trainee.content.PrayerBook',
+    ["title" => "Prayer Book"]);
+    })->name('trainee.PrayerBook');
+    
+    Route::get('/Trianee/Summary Of Ministry', function () {
+        return view('Trainee.content.SummaryOfMinistry',
+    ["title" => "Summary Of Ministry"]);
+    })->name('trainee.SummaryOfMinistry');
+    
+    Route::get('/Trianee/Fellowship', function () {
+        return view('Trainee.content.Fellowship',
+    ["title" => "Fellowship"]);
+    })->name('trainee.Fellowship');
+    
+    Route::get('/Trianee/ScriptTs', function () {
+        return view('Trainee.content.ScriptTs',
+    ["title" => "Script Ts"]);
+    })->name('trainee.ScriptTs');
+    
+    Route::get('/Trianee/Agenda', function () {
+        return view('Trainee.content.Agenda',
+    ["title" => "Agenda"]);
+    })->name('trainee.Agenda');
+    
+    Route::get('/Trianee/Financial Statements', function () {
+        return view('Trainee.content.FinancialStatements',
+    ["title" => "Financial Statements"]);
+    })->name('trainee.FinancialStatements');
+    
+    Route::get('/Trianee/Journal Report', function () {
+        return view('Trainee.content.JournalReport',
+    ["title" => "Journal Report"]);
+    })->name('trainee.JournalReport');
+    
+    
 });
 
 
-
-
-
-
-
-
-
-
-Route::get('/Trianee/5 Times Prayer', function () {
-    return view('Trainee.content.TimesPrayer',
-["title" => "5 Times Prayer"]);
-})->name('trainee.TimesPrayer');
-
-Route::get('/Trianee/Personal goals', function () {
-    return view('Trainee.content.Personalgoals',
-["title" => "Personal goals"]);
-})->name('trainee.Personalgoals');
-
-Route::get('/Trianee/Good Land', function () {
-    return view('Trainee.content.GoodLand',
-["title" => "Good Land"]);
-})->name('trainee.GoodLand');
-
-Route::get('/Trianee/Prayer Book', function () {
-    return view('Trainee.content.PrayerBook',
-["title" => "Prayer Book"]);
-})->name('trainee.PrayerBook');
-
-Route::get('/Trianee/Summary Of Ministry', function () {
-    return view('Trainee.content.SummaryOfMinistry',
-["title" => "Summary Of Ministry"]);
-})->name('trainee.SummaryOfMinistry');
-
-Route::get('/Trianee/Fellowship', function () {
-    return view('Trainee.content.Fellowship',
-["title" => "Fellowship"]);
-})->name('trainee.Fellowship');
-
-Route::get('/Trianee/ScriptTs', function () {
-    return view('Trainee.content.ScriptTs',
-["title" => "Script Ts"]);
-})->name('trainee.ScriptTs');
-
-Route::get('/Trianee/Agenda', function () {
-    return view('Trainee.content.Agenda',
-["title" => "Agenda"]);
-})->name('trainee.Agenda');
-
-Route::get('/Trianee/Financial Statements', function () {
-    return view('Trainee.content.FinancialStatements',
-["title" => "Financial Statements"]);
-})->name('trainee.FinancialStatements');
-
-Route::get('/Trianee/Journal Report', function () {
-    return view('Trainee.content.JournalReport',
-["title" => "Journal Report"]);
-})->name('trainee.JournalReport');
-
-
-
+// Hanya bisa diakses oleh role asisten
+Route::group(['middleware' => ['role:asisten']], function() {
 // View Asisten
-Route::get('/Asisten', function () {
-    return view('Asisten.content.home',
-["title" => "Home"]);
-})->name('Asisten.A_home');
+// Route::resource('Asisten/BibleReading', Asisten_BibleReadingController::class);
+Route::resource('Asisten', AsistenController::class)->names([
+    'index'   => 'asisten.Home',
+]);
 
-Route::get('/Asisten/Bible', function () {
-    return view('Asisten.content.biblereading',
-["title" => "Bible Reading"]);
-})->name('Asisten.A_biblereading');
+
 
 Route::get('/Asisten/Memorizing', function () {
     return view('Asisten.content.Memorizing',
@@ -164,5 +174,17 @@ Route::get('/Asisten/Journal Report', function () {
     return view('Asisten.content.JournalReport',
 ["title" => "Journal Report"]);
 })->name('Asisten.A_JournalReport');
+
+
+
+});
+
+
+
+
+
+
+
+
 
 

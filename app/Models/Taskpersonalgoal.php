@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemorizingVerses extends Model
+class Taskpersonalgoal extends Model
 {
     use HasFactory;
-    protected $table = 'memorizing_verses';
+    protected $table = 'task_personal_goals';
     protected $fillable = [
         'id',
         'nip',
         'asisten_id',
-        'bible',       // Use 'pl_pb' instead of 'pl/pb'
-        'paraf',
+        'task',       // Use 'pl_pb' instead of 'pl/pb'
         'semester',
-        'catatan',
+        'start',
+        'end',
         'week',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here

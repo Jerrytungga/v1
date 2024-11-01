@@ -1,29 +1,5 @@
 @extends('Trainee.layout.main')
 @section('content')
-{{-- Alert --}}
-@if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: '{{ session("success") }}',
-        confirmButtonText: 'OK'
-    });
-</script>
-@endif
-@if (session('error'))
-<script>
-    Swal.fire({
-        title: 'Error',
-        text: '{{ session("error") }}',
-        icon: 'error',
-        confirmButtonText: 'OK',
-        customClass: {
-            confirmButton: 'btn btn-primary' // Change to the appropriate Bootstrap class
-        }
-    });
-</script>
-@endif
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -70,7 +46,14 @@
                         <td>{{ $hymns->created_at }}</td>
                         <td>{{ $hymns->no_Hymns }}</td>
                         <td>{{ $hymns->stanza }}</td>
-                        <td>{{ $hymns->frase }}</td>
+                        <td>{{ $hymns->frase }}
+                        @if (!empty($hymns->catatan)) <!-- Mengecek apakah catatan tidak kosong -->
+                            <blockquote class="blockquote" style="background-color: #F5F5F5;">
+                                <p class="mb-0 text-danger">{{ $hymns->catatan }}</p>
+                                <footer class="blockquote-footer">Asisten</footer>
+                            </blockquote>
+                        @endif
+                        </td>
                         <td>
                         @if (\Carbon\Carbon::parse($hymns->created_at)->diffInDays() < 1)
                             <a href="{{ route('Hymns.edit', $hymns->id) }}" class="btn btn-warning">Edit</a>

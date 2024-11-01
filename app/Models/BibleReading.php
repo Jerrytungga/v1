@@ -17,6 +17,9 @@ class BibleReading extends Model
         'book',
         'verse',
         'phrase_light',
+        'semester',
+        'catatan',
+        'week',
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here
     ];
 }

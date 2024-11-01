@@ -64,6 +64,35 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+
+        $trainee = Trainee::where('nip', $request->nip)->first();
+        if ($trainee && Hash::check($request->password, $trainee->password)) {
+            // Simpan role di session
+            Session::put('role', 'trainee');
+            Session::put('nip', $trainee->nip);
+            Session::put('asisten', $trainee->asisten_id);
+            Session::put('semester', $trainee->semester);
+            return redirect()->route('trainee.Home');
+        } elseif ($trainee && !Hash::check($request->password, $trainee->password)) {
+            return redirect()->back()->withErrors(['password' => 'Password salah.']);
+        }
+
+         // Cek di tabel Asisten
+         $asisten = Asisten::where('nip', $request->nip)->first();
+        if ($asisten && Hash::check($request->password, $asisten->password)) {
+        // Simpan role di session
+        Session::put('role', 'asisten');
+        Session::put('nama', $asisten->name);
+        Session::put('nip', $asisten->nip);
+            return redirect()->route('asisten.Home');
+        } elseif ($asisten && !Hash::check($request->password, $asisten->password)) {
+            return redirect()->back()->withErrors(['password' => 'Password salah.']);
+        }
+
+
+
+
+
         // Cek di tabel Admin
         // $admin = Admin::where('nip', $request->nip)->first();
         // if ($admin && Hash::check($request->password, $admin->password)) {
@@ -72,35 +101,45 @@ class AuthController extends Controller
         //     return redirect()->route('admin.dashboard');
         // }
 
-        // Cek di tabel Trainee
-        $trainee = Trainee::where('nip', $request->nip)->first();
+        // // Cek di tabel Trainee
+        // $trainee = Trainee::where('nip', $request->nip)->first();
+        // // Pengecekan jika trainee ditemukan
+        // if (!$trainee) {
+        //     return redirect()->back()->withErrors(['nip' => 'NIP tidak ditemukan.']);
+        // }
+        // // Jika trainee ditemukan, periksa password
+        // if (!password_verify($request->password, $trainee->password)) {
+        //     return redirect()->back()->withErrors(['password' => 'Password salah.']);
+        // }
+        // // Bandingkan password secara langsung
+        // if ($trainee && Hash::check($request->password, $trainee->password)) {
+        //     // Simpan role di session
+        //     Session::put('role', 'trainee');
+        //     Session::put('nip', $trainee->nip);
+        //     Session::put('asisten', $trainee->asisten_id);
+        //     return redirect()->route('trainee.Home');
+        // }
 
-        // Pengecekan jika trainee ditemukan
-        if (!$trainee) {
-            return redirect()->back()->withErrors(['nip' => 'NIP tidak ditemukan.']);
-        }
-
-        // Jika trainee ditemukan, periksa password
-        if (!password_verify($request->password, $trainee->password)) {
-            return redirect()->back()->withErrors(['password' => 'Password salah.']);
-        }
-
-        // Bandingkan password secara langsung
-        if ($trainee && Hash::check($request->password, $trainee->password)) {
-            // Simpan role di session
-            Session::put('role', 'trainee');
-            Session::put('nip', $trainee->nip);
-            Session::put('asisten', $trainee->asisten_id);
-            return redirect()->route('trainee.Home');
-        }
-
-        // Cek di tabel Asisten
+        // // Cek di tabel Asisten
         // $asisten = Asisten::where('nip', $request->nip)->first();
+        // if (!$asisten) {
+        //     return redirect()->back()->withErrors(['nip' => 'NIP tidak ditemukan.']);
+        // }
+        // // Jika trainee ditemukan, periksa password
+        // if (!password_verify($request->password, $asisten->password)) {
+        //     return redirect()->back()->withErrors(['password' => 'Password salah.']);
+        // }
         // if ($asisten && Hash::check($request->password, $asisten->password)) {
         //     // Simpan role di session
         //     Session::put('role', 'asisten');
-        //     return redirect()->route('asisten.dashboard');
+        //     Session::put('nip', $asisten->nip);
+        //     return redirect()->route('Asisten.A_home');
         // }
+
+
+
+
+        
 
         // Jika tidak ditemukan, kembali ke halaman login dengan pesan error
         return redirect()->back()->withErrors([

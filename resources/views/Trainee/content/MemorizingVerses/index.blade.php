@@ -1,30 +1,6 @@
 @extends('Trainee.layout.main')
 @section('content')
 
-{{-- Alert --}}
-@if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: '{{ session("success") }}',
-        confirmButtonText: 'OK'
-    });
-</script>
-@endif
-@if (session('error'))
-<script>
-    Swal.fire({
-        title: 'Error',
-        text: '{{ session("error") }}',
-        icon: 'error',
-        confirmButtonText: 'OK',
-        customClass: {
-            confirmButton: 'btn btn-primary' // Change to the appropriate Bootstrap class
-        }
-    });
-</script>
-@endif
      <!-- Content Header (Page header) -->
      <section class="content-header">
       <div class="container-fluid">
@@ -60,7 +36,14 @@
                   @foreach($entrys as $memorizingverses)
                   <tr>
                   <td>{{ $memorizingverses->created_at }}</td>
-                  <td>{{ $memorizingverses->bible }}</td>
+                  <td>{{ $memorizingverses->bible }}
+                        @if (!empty($memorizingverses->catatan)) <!-- Mengecek apakah catatan tidak kosong -->
+                                  <blockquote class="blockquote" style="background-color: #F5F5F5;">
+                                      <p class="mb-0 text-danger">{{ $memorizingverses->catatan }}</p>
+                                      <footer class="blockquote-footer">Asisten</footer>
+                                  </blockquote>
+                              @endif
+                  </td>
                   <td>{{ $memorizingverses->paraf }}</td>
                   <td>
                   @if (\Carbon\Carbon::parse($memorizingverses->created_at)->diffInDays() < 1)
