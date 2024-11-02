@@ -48,24 +48,51 @@
               <label>Experiences:</label>
               <div class="form-row">
                 <div class="col-md-4">
+                @if(!empty($data->experience_1))
                   <textarea name="experience_1" class="form-control" placeholder="Experience 1" style="height: 150px;">{{ $data->experience_1 }}</textarea> <!-- Mengatur tinggi -->
+                  @else
+                  <textarea name="experience_1" disabled class="form-control" placeholder="Experience 1" style="height: 150px;">{{ $data->experience_1 }}</textarea> <!-- Mengatur tinggi -->
+                  @endif
                 </div>
                 <div class="col-md-4">
+                @if(!empty($data->experience_2))
                   <textarea name="experience_2" class="form-control" placeholder="Experience 2" style="height: 150px;">{{ $data->experience_2 }}</textarea> <!-- Mengatur tinggi -->
+                  @else
+                  <textarea name="experience_2" disabled class="form-control" placeholder="Experience 2" style="height: 150px;">{{ $data->experience_2 }}</textarea> <!-- Mengatur tinggi -->
+                  @endif
                 </div>
+
                 <div class="col-md-4">
+                @if(!empty($data->experience_3))
                   <textarea name="experience_3" class="form-control" placeholder="Experience 3" style="height: 150px;">{{ $data->experience_3 }}</textarea> <!-- Mengatur tinggi -->
+                  @else
+                  <textarea name="experience_3" disabled class="form-control" placeholder="Experience 3" style="height: 150px;">{{ $data->experience_3 }}</textarea> <!-- Mengatur tinggi -->
+                  @endif
                 </div>
+
+
               </div>
               <div class="form-row mt-2">
                 <div class="col-md-4">
+                @if(!empty($data->experience_4))
                   <textarea name="experience_4" class="form-control" placeholder="Experience 4" style="height: 150px;">{{ $data->experience_4 }}</textarea> <!-- Mengatur tinggi -->
+                  @else
+                  <textarea name="experience_4" disabled class="form-control" placeholder="Experience 4" style="height: 150px;">{{ $data->experience_4 }}</textarea> <!-- Mengatur tinggi -->
+                  @endif
                 </div>
                 <div class="col-md-4">
+                @if(!empty($data->experience_5))
                   <textarea name="experience_5" class="form-control" placeholder="Experience 5" style="height: 150px;">{{ $data->experience_5 }}</textarea> <!-- Mengatur tinggi -->
+                  @else
+                  <textarea name="experience_5" disabled class="form-control" placeholder="Experience 5" style="height: 150px;">{{ $data->experience_5 }}</textarea> <!-- Mengatur tinggi -->
+                  @endif
                 </div>
                 <div class="col-md-4">
+                @if(!empty($data->experience_6))
                   <textarea name="experience_6" class="form-control" placeholder="Experience 6" style="height: 150px;">{{ $data->experience_6 }}</textarea> <!-- Mengatur tinggi -->
+                  @else
+                  <textarea name="experience_6" disabled class="form-control" placeholder="Experience 6" style="height: 150px;">{{ $data->experience_6 }}</textarea> <!-- Mengatur tinggi -->
+                  @endif
                 </div>
               </div>
             </div>

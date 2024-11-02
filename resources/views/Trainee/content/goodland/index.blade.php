@@ -19,14 +19,18 @@
       <div class="card shadow m-3" style="width: 100%; max-width: 800px; border-radius: 15px;">
         <div class="card-header bg-primary d-flex justify-content-between align-items-center" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
           <div class="d-flex align-items-center">
+            
+            <form method="GET" action="{{ route('goodland.index') }}" class="form-inline">
             <label for="filter-date" class="mr-2 mb-0">Filter Date:</label>
-            <input type="date" id="filter-date" name="filter-date" class="form-control mr-3" style="width: auto;">
-            <button type="button" class="btn btn-info mr-2">View</button> <!-- Tambahkan kelas mr-2 -->
+            <input type="date" id="filter-date" name="filter_date" class="form-control mr-3" style="width: auto;" value="{{ request('filter_date') }}">
+            <button type="submit" class="btn btn-info mr-2">View</button>
+             </form>
+
+            <!-- Tambahkan kelas mr-2 -->
             <a href="{{route('goodland.create')}}" class="btn btn-light">Input Good Land</a>
             @if($entry)
             <a href="{{route('goodland.edit', $entry->id)}}" class="btn ml-2 btn-warning">Edit Good Land</a>
             @else
-              
             @endif
           </div>
 
@@ -119,10 +123,14 @@
               </div>
 
 
-            
-        
               <div class="p-1 w-100">
-                <div class="card-text">Catatan: {{ $entry->catatan }}</div>
+                <div class="card-text">Catatan:
+                @if(!empty($entry->catatan))
+                <div class="alert alert-warning">
+                 <strong>Asisten!</strong> {{ $entry->catatan }} </div>
+                </div>
+                @else
+                @endif
               </div>
             </div>
           </div>
@@ -137,9 +145,6 @@
         showConfirmButton: false,
         timer: 1500
       });
-
-
-
         </script>
         @endif
       </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Trainee;
 
 use App\Models\GoodLand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
@@ -12,22 +13,28 @@ class GoodlandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $nipTrainee = Session::get('nip');
-        $today = now()->toDateString(); // Format tanggal saat ini tanpa waktu
-        
-        $entry = GoodLand::where('nip', $nipTrainee)
-                    ->whereDate('created_at', $today)  // Filter untuk tanggal hari ini
-                    ->orderBy('created_at', 'DESC')
-                    ->first();  // Ambil satu record terbaru
-        
-        return view("Trainee.content.goodland.index", [
-            "title" => "Good Land",
-            'entry' => $entry,
-        ]);
-       
+                // Mendapatkan NIP Trainee dari session
+            $nipTrainee = Session::get('nip');
+
+            // Mendapatkan tanggal filter dari request atau default ke hari ini
+            $today = now()->toDateString();
+            $filterDate = $request->input('filter_date', $today);
+
+            // Query data dengan filter berdasarkan tanggal (ignoring time) dan urutkan dari yang terbaru
+            $entry = GoodLand::where('nip', $nipTrainee)
+                            ->whereDate('created_at', Carbon::parse($filterDate))  // Cocokkan hanya tanggal, abaikan waktu
+                            ->orderBy('created_at', 'DESC')
+                            ->first();
+
+            // Kembali ke view dengan data yang difilter
+            return view('Trainee.content.goodland.index', [
+                'title' => 'Good Land',
+                'entry' => $entry,
+                'filter_date' => $filterDate,
+            ]);
+            
     }
 
     /**
@@ -99,7 +106,6 @@ class GoodlandController extends Controller
     {
         //
         $data = GoodLand::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
-
         return view('Trainee.content.goodland.experience_1', [
             "title" => "Good Land",
             "data" => $data // Kirim data ke view

@@ -72,6 +72,7 @@ class AuthController extends Controller
             Session::put('nip', $trainee->nip);
             Session::put('asisten', $trainee->asisten_id);
             Session::put('semester', $trainee->semester);
+            Session::put('name', $trainee->name);
             return redirect()->route('trainee.Home');
         } elseif ($trainee && !Hash::check($request->password, $trainee->password)) {
             return redirect()->back()->withErrors(['password' => 'Password salah.']);

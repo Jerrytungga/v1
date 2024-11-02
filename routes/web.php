@@ -36,19 +36,29 @@ Route::group(['middleware' => ['role:trainee']], function() {
     Route::resource('Trainee/fiveTimesPrayer', TimePrayerController::class);
     Route::resource('Trainee/personalgoal', PersonalgoalController::class);
     Route::resource('Trainee/goodland', GoodlandController::class);
-    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'inputpengalaman'])->name('goodland.inputpengalaman');
-    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'savepengalaman'])->name('goodland.savepengalaman');
-    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_2'])->name('goodland.experience_2');
-    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_2'])->name('goodland.saveexperience_2');
-    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_3'])->name('goodland.experience_3');
-    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_3'])->name('goodland.saveexperience_3');
-    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_4'])->name('goodland.experience_4');
-    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_4'])->name('goodland.saveexperience_4');
-    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_5'])->name('goodland.experience_5');
-    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_5'])->name('goodland.saveexperience_5');
-    Route::get('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'experience_6'])->name('goodland.experience_6');
-    Route::put('Trainee/goodland/{id}/pengalaman', [GoodlandController::class, 'save_experience_6'])->name('goodland.saveexperience_6');
-    // Tambahkan rute lainnya di sini
+
+
+    Route::prefix('Trainee/goodland/{id}/pengalaman')->group(function () {
+        Route::get('/', [GoodlandController::class, 'inputpengalaman'])->name('goodland.inputpengalaman');
+        Route::put('/', [GoodlandController::class, 'savepengalaman'])->name('goodland.savepengalaman');
+    
+        Route::get('/experience_2', [GoodlandController::class, 'experience_2'])->name('goodland.experience_2');
+        Route::put('/experience_2', [GoodlandController::class, 'save_experience_2'])->name('goodland.saveexperience_2');
+    
+        Route::get('/experience_3', [GoodlandController::class, 'experience_3'])->name('goodland.experience_3');
+        Route::put('/experience_3', [GoodlandController::class, 'save_experience_3'])->name('goodland.saveexperience_3');
+    
+        Route::get('/experience_4', [GoodlandController::class, 'experience_4'])->name('goodland.experience_4');
+        Route::put('/experience_4', [GoodlandController::class, 'save_experience_4'])->name('goodland.saveexperience_4');
+    
+        Route::get('/experience_5', [GoodlandController::class, 'experience_5'])->name('goodland.experience_5');
+        Route::put('/experience_5', [GoodlandController::class, 'save_experience_5'])->name('goodland.saveexperience_5');
+    
+        Route::get('/experience_6', [GoodlandController::class, 'experience_6'])->name('goodland.experience_6');
+        Route::put('/experience_6', [GoodlandController::class, 'save_experience_6'])->name('goodland.saveexperience_6');
+    });
+
+
 
     
 
