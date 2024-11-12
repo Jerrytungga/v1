@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Trainee;
+use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\BibleReading;
 use Illuminate\Http\Request;
@@ -76,6 +77,7 @@ class BibleReadingController extends Controller
             'verse' => 'required|integer',
             'terang' => 'required|string',
         ]);
+        $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
         $book = $request->kitab === 'Old Testament' ? $request->kitab_pl : $request->kitab_pb;
         BibleReading::create([
@@ -87,6 +89,7 @@ class BibleReadingController extends Controller
             'verse' => $request->verse,
             'phrase_light' => $request->terang,
             'semester' => $semester,
+            'week' => $weekly->Week,
         ]);
         return redirect()->route('BibleReading.index')->with('success', 'Input Bible Reading successfully!');
 

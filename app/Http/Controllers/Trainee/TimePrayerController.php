@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\timeprayer;
 use Illuminate\Http\Request;
@@ -64,12 +65,14 @@ class TimePrayerController extends Controller
             'asisten' => 'required|string',
             'doa' => 'required|string',
         ]);
+        $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
         timeprayer::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
             'poin_prayer' => $request->doa,
             'semester' => $semester,
+            'week' => $weekly->Week,
            
         ]);
         return redirect()->route('fiveTimesPrayer.index')->with('success', 'Input 5 Time Prayer successfully!');

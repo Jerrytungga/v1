@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Weekly;
 use App\Models\Asisten;
 use Illuminate\Http\Request;
 use App\Models\MemorizingVerses;
@@ -55,6 +56,7 @@ class MemorizingVersesController extends Controller
             'ayat' => 'required|string',
             'paraf' => 'required|string', 
         ]);
+        $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
         MemorizingVerses::create([
             'nip' => $request->nip,
@@ -62,6 +64,7 @@ class MemorizingVersesController extends Controller
             'bible' => $request->ayat,
             'paraf' => $request->paraf,
             'semester' => $semester,
+            'week' => $weekly->Week,
            
         ]);
         return redirect()->route('MemorizingVerses.index')->with('success', 'Input Memorizing Verses successfully!');

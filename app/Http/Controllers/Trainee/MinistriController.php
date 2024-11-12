@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Trainee;
 
 use Carbon\Carbon;
+use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Ministri;
 use Illuminate\Http\Request;
@@ -92,7 +93,8 @@ class MinistriController extends Controller
             
             
             ]);
-          $semester = Session::get('semester');
+            $weekly = Weekly::where('status', 'active')->first();
+            $semester = Session::get('semester');
                Ministri::create([
               'nip' => $request->nip,
               'asisten_id' => $request->asisten,
@@ -100,6 +102,7 @@ class MinistriController extends Controller
               'news' => $request->News,
               'inspirasi' => $request->frase,
               'semester' => $semester,
+              'week' => $weekly->Week,
             
             ]);
                return redirect()->route('ministri.index')->with('success', 'Input Summary Of Ministry successfully!');

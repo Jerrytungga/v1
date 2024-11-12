@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Trainee;
 
 use App\Models\Hymns;
+use App\Models\Weekly;
 use App\Models\Asisten;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -39,12 +40,14 @@ class HymnsController extends Controller
     public function create()
     {
         //
+       
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
         return view('Trainee.content.Hymns.create', [
             "title" => "My Hymns",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
+           
         ]);
     }
 
@@ -68,6 +71,7 @@ class HymnsController extends Controller
             'stanza' => 'required|string', 
             'frase' => 'required|string', 
         ]);
+        $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
         Hymns::create([
             'nip' => $request->nip,
@@ -76,6 +80,7 @@ class HymnsController extends Controller
             'stanza' => $request->stanza,
             'frase' => $request->frase,
             'semester' => $semester,
+            'week' => $weekly->Week,
            
         ]);
         return redirect()->route('Hymns.index')->with('success', 'Input Hymns successfully!');

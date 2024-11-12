@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Prayers;
 use Illuminate\Http\Request;
@@ -65,6 +66,7 @@ class PrayerbookController extends Controller
             'apresiasi' => 'required|string',
             'action' => 'required|string',
             ]);
+            $weekly = Weekly::where('status', 'active')->first();
             $semester = Session::get('semester');
                Prayers::create([
               'nip' => $request->nip,
@@ -75,6 +77,7 @@ class PrayerbookController extends Controller
               'action' => $request->action,
               'semester' => $semester, 
               'prayer_date' => $today,
+             'week' => $weekly->Week,
             
             ]);
                return redirect()->route('prayerbook.index')->with('success', 'Input Prayer Book successfully!');

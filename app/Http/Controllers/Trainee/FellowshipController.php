@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Trainee;
 
 use Carbon\Carbon;
+use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Fellowship;
 use Illuminate\Http\Request;
@@ -79,6 +80,7 @@ class FellowshipController extends Controller
               'Notes' => 'required|string',
               'action' => 'required|string',
         ]);
+        $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
         Fellowship::create([
             'nip' => $request->nip,
@@ -88,6 +90,7 @@ class FellowshipController extends Controller
             'notes_trainee' => $request->Notes,
             'action' => $request->action,
             'semester' => $semester,
+            'week' => $weekly->Week,
            
         ]);
         return redirect()->route('fellowship.index')->with('success', 'Input Fellowship successfully!');

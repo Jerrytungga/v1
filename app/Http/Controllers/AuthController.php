@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asisten;
 use App\Models\Trainee;
+use App\Models\Weekly;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;

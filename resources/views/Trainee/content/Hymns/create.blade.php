@@ -39,7 +39,7 @@
                     <label for="Inspiration">Inspiration [Kata/Frase yang menjamah]</label>
                     <textarea name="frase" cols="4" rows="4" required placeholder=" Example [Mulia bagi Tuhan! Alam s'mesta bers'ru, Puji Tuhan!] " class="form-control"></textarea>
                   </div>
-                   
+          
                   </div>
                   <div class="modal-footer">
                       <button type="submit" class="btn btn-primary">Save</button>

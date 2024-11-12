@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Weekly;
 use App\Models\Asisten;
 use Illuminate\Http\Request;
 use App\Models\Personalgoals;
@@ -59,12 +60,16 @@ class PersonalgoalController extends Controller
             'nip' => 'required|string',
             'asisten' => 'required|string',
             'deskripsi' => 'required|string', ]);
+         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
              Personalgoals::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
             'personalgoals' => $request->deskripsi,
-            'semester' => $semester, ]);
+            'semester' => $semester, 
+            'week' => $weekly->Week,
+        
+        ]);
              return redirect()->route('personalgoal.index')->with('success', 'Input Personal Goals successfully!');
     }
 

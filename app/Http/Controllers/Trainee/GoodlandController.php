@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\GoodLand;
 use Illuminate\Http\Request;
@@ -85,6 +86,7 @@ class GoodlandController extends Controller
         'dt' => 'nullable|string',
         'ds' => 'nullable|string',
         ]);
+        $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
         GoodLand::create([
             'nip' => $request->nip,
@@ -94,6 +96,7 @@ class GoodlandController extends Controller
             'dt' => $request->dt,
             'ds' => $request->ds,
             'semester' => $semester,
+            'week' => $weekly->Week,
            
         ]);
         return redirect()->route('goodland.index')->with('success', 'Input Good Land successfully!');
