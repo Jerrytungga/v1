@@ -125,12 +125,13 @@
 
               <div class="p-1 w-100">
                 <div class="card-text">Catatan:
-                @if(!empty($entry->catatan))
-                <div class="alert alert-warning">
-                 <strong>Asisten!</strong> {{ $entry->catatan }} </div>
-                </div>
-                @else
-                @endif
+                @if (!empty($entry->catatan))
+                <blockquote class="blockquote" style="background-color: #FFF5E4;">
+                <p class="mb-0 text-danger">{{ $entry->catatan }}</p>
+                <footer class="blockquote-footer">Asisten {{ $name_asisten }}</footer>
+                </blockquote>
+                 @endif
+               
               </div>
             </div>
           </div>

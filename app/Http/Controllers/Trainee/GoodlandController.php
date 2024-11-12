@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Asisten;
 use App\Models\GoodLand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -15,6 +16,10 @@ class GoodlandController extends Controller
      */
     public function index(Request $request)
     {
+        if (!Session::has('role') || Session::get('role') !== 'trainee') {
+            return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
+
                 // Mendapatkan NIP Trainee dari session
             $nipTrainee = Session::get('nip');
 
@@ -28,10 +33,15 @@ class GoodlandController extends Controller
                             ->orderBy('created_at', 'DESC')
                             ->first();
 
+            $id_asisten = Session::get('asisten');
+            $asisten = Asisten::where('nip', $id_asisten)->first();
+            $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+
             // Kembali ke view dengan data yang difilter
             return view('Trainee.content.goodland.index', [
                 'title' => 'Good Land',
                 'entry' => $entry,
+                'name_asisten' => $nama_asisten,
                 'filter_date' => $filterDate,
             ]);
             
@@ -89,19 +99,7 @@ class GoodlandController extends Controller
         return redirect()->route('goodland.index')->with('success', 'Input Good Land successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-  
-    
     public function inputpengalaman(string $id)
     {
         //

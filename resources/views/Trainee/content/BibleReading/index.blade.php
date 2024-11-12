@@ -58,11 +58,11 @@
                         <td>{{ $bible->book }}</td>
                         <td>{{ $bible->verse }}</td>
                         <td>{{ $bible->phrase_light }}
-                        @if (!empty($bible->catatan)) <!-- Mengecek apakah catatan tidak kosong -->
-                            <blockquote class="blockquote" style="background-color: #F5F5F5;">
-                                <p class="mb-0 text-danger">{{ $bible->catatan }}</p>
-                                <footer class="blockquote-footer">Asisten</footer>
-                            </blockquote>
+                        @if (!empty($bible->catatan))
+                        <blockquote class="blockquote" style="background-color: #FFF5E4;">
+                        <p class="mb-0 text-danger">{{ $bible->catatan }}</p>
+                        <footer class="blockquote-footer">Asisten {{ $name_asisten }}</footer>
+                        </blockquote>
                         @endif
                         </td>
                         <td>

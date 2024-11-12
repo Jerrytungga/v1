@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Trainee;
 
 use App\Models\Hymns;
+use App\Models\Asisten;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
@@ -19,9 +20,13 @@ class HymnsController extends Controller
             return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
         }
         //
+        $id_asisten = Session::get('asisten');
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         $nipTrainee = Session::get('nip');
         return view('Trainee.content.Hymns.index', [
             "title" => "My Hymns",
+            'name_asisten' => $nama_asisten,
             'entrys' => Hymns::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
            
         ]);
@@ -37,7 +42,7 @@ class HymnsController extends Controller
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
         return view('Trainee.content.Hymns.create', [
-            "title" => "Add Hymns",
+            "title" => "My Hymns",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
@@ -94,7 +99,7 @@ class HymnsController extends Controller
           $hymns = Hymns::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
           // Ke halaman form edit data
           return view('Trainee.content.Hymns.edit', [
-              "title" => "Edit Hymns",
+            "title" => "My Hymns",
               "hymns" => $hymns // Kirim data ke view
           ]);
     }

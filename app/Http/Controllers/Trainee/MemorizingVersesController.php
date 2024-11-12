@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Asisten;
 use Illuminate\Http\Request;
 use App\Models\MemorizingVerses;
 use Illuminate\Routing\Controller;
@@ -11,11 +12,19 @@ class MemorizingVersesController extends Controller
 {
     public function index()
     {
+        if (!Session::has('role') || Session::get('role') !== 'trainee') {
+            return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
+
         //halaman utama Memorizing Verse
+        $id_asisten = Session::get('asisten');
         $nipTrainee = Session::get('nip');
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         return view('Trainee.content.MemorizingVerses.index', [
             "title" => "Memorizing Verses",
             'entrys' => MemorizingVerses::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+            'name_asisten' => $nama_asisten,
         ]);
     }
 
@@ -25,7 +34,7 @@ class MemorizingVersesController extends Controller
         $id_asisten = Session::get('asisten');
         // ke halaan form input
         return view('Trainee.content.MemorizingVerses.create', [
-            "title" => "Add Memorizing Verses",
+            "title" => "Memorizing Verses",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
@@ -65,7 +74,7 @@ class MemorizingVersesController extends Controller
         $MemorizingVerses = MemorizingVerses::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
 
         return view('Trainee.content.MemorizingVerses.edit', [
-            "title" => "Edit Memorizing Verses",
+            "title" => "Memorizing Verses",
             "MemorizingVerses" => $MemorizingVerses // Kirim data ke view
         ]);
     }

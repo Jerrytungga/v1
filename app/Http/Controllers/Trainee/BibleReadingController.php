@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Trainee;
+use App\Models\Asisten;
 use App\Models\BibleReading;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -11,6 +12,10 @@ class BibleReadingController extends Controller
  
     public function index(Request $request)
     {
+        if (!Session::has('role') || Session::get('role') !== 'trainee') {
+            return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
+
         // Inisialisasi query
         $nipTrainee = Session::get('nip');
         $query = BibleReading::where('nip', $nipTrainee);
@@ -25,12 +30,17 @@ class BibleReadingController extends Controller
             }
         }
 
+        $id_asisten = Session::get('asisten');
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+
         // Ambil data berdasarkan filter yang diterapkan
         $entrys = $query->orderBy("created_at", "DESC")->get();
 
         return view("Trainee.content.BibleReading.index", [
             "title" => "Bible Reading",
             "entrys" => $entrys,
+            'name_asisten' => $nama_asisten,
         ]);
     }
 
@@ -40,7 +50,7 @@ class BibleReadingController extends Controller
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
         return view('Trainee.content.biblereading.create', [
-            "title" => "Add Bible Reading",
+            "title" => "Bible Reading",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
@@ -87,7 +97,7 @@ class BibleReadingController extends Controller
         $bibleReading = BibleReading::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
         // Ke halaman form edit data
         return view('Trainee.content.BibleReading.edit', [
-            "title" => "Edit Bible Reading",
+            "title" => "Bible Reading",
             "bibleReading" => $bibleReading // Kirim data ke view
         ]);
     }

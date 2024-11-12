@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Asisten;
 use App\Models\timeprayer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,10 +15,18 @@ class TimePrayerController extends Controller
      */
     public function index()
     {
+        if (!Session::has('role') || Session::get('role') !== 'trainee') {
+            return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
+
         //
+        $id_asisten = Session::get('asisten');
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         $nipTrainee = Session::get('nip');
         return view('Trainee.content.fiveTimesPrayer.index', [
             "title" => "5 Times Prayer",
+            'name_asisten' => $nama_asisten,
             'entrys' => timeprayer::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
         ]);
     }
@@ -31,7 +40,7 @@ class TimePrayerController extends Controller
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
         return view('Trainee.content.fiveTimesPrayer.create', [
-            "title" => "Add 5 Times Prayer",
+            "title" => "5 Times Prayer",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
@@ -80,7 +89,7 @@ class TimePrayerController extends Controller
         $data = timeprayer::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
 
         return view('Trainee.content.fiveTimesPrayer.edit', [
-            "title" => "Edit 5 Time Prayer",
+            "title" => "5 Times Prayer",
             "data" => $data // Kirim data ke view
         ]);
     }

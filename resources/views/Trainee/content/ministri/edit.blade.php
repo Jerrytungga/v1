@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Form Input Memorizing Verses</h1>
+            <h1>Form Edit Summary Of Ministry</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -17,23 +17,26 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header bg-primary">
-           <a href="{{ route('MemorizingVerses.index') }}" class="btn text-light bg-dark ">Back To View Memorizing Verses</a>
+            <div class="card-header bg-warning">
+           <a href="{{ route('ministri.index') }}" class="btn btn-light ">Back To View Summary Of Ministry</a>
             </div>
               <!-- /.card-header --> 
               <div class="card-body">
-              <form action="{{ route('MemorizingVerses.store') }}" method="post">
+              <form action="{{ route('ministri.update', $data->id) }}" method="post">
                   @csrf
+                  @method('PUT')
                   <div class="modal-body">
-                  <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">
-                  <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
-                    <label for="Bible">Bible [Alamat Ayat Hafalan]</label>
-                    <input type="text" class="form-control" name="ayat" required placeholder="Example [Yohanes 1:1]">
+                    <label for="Book">Book Title [Judul Buku]</label>
+                    <input type="text" class="form-control" required name="Book" value="{{ old('Book', $data->book_title) }}">
                   </div>
                   <div class="mt-2">
-                    <label for="Paraf">Initial</label>
-                    <input type="text" class="form-control" name="paraf" required placeholder="Input nip trainee ">
+                    <label for="News">News [Berita]</label>
+                    <input type="number" class="form-control" required name="News" value="{{ old('News', $data->news) }}">
+                  </div>
+                  <div class="mt-2">
+                    <label for="Inspiration">Inspiration [Kata/Frase yang menjamah]</label>
+                    <textarea name="frase" cols="4" rows="4" required  class="form-control">{{ old('News', $data->inspirasi) }}</textarea>
                   </div>
                    
                   </div>

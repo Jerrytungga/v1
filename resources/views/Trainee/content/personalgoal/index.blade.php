@@ -38,23 +38,22 @@
                     <th class="col-3">Description</th>
                     <th class="col-1">Action</th>
                   </tr>
-                
                   </thead>
                   <tbody>
                   @foreach($entrys as $data)
                   <tr>
                       <td class="col-2">{{ $data->created_at }}</td>
                       <td class="col-8">{{ $data->personalgoals }} 
-                          @if (!empty($data->catatan)) <!-- Mengecek apakah catatan tidak kosong -->
-                            <blockquote class="blockquote" style="background-color: #F5F5F5;">
-                                <p class="mb-0 text-danger">{{ $data->catatan }}</p>
-                                <footer class="blockquote-footer">Asisten</footer>
-                            </blockquote>
+                      @if (!empty($data->catatan))
+                        <blockquote class="blockquote" style="background-color: #FFF5E4;">
+                        <p class="mb-0 text-danger">{{ $data->catatan }}</p>
+                        <footer class="blockquote-footer">Asisten {{ $name_asisten }}</footer>
+                        </blockquote>
                         @endif
                       </td>
                       <td class="col-2">
                           @if (\Carbon\Carbon::parse($data->created_at)->diffInDays() < 1)
-                              <a href="{{ route('personalgoal.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+                          <a href="{{ route('personalgoal.edit', $data->id) }}" class="btn btn-warning">Edit</a>
                           @endif
                       </td>
                   </tr>

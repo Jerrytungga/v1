@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Form Input Memorizing Verses</h1>
+            <h1>Form Input Fellowship</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,22 +18,30 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header bg-primary">
-           <a href="{{ route('MemorizingVerses.index') }}" class="btn text-light bg-dark ">Back To View Memorizing Verses</a>
+           <a href="{{ route('fellowship.index') }}" class="btn text-light bg-dark ">Back To View Fellowship</a>
             </div>
               <!-- /.card-header --> 
               <div class="card-body">
-              <form action="{{ route('MemorizingVerses.store') }}" method="post">
+              <form action="{{ route('fellowship.store') }}" method="post">
                   @csrf
                   <div class="modal-body">
                   <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">
                   <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
-                    <label for="Bible">Bible [Alamat Ayat Hafalan]</label>
-                    <input type="text" class="form-control" name="ayat" required placeholder="Example [Yohanes 1:1]">
+                    <label for="Name">Name Trainer Or Asistant [Nama pengajar atau asisten]</label>
+                    <input type="text" class="form-control" required name="name">
                   </div>
                   <div class="mt-2">
-                    <label for="Paraf">Initial</label>
-                    <input type="text" class="form-control" name="paraf" required placeholder="Input nip trainee ">
+                    <label for="topic">Topic [Topik]</label>
+                    <input type="text" class="form-control" required name="topic">
+                  </div>
+                  <div class="mt-2">
+                    <label for="Notes">Notes [Catatan]</label>
+                    <textarea name="Notes" cols="4" rows="4" required placeholder=" " class="form-control"></textarea>
+                  </div>
+                  <div class="mt-2">
+                    <label for="action">Action [Tindakan]</label>
+                    <textarea name="action" cols="4" rows="4" required placeholder="" class="form-control"></textarea>
                   </div>
                    
                   </div>

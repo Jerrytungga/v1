@@ -8,9 +8,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Trainee\HymnsController;
 use App\Http\Controllers\Trainee\TraineeController;
 use App\Http\Controllers\Trainee\BibleReadingController;
+use App\Http\Controllers\Trainee\FellowshipController;
 use App\Http\Controllers\Trainee\GoodlandController;
 use App\Http\Controllers\Trainee\MemorizingVersesController;
+use App\Http\Controllers\Trainee\MinistriController;
 use App\Http\Controllers\Trainee\PersonalgoalController;
+use App\Http\Controllers\Trainee\PrayerbookController;
 use App\Http\Controllers\Trainee\TimePrayerController;
 
 // alur login
@@ -36,6 +39,14 @@ Route::group(['middleware' => ['role:trainee']], function() {
     Route::resource('Trainee/fiveTimesPrayer', TimePrayerController::class);
     Route::resource('Trainee/personalgoal', PersonalgoalController::class);
     Route::resource('Trainee/goodland', GoodlandController::class);
+    Route::resource('Trainee/prayerbook', PrayerbookController::class);
+    Route::get('Trainee/prayerbook/{id}/answer', [PrayerbookController::class, 'answer'])->name('prayerbook.answer');
+    Route::put('Trainee/prayerbook/{id}/answer', [PrayerbookController::class, 'save_answer'])->name('prayerbook.save_answer');
+    Route::resource('Trainee/ministri', MinistriController::class);
+    Route::post('Trainee/ministri/filter-week', [MinistriController::class, 'filterWeek'])->name('filter.week');
+    Route::resource('Trainee/fellowship', FellowshipController::class);
+    Route::post('Trainee/fellowship/filter-week', [FellowshipController::class, 'filterWeek'])->name('fellowshipfilter.week');
+    
 
 
     Route::prefix('Trainee/goodland/{id}/pengalaman')->group(function () {

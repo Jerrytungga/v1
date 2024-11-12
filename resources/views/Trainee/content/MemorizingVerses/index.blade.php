@@ -37,12 +37,12 @@
                   <tr>
                   <td>{{ $memorizingverses->created_at }}</td>
                   <td>{{ $memorizingverses->bible }}
-                        @if (!empty($memorizingverses->catatan)) <!-- Mengecek apakah catatan tidak kosong -->
-                                  <blockquote class="blockquote" style="background-color: #F5F5F5;">
-                                      <p class="mb-0 text-danger">{{ $memorizingverses->catatan }}</p>
-                                      <footer class="blockquote-footer">Asisten</footer>
-                                  </blockquote>
-                              @endif
+                  @if (!empty($memorizingverses->catatan))
+                    <blockquote class="blockquote" style="background-color: #FFF5E4;">
+                    <p class="mb-0 text-danger">{{ $memorizingverses->catatan }}</p>
+                     <footer class="blockquote-footer">Asisten {{ $name_asisten }}</footer>
+                    </blockquote>
+                    @endif
                   </td>
                   <td>{{ $memorizingverses->paraf }}</td>
                   <td>

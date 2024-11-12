@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use App\Models\Asisten;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Personalgoals;
 use App\Models\Taskpersonalgoal;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class PersonalgoalController extends Controller
@@ -13,10 +14,19 @@ class PersonalgoalController extends Controller
   
     public function index()
     {
+
+        if (!Session::has('role') || Session::get('role') !== 'trainee') {
+            return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
+
         //menampilkan data awal
         $nipTrainee = Session::get('nip');
+        $id_asisten = Session::get('asisten');
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         return view('Trainee.content.personalgoal.index', [
             "title" => "Personal Goals",
+            'name_asisten' => $nama_asisten,
             'entrys' => Personalgoals::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
             'tasks' => Taskpersonalgoal::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
         ]);
@@ -30,7 +40,7 @@ class PersonalgoalController extends Controller
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
         return view('Trainee.content.personalgoal.create', [
-            "title" => "Add Personal goals",
+            "title" => "Personal Goals",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
         ]);
@@ -72,7 +82,7 @@ class PersonalgoalController extends Controller
         $data = Personalgoals::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
         // kembali ke view
         return view('Trainee.content.personalgoal.edit', [
-            "title" => "Edit Personal Goals",
+            "title" => "Personal Goals",
             "data" => $data // Kirim data ke view
         ]);
     }

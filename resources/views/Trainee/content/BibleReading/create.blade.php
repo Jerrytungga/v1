@@ -22,7 +22,7 @@
             </div>
               <!-- /.card-header --> 
               <div class="card-body">
-              <form action="{{ route('BibleReading.index') }}" method="post">
+              <form action="{{ route('BibleReading.store') }}" method="post">
                   @csrf
                   <div class="modal-body">
                   <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">

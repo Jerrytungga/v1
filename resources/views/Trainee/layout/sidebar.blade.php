@@ -63,7 +63,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.PrayerBook') }}" class="nav-link {{ ($title == "Prayer Book") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('prayerbook.index') }}" class="nav-link {{ ($title == "Prayer Book") ? 'active bg-dark' :'' }}">
               <p>
                 Prayer Book
               </p>
@@ -72,7 +72,7 @@
           <!-- Sidebar jurnal Mingguan -->
           <li class="nav-header bg-blue rounded">WEEKLY</li>
           <li class="nav-item">
-            <a href="{{ route('trainee.SummaryOfMinistry') }}" class="nav-link {{ ($title == "Summary Of Ministry") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('ministri.index') }}" class="nav-link {{ ($title == "Summary Of Ministry") ? 'active bg-dark' :'' }}">
               <p>
                 Summary Of Ministry
               </p>
@@ -80,7 +80,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="{{ route('trainee.Fellowship') }}" class="nav-link {{ ($title == "Fellowship") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('fellowship.index') }}" class="nav-link {{ ($title == "Fellowship") ? 'active bg-dark' :'' }}">
               <p>
                 Fellowship
               </p>
@@ -103,7 +103,7 @@
 
           <li class="nav-header bg-blue rounded">REPORT</li>
           <li class="nav-item">
-            <a href="{{ route('trainee.FinancialStatements') }}" class="nav-link {{ ($title == "FinancialStatements") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('trainee.FinancialStatements') }}" class="nav-link {{ ($title == "Financial Statements") ? 'active bg-dark' :'' }}">
               <p>
                 Financial Statements
               </p>
