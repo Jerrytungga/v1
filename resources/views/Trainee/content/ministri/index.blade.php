@@ -71,15 +71,17 @@
               <div class="card shadow" style="background-color: #D9D9D9;">
                 
                <div class="card-body">
-                  <input type="text" disabled value="{{ $data->book_title }}">
-                  <input type="text" disabled class="col-1" value="{{ $data->news }}">
-                  <input type="text" disabled class="col-2" value="{{ $data->created_at }}">
-                  <input type="text" disabled class="col-1" value="{{ $data->week }}"> 
+                  <input type="text" disabled class="col-6" value="Title : {{ $data->book_title }}">
+                  <input type="text" disabled class="col-1" value="News : {{ $data->news }}">
+                  <input type="text" disabled class="col-2" value="Date : {{ $data->created_at }}">
+                  <input type="text" disabled class="col-1" value="Week : {{ $data->week }}"> 
                   @if (empty($data->catatan))
                   <a href="{{route('ministri.edit', $data->id)}}" class="btn btn-sm mb-1 btn-warning">Edit</a>
                   @endif
                   <br>
-                  <textarea disabled id="" cols="30" rows="10" class="form-control mt-1">{{ $data->inspirasi }} </textarea>
+                  <textarea disabled id="" cols="30" rows="10" class="form-control mt-1" style="text-align: left;">Light/inspiration : 
+{{ $data->inspirasi }}
+</textarea>
                   @if (!empty($data->catatan))
                         <blockquote class="blockquote" style="background-color: #FFF5E4;">
                         <p class="mb-0 text-danger">{{ $data->catatan }}</p>

@@ -87,9 +87,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.ScriptTs') }}" class="nav-link {{ ($title == "Script Ts") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('pameran.index') }}" class="nav-link {{ ($title == "Script") ? 'active bg-dark' :'' }}">
               <p>
-                Script Ts
+                Script
               </p>
             </a>
           </li>

@@ -60,9 +60,14 @@ class BibleReadingController extends Controller
 
     public function store(Request $request)
     {
-        // Insert data ke Database
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
-        $entryCount = BibleReading::whereDate('created_at', $today)->count();
+        $nipTrainee = Session::get('nip'); // Ambil nilai NIP dari session
+        
+        // Cek jumlah entri berdasarkan tanggal dan NIP
+        $entryCount = BibleReading::whereDate('created_at', $today)
+                                  ->where('nip', $nipTrainee) // Filter berdasarkan NIP
+                                  ->count();
+        
            // Cek apakah sudah ada 2 entri
             if ($entryCount >= 2) {
                 return redirect()->route('BibleReading.index')->with('error', 'You have entered data 2 times today');

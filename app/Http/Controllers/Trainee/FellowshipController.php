@@ -65,8 +65,11 @@ class FellowshipController extends Controller
     public function store(Request $request)
     {
         //
+        $nipTrainee = Session::get('nip');
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
-        $entryCount = Fellowship::whereDate('created_at', $today)->count();
+        $entryCount = Fellowship::whereDate('created_at', $today)
+                                ->where('nip', $nipTrainee) // Filter berdasarkan NIP                  
+                                ->count();
            // Cek apakah sudah ada 1 entri
             if ($entryCount >= 4) {
                 return redirect()->route('fellowship.index')->with('error', 'You have entered data 4 times today');

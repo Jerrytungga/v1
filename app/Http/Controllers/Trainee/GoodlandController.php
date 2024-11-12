@@ -70,8 +70,11 @@ class GoodlandController extends Controller
     public function store(Request $request)
     {
         //
+        $nipTrainee = Session::get('nip');
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
-        $entryCount = GoodLand::whereDate('created_at', $today)->count();
+        $entryCount = GoodLand::whereDate('created_at', $today)
+                                ->where('nip', $nipTrainee) 
+                                ->count();
            // Cek apakah sudah ada 1 entri
             if ($entryCount >= 1) {
                 return redirect()->route('goodland.index')->with('error', 'You have entered data 1 times today');
@@ -296,10 +299,6 @@ class GoodlandController extends Controller
     }
 
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //

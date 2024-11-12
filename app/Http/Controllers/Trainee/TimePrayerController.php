@@ -53,8 +53,12 @@ class TimePrayerController extends Controller
     public function store(Request $request)
     {
         //
+        $nipTrainee = Session::get('nip');
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
-        $entryCount = timeprayer::whereDate('created_at', $today)->count();
+        $entryCount = timeprayer::whereDate('created_at', $today)
+                                ->where('nip', $nipTrainee) // Filter berdasarkan NIP                  
+                                ->count();
+       
            // Cek apakah sudah ada 1 entri
             if ($entryCount >= 5) {
                 return redirect()->route('fiveTimesPrayer.index')->with('error', 'You have entered data 5 times today');

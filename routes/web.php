@@ -12,6 +12,7 @@ use App\Http\Controllers\Trainee\FellowshipController;
 use App\Http\Controllers\Trainee\GoodlandController;
 use App\Http\Controllers\Trainee\MemorizingVersesController;
 use App\Http\Controllers\Trainee\MinistriController;
+use App\Http\Controllers\Trainee\PameranController;
 use App\Http\Controllers\Trainee\PersonalgoalController;
 use App\Http\Controllers\Trainee\PrayerbookController;
 use App\Http\Controllers\Trainee\TimePrayerController;
@@ -46,6 +47,8 @@ Route::group(['middleware' => ['role:trainee']], function() {
     Route::post('Trainee/ministri/filter-week', [MinistriController::class, 'filterWeek'])->name('filter.week');
     Route::resource('Trainee/fellowship', FellowshipController::class);
     Route::post('Trainee/fellowship/filter-week', [FellowshipController::class, 'filterWeek'])->name('fellowshipfilter.week');
+    Route::resource('Trainee/pameran', PameranController::class);
+    Route::post('Trainee/pameran/filter-week', [PameranController::class, 'filterWeek'])->name('pameranfilter.week');
     
 
 

@@ -71,13 +71,15 @@ class MinistriController extends Controller
     public function store(Request $request)
     {
         //
-          $today = now()->format('Y-m-d'); // Format tanggal saat ini
+        $today = now()->format('Y-m-d'); // Format tanggal saat ini
           // Mendapatkan tanggal mulai dan akhir minggu ini (Senin hingga Minggu)
         $startOfWeek = Carbon::now()->startOfWeek();  // Tanggal mulai minggu ini (Senin)
         $endOfWeek = Carbon::now()->endOfWeek();  // Tanggal akhir minggu ini (Minggu)
-
+        $nipTrainee = Session::get('nip');
         // Menghitung jumlah entri yang dibuat dalam minggu ini
-        $entryCount = Ministri::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
+        $entryCount = Ministri::whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                                ->where('nip', $nipTrainee)
+                                ->count();
 
         // Memeriksa apakah sudah ada 2 entri dalam minggu ini
         if ($entryCount >= 2) {

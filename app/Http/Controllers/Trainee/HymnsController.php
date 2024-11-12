@@ -57,8 +57,11 @@ class HymnsController extends Controller
     public function store(Request $request)
     {
         //
+        $nipTrainee = Session::get('nip');
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
-        $entryCount = Hymns::whereDate('created_at', $today)->count();
+        $entryCount = Hymns::whereDate('created_at', $today)
+                            ->where('nip', $nipTrainee) // Filter berdasarkan NIP                  
+                            ->count();
            // Cek apakah sudah ada 1 entri
             if ($entryCount >= 1) {
                 return redirect()->route('Hymns.index')->with('error', 'You have entered data 1 times today');
