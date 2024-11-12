@@ -78,19 +78,10 @@ class TimePrayerController extends Controller
         return redirect()->route('fiveTimesPrayer.index')->with('success', 'Input 5 Time Prayer successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(string $id)
     {
         //
         $data = timeprayer::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
-
         return view('Trainee.content.fiveTimesPrayer.edit', [
             "title" => "5 Times Prayer",
             "data" => $data // Kirim data ke view

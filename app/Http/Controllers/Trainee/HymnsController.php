@@ -86,17 +86,7 @@ class HymnsController extends Controller
         return redirect()->route('Hymns.index')->with('success', 'Input Hymns successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
 

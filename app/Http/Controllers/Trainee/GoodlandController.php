@@ -70,7 +70,6 @@ class GoodlandController extends Controller
     public function store(Request $request)
     {
         //
-        //
         $today = now()->format('Y-m-d'); // Format tanggal saat ini
         $entryCount = GoodLand::whereDate('created_at', $today)->count();
            // Cek apakah sudah ada 1 entri
@@ -286,15 +285,6 @@ class GoodlandController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
     public function edit(string $id)
     {
         //
@@ -343,11 +333,5 @@ class GoodlandController extends Controller
             return redirect()->route('goodland.index')->with('success', 'Update Good Land successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
 }

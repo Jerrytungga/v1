@@ -74,13 +74,6 @@ class PersonalgoalController extends Controller
     }
 
  
-    //View Personal Goals Task
-    public function show(string $id)
-    {
-
-    }
-
- 
     public function edit(string $id)
     {
         //Mengambil id untuk edit data

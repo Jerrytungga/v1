@@ -100,8 +100,4 @@ class MemorizingVersesController extends Controller
     return redirect()->route('MemorizingVerses.index')->with('success', 'Memorizing Verses updated successfully!');
     }
 
-    public function destroy(string $id)
-    {
-        //
-    }
 }
