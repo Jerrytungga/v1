@@ -28,6 +28,14 @@
                   <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">
                   <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
+                    <label for="Keterangan">Category  [Kategori]</label>
+                    <select name="kategori" class="form-control bg-info col-4" required id="">
+                    <option value="">Please select a category</option>
+                    <option value="Pembinaan Dasar">Basic Training [Pembinaan Dasar]</option>
+                    <option value="Pelajaran Hayat">Life Lessons [Pelajaran Hayat]</option>
+                    </select>
+                  </div>
+                  <div class="mt-2">
                     <label for="Book">Book Title [Judul Buku]</label>
                     <input type="text" class="form-control" required name="Book" placeholder="Example [Pengalaman Hayat]">
                   </div>

@@ -154,30 +154,36 @@ class PameranController extends Controller
         return redirect()->route('pameran.index')->with('success', 'Script updated successfully!');
     }
 
+
     public function filterWeek(Request $request)
     {
         $selectedWeek = $request->input('week');
-        
-        // Check if no week is selected
-        if (!$selectedWeek) {
-            return redirect()->back()->with('error', 'Please select a week.');
+        $selectsemester = $request->input('semester');
+        $nipTrainee = Session::get('nip');
+        // Query dasar
+        $query = Script::where('semester', $selectsemester)
+                            ->where('nip', $nipTrainee);
+    
+        // Tambahkan kondisi untuk week jika ada nilai
+        if (!empty($selectedWeek)) {
+            $query->where('week', $selectedWeek);
         }
-        
-        // Fetch data based on selected week
-        $entrys = Script::where('week', $selectedWeek)
-                         ->orderBy('created_at', 'DESC')
-                         ->get();
+    
+        // Ambil data sesuai filter
+        $entrys = $query->orderBy('week', 'ASC')->get();
+    
+        // Pesan jika tidak ada data ditemukan
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-        $id_asisten = Session::get('asisten');
-        $asisten = Asisten::where('nip', $id_asisten)->first();
-        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+    
+        // Return view dengan hasil yang sudah difilter
         return view('Trainee.content.pameran.index', [
             'title' => 'Script',
-            'name_asisten' => $nama_asisten,
             'entrys' => $entrys,
-            'noDataMessage' => $noDataMessage,
+            'smt' => $selectsemester,
+            'noDataMessage' => $noDataMessage
         ]);
     }
+    
 
   
 }

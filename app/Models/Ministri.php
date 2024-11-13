@@ -19,6 +19,7 @@ class Ministri extends Model
         'book_title',
         'news',
         'inspirasi',
+        'category',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here
     ];

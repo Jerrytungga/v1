@@ -28,8 +28,6 @@ class MinistriController extends Controller
          // Get the start and end of the current week (Monday to Sunday)
         $startOfWeek = Carbon::now()->startOfWeek(); // Start of the current week (Monday)
         $endOfWeek = Carbon::now()->endOfWeek(); // End of the current week (Sunday)
-
-        
         
         // Fetch only 4 records created during this week and ordered by 'created_at' in descending order
         $entrys = Ministri::where('nip', $nipTrainee)
@@ -50,18 +48,18 @@ class MinistriController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         // kirim data ke form create
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
+        $semester = Session::get('semester');
         return view("Trainee.content.ministri.create", [
             "title" => "Summary Of Ministry",
             'nipTrainee' => $nipTrainee, // Mengirimkan nip trainee ke view
             'id_asisten' => $id_asisten, // Mengirimkan id asisten ke view
+            'semester' => $semester, // Mengirimkan id asisten ke view
         ]);
     }
 
@@ -92,6 +90,7 @@ class MinistriController extends Controller
               'Book' => 'required|string',
               'News' => 'required|string',
               'frase' => 'required|string',
+              'kategori' => 'required|string',
             
             
             ]);
@@ -103,6 +102,7 @@ class MinistriController extends Controller
               'book_title' => $request->Book,
               'news' => $request->News,
               'inspirasi' => $request->frase,
+              'category' => $request->kategori,
               'semester' => $semester,
               'week' => $weekly->Week,
             
@@ -112,9 +112,6 @@ class MinistriController extends Controller
 
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
           //Mengambil id untuk edit data
@@ -131,6 +128,7 @@ class MinistriController extends Controller
     {
         // Validasi input
        $request->validate([
+        'kategori' => 'required|string',
         'Book' => 'required|string',
         'News' => 'required|string',
         'frase' => 'required|string',
@@ -139,6 +137,7 @@ class MinistriController extends Controller
 
     // Temukan data berdasarkan ID
     $data = Ministri::findOrFail($id);
+    $data->category = $request->kategori;
     $data->book_title = $request->Book;
     $data->news = $request->News;
     $data->inspirasi = $request->frase; // Menyimpan jenis kitab
@@ -153,24 +152,31 @@ class MinistriController extends Controller
     public function filterWeek(Request $request)
     {
         $selectedWeek = $request->input('week');
-        
-        // Check if no week is selected
-        if (!$selectedWeek) {
-            return redirect()->back()->with('error', 'Please select a week.');
-        }
-        
-        // Fetch data based on selected week
-        $entrys = Ministri::where('week', $selectedWeek)
-                         ->orderBy('created_at', 'DESC')
-                         ->get();
+        $selectsemester = $request->input('semester');
+        $nipTrainee = Session::get('nip');
+        // Query dasar
+        $query = Ministri::where('semester', $selectsemester)
+                            ->where('nip', $nipTrainee);
     
+        // Tambahkan kondisi untuk week jika ada nilai
+        if (!empty($selectedWeek)) {
+            $query->where('week', $selectedWeek);
+        }
+    
+        // Ambil data sesuai filter
+        $entrys = $query->orderBy('week', 'ASC')->get();
+    
+        // Pesan jika tidak ada data ditemukan
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-        // Return the view with the filtered results
+    
+        // Return view dengan hasil yang sudah difilter
         return view('Trainee.content.ministri.index', [
             "title" => "Summary Of Ministry",
             'entrys' => $entrys,
-            'noDataMessage' => $noDataMessage,
+            'smt' => $selectsemester,
+            'noDataMessage' => $noDataMessage
         ]);
     }
+    
     
 }

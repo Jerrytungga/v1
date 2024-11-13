@@ -27,6 +27,16 @@
                   @method('PUT')
                   <div class="modal-body">
                   <div class="mt-2">
+                    <label for="kategori">Category [Kategori]</label>
+                    <select name="kategori" class="form-control bg-info col-4" required>
+                      <option value="">Please select a category</option>
+                      <option value="Pembinaan Dasar" {{ old('kategori', $data->category) == 'Pembinaan Dasar' ? 'selected' : '' }}>Basic Training [Pembinaan Dasar]</option>
+                      <option value="Pelajaran Hayat" {{ old('kategori', $data->category) == 'Pelajaran Hayat' ? 'selected' : '' }}>Life Lessons [Pelajaran Hayat]</option>
+                    </select>
+                  </div>
+
+
+                  <div class="mt-2">
                     <label for="Book">Book Title [Judul Buku]</label>
                     <input type="text" class="form-control" required name="Book" value="{{ old('Book', $data->book_title) }}">
                   </div>

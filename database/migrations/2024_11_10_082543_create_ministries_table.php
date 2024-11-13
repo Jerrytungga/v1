@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('book_title');
             $table->text('news');
             $table->text('inspirasi');
+            $table->enum('category', ['Pembinaan Dasar', 'Pelajaran Hayat'])->default('Pembinaan Dasar');  // Enum untuk status
             $table->timestamps(); // created_at, updated_at
         });
     }

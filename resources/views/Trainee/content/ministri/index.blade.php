@@ -6,6 +6,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Summary Of Ministry</h1>
+       
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -25,8 +26,16 @@
             <form action="{{ route('filter.week') }}" method="POST">
             @csrf
             <div class="form-inline">
-                <label for="chosenWeek" class="mr-2 ml-2">Chosen Week:</label>
-                <select class="form-control col-2 bg-info" id="chosenWeek" name="week">
+                <label for="semester" class="mr-2 ml-2">Chosen Semester & Week :</label>
+                <select class="form-control col-2" style="background-color:#2C74B3; color:#FFFf; " required id="semester" name="semester">
+                    <option value="">Please select a semester</option>
+                    <option value="1" {{ old('semester') == 'PT 1' ? 'selected' : '' }}>Semester 1</option>
+                    <option value="2" {{ old('semester') == 'PT 2' ? 'selected' : '' }}>Semester 2</option>
+                    <option value="3" {{ old('semester') == 'PT 3' ? 'selected' : '' }}>Semester 3</option>
+                    <option value="4" {{ old('semester') == 'WEEK 1' ? 'selected' : '' }}>Semester 4</option>
+                </select>
+             
+                <select class="form-control ml-2 col-2" style="background-color:#2C74B3; color:#FFFf;"  id="chosenWeek" name="week">
                     <option value="">Please select a week</option>
                     <option value="PT 1" {{ old('week') == 'PT 1' ? 'selected' : '' }}>PT 1</option>
                     <option value="PT 2" {{ old('week') == 'PT 2' ? 'selected' : '' }}>PT 2</option>
@@ -44,14 +53,20 @@
                     <option value="EVALUASI 2" {{ old('week') == 'EVALUASI 2' ? 'selected' : '' }}>EVALUASI 2</option>
                     <option value="EVALUASI 3" {{ old('week') == 'EVALUASI 3' ? 'selected' : '' }}>EVALUASI 3</option>
                 </select>
-                <button type="submit" class="btn btn-info ml-2">View</button>
+                <button type="submit" class="btn ml-2"  style="background-color:#2C74B3; color:#FFFf;">View</button>
                 <a href="{{route('ministri.index')}}" class="btn btn-danger ml-2">Reset</a>
             </div>
            </form>
 
               <a href="{{route('ministri.create')}}" class="btn m-2 btn-success">Input Summary Of Ministry</a>
-
-           
+              @if (!empty($smt))
+              <div class="alert m-2 alert-warning alert-dismissible fade show" role="alert">
+                <strong>Semester {{$smt}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              @endif
             </div>
         
             @if ($noDataMessage)
@@ -67,14 +82,15 @@
               <!-- /.card-header -->
               <div class="card-body">
               @foreach($entrys as $data)
-              
-              <div class="card shadow" style="background-color: #D9D9D9;">
+          
+              <div class="card shadow" style="background-color: {{ $data->category == 'Pembinaan Dasar' ? '#CDE8E5' : '#EEF7FF' }};">
                 
                <div class="card-body">
-                  <input type="text" disabled class="col-6" value="Title : {{ $data->book_title }}">
+                  <input type="text" disabled class="col-4" value="Title : {{ $data->book_title }}">
                   <input type="text" disabled class="col-1" value="News : {{ $data->news }}">
                   <input type="text" disabled class="col-2" value="Date : {{ $data->created_at }}">
                   <input type="text" disabled class="col-1" value="Week : {{ $data->week }}"> 
+                  <input type="text" disabled class="col-2" value="Category : {{ $data->category }}"> 
                   @if (empty($data->catatan))
                   <a href="{{route('ministri.edit', $data->id)}}" class="btn btn-sm mb-1 btn-warning">Edit</a>
                   @endif

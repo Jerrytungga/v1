@@ -142,27 +142,35 @@ class FellowshipController extends Controller
     }
 
 
-    // Filter data
-    public function filterWeek(Request $request)
+  
+
+        public function filterWeek(Request $request)
         {
             $selectedWeek = $request->input('week');
-            
-            // Check if no week is selected
-            if (!$selectedWeek) {
-                return redirect()->back()->with('error', 'Please select a week.');
-            }
-            
-            // Fetch data based on selected week
-            $entrys = Fellowship::where('week', $selectedWeek)
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
+            $selectsemester = $request->input('semester');
+            $nipTrainee = Session::get('nip');
+            // Query dasar
+            $query = Fellowship::where('semester', $selectsemester)
+                                ->where('nip', $nipTrainee);
         
+            // Tambahkan kondisi untuk week jika ada nilai
+            if (!empty($selectedWeek)) {
+                $query->where('week', $selectedWeek);
+            }
+        
+            // Ambil data sesuai filter
+            $entrys = $query->orderBy('week', 'ASC')->get();
+        
+            // Pesan jika tidak ada data ditemukan
             $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-            // Return the view with the filtered results
+        
+            // Return view dengan hasil yang sudah difilter
             return view('Trainee.content.fellowship.index', [
                 "title" => "Fellowship",
                 'entrys' => $entrys,
-                'noDataMessage' => $noDataMessage,
+                'smt' => $selectsemester,
+                'noDataMessage' => $noDataMessage
             ]);
         }
+        
 }
