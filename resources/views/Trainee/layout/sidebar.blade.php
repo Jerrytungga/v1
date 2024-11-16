@@ -94,7 +94,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.Agenda') }}" class="nav-link {{ ($title == "Agenda") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('agenda.index') }}" class="nav-link {{ ($title == "Agenda") ? 'active bg-dark' :'' }}">
               <p>
                Agenda
               </p>
@@ -103,7 +103,7 @@
 
           <li class="nav-header bg-blue rounded">REPORT</li>
           <li class="nav-item">
-            <a href="{{ route('trainee.FinancialStatements') }}" class="nav-link {{ ($title == "Financial Statements") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('keuangan.index') }}" class="nav-link {{ ($title == "Financial Statements") ? 'active bg-dark' :'' }}">
               <p>
                 Financial Statements
               </p>

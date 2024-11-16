@@ -5,11 +5,13 @@ use App\Http\Controllers\Asisten\AsistenController;
 use App\Models\Asisten;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Trainee\AgendaController;
 use App\Http\Controllers\Trainee\HymnsController;
 use App\Http\Controllers\Trainee\TraineeController;
 use App\Http\Controllers\Trainee\BibleReadingController;
 use App\Http\Controllers\Trainee\FellowshipController;
 use App\Http\Controllers\Trainee\GoodlandController;
+use App\Http\Controllers\Trainee\KeuanganController;
 use App\Http\Controllers\Trainee\MemorizingVersesController;
 use App\Http\Controllers\Trainee\MinistriController;
 use App\Http\Controllers\Trainee\PameranController;
@@ -49,6 +51,10 @@ Route::group(['middleware' => ['role:trainee']], function() {
     Route::post('Trainee/fellowship/filter-week', [FellowshipController::class, 'filterWeek'])->name('fellowshipfilter.week');
     Route::resource('Trainee/pameran', PameranController::class);
     Route::post('Trainee/pameran/filter-week', [PameranController::class, 'filterWeek'])->name('pameranfilter.week');
+    Route::resource('Trainee/agenda', AgendaController::class);
+    Route::post('Trainee/agenda/filter-week', [AgendaController::class, 'filterWeek'])->name('Agendafilter.week');
+    Route::resource('Trainee/keuangan', KeuanganController::class);
+    Route::post('Trainee/keuangan/filter-week', [KeuanganController::class, 'filterWeek'])->name('keuangan.week');
     
 
 
