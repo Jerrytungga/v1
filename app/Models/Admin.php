@@ -11,15 +11,6 @@ class Admin extends Model
     
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password'];
-
-    // Jika Anda ingin menambahkan cara untuk meng-hash password secara otomatis
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($admin) {
-            $admin->password = bcrypt($admin->password);
-        });
-    }
+    protected $table = 'admin';
+    protected $fillable = ['id', 'name', 'username', 'password'];
 }

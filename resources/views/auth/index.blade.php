@@ -60,7 +60,7 @@
                             @endif
                         </div>
                         <button type="submit" class="btn btn-custom w-100">Login</button>
-                        <a class="btn btn-info w-100 mt-2" href="{{ route('auth.cek') }}">Cek Data</a>
+                        <a class="btn btn-info w-100 mt-2" href="{{ route('auth.cek') }}">Check Data</a>
                     </form>
                     
                     <div class="text-center mt-3">

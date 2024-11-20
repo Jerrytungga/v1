@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Asisten\Asisten_BibleReadingController;
 use App\Http\Controllers\Asisten\AsistenController;
 use App\Models\Asisten;
@@ -17,7 +18,9 @@ use App\Http\Controllers\Trainee\MinistriController;
 use App\Http\Controllers\Trainee\PameranController;
 use App\Http\Controllers\Trainee\PersonalgoalController;
 use App\Http\Controllers\Trainee\PrayerbookController;
+use App\Http\Controllers\Trainee\ReportController;
 use App\Http\Controllers\Trainee\TimePrayerController;
+use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
 // alur login
 Route::get('/', [AuthController::class, 'Halaman_Login'])->name('auth.index');
@@ -55,8 +58,9 @@ Route::group(['middleware' => ['role:trainee']], function() {
     Route::post('Trainee/agenda/filter-week', [AgendaController::class, 'filterWeek'])->name('Agendafilter.week');
     Route::resource('Trainee/keuangan', KeuanganController::class);
     Route::post('Trainee/keuangan/filter-week', [KeuanganController::class, 'filterWeek'])->name('keuangan.week');
-    
+    Route::get('Trainee/report', [ReportController::class, 'index'])->name('report.index');
 
+    
 
     Route::prefix('Trainee/goodland/{id}/pengalaman')->group(function () {
         Route::get('/', [GoodlandController::class, 'inputpengalaman'])->name('goodland.inputpengalaman');
@@ -78,59 +82,6 @@ Route::group(['middleware' => ['role:trainee']], function() {
         Route::put('/experience_6', [GoodlandController::class, 'save_experience_6'])->name('goodland.saveexperience_6');
     });
 
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    Route::get('/Trianee/Prayer Book', function () {
-        return view('Trainee.content.PrayerBook',
-    ["title" => "Prayer Book"]);
-    })->name('trainee.PrayerBook');
-    
-    Route::get('/Trianee/Summary Of Ministry', function () {
-        return view('Trainee.content.SummaryOfMinistry',
-    ["title" => "Summary Of Ministry"]);
-    })->name('trainee.SummaryOfMinistry');
-    
-    Route::get('/Trianee/Fellowship', function () {
-        return view('Trainee.content.Fellowship',
-    ["title" => "Fellowship"]);
-    })->name('trainee.Fellowship');
-    
-    Route::get('/Trianee/ScriptTs', function () {
-        return view('Trainee.content.ScriptTs',
-    ["title" => "Script Ts"]);
-    })->name('trainee.ScriptTs');
-    
-    Route::get('/Trianee/Agenda', function () {
-        return view('Trainee.content.Agenda',
-    ["title" => "Agenda"]);
-    })->name('trainee.Agenda');
-    
-    Route::get('/Trianee/Financial Statements', function () {
-        return view('Trainee.content.FinancialStatements',
-    ["title" => "Financial Statements"]);
-    })->name('trainee.FinancialStatements');
-    
-    Route::get('/Trianee/Journal Report', function () {
-        return view('Trainee.content.JournalReport',
-    ["title" => "Journal Report"]);
-    })->name('trainee.JournalReport');
-    
     
 });
 
@@ -211,6 +162,19 @@ Route::get('/Asisten/Journal Report', function () {
 
 
 
+// Hanya bisa diakses oleh role admin
+Route::group(['middleware' => ['role:admin']], function() {
+    Route::get('/Admin', function () {
+        return view('Admin.home',
+    ["title" => "Home"]);
+    })->name('admin.Home');
+
+    Route::resource('Admin/trainee', AdminController::class);
+
+
+
+
+});
 
 
 

@@ -57,9 +57,9 @@
                                     <input type="text" class="form-control" name="nama" id="username" required>
                                 </div>
                                 <div class="mt-2">
-                                    <label class="form-label">Please Select Your Assistant</label>
+                                    <label class="form-label">Please Select Your Asisten</label>
                                     <select name="asisten" class="form-control">
-                                        <option value="">Pilih</option>
+                                        <option value="">Select Asisten</option>
                                         @foreach ($asistens as $asisten)
                                             <option value="{{ $asisten->nip }}">{{ $asisten->name }}</option>
                                         @endforeach
@@ -69,7 +69,13 @@
                                     <label class="form-label">Please Select Your Batch</label>
                                    <select name="angkatan" id="" class="form-control">
                                     <option value="50">50</option>
-                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
                                    </select>
                                 </div>
                                 <div class="mt-2">

@@ -30,7 +30,7 @@ class TraineeController extends Controller
                 'asisten_id' => $request->asisten, // Misal ini kolom asisten yang menyimpan NIP asisten
                 'batch' => $request->angkatan,
                 'semester' => $request->semester,
-                'password' => Hash::make($request->sandi),
+                'password' => $request->sandi,
                 'status' => 'active',
             ]);
 

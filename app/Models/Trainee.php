@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Asisten;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Trainee extends Model
 {
@@ -12,4 +13,6 @@ class Trainee extends Model
     protected $table = 'trainee';
     protected $fillable = ['id', 'name', 'nip', 'asisten_id', 'batch', 'status','semester', 'username', 'password'];
 
+
 }
+

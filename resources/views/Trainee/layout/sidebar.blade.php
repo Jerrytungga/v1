@@ -110,7 +110,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('trainee.JournalReport') }}" class="nav-link {{ ($title == "Journal Report") ? 'active bg-dark' :'' }}">
+            <a href="{{ route('report.index') }}" class="nav-link {{ ($title == "Journal Report") ? 'active bg-dark' :'' }}">
               <p>
                 Weekly Journal Report
               </p>

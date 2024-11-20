@@ -47,6 +47,13 @@
   box-sizing: border-box;
 }
 
+@media (max-width: 767px) {
+  /* Menyembunyikan kolom tertentu pada perangkat mobile */
+  .hide-mobile {
+    display: none;
+  }
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

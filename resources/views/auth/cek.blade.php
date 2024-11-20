@@ -55,7 +55,7 @@
                                 </div>
                             </center>
                         </div>
-                        <button type="submit" class="btn btn-custom w-100">Cek data</button>
+                        <button type="submit" class="btn btn-custom w-100">Check data</button>
                     </form>
 
                     <!-- Menampilkan pesan error jika NIP tidak ditemukan -->
