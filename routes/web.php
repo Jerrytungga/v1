@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Ad_asistenController;
+use App\Http\Controllers\Admin\AdasistenController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PoinController;
+use App\Http\Controllers\Admin\WeeklyController;
 use App\Http\Controllers\Asisten\Asisten_BibleReadingController;
 use App\Http\Controllers\Asisten\AsistenController;
 use App\Models\Asisten;
@@ -170,7 +174,11 @@ Route::group(['middleware' => ['role:admin']], function() {
     })->name('admin.Home');
 
     Route::resource('Admin/trainee', AdminController::class);
-
+    Route::resource('Admin/asisten', AdasistenController::class);
+    Route::resource('Admin/weekly', WeeklyController::class);
+    Route::get('Admin/report', [WeeklyController::class, 'reportw'])->name('report.w');
+    Route::post('Admin/report', [WeeklyController::class, 'set'])->name('set');
+    Route::resource('Admin/poin', PoinController::class);
 
 
 

@@ -44,7 +44,7 @@ class ReportController extends Controller
         $currentDayName = Carbon::now()->locale('id')->isoFormat('dddd');
 
 
-        if (($currentDayName == $dayOfWeek && Carbon::now()->format('H:i') >= $inputTime)) {
+        if (($currentDayName == $dayOfWeek && Carbon::now()->format('H:i') >= $inputTime || Carbon::now()->format('H:i') == $inputTime)) {
 
             // Mendapatkan tanggal Senin dan Minggu pada minggu ini
             $startOfWeek = Carbon::now()->startOfWeek();  // Senin

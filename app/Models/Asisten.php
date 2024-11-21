@@ -12,5 +12,5 @@ class Asisten extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'asisten';
-    protected $fillable = ['id', 'name', 'nip', 'status', 'username', 'password'];
+    protected $fillable = ['id', 'name', 'nip', 'status', 'password'];
 }

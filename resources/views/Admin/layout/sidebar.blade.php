@@ -31,7 +31,7 @@
           </li>
         
           <li class="nav-item">
-            <a href="" class="nav-link {{ ($title == "ASISTEN") ? 'active bg-info' :'' }}">
+            <a href="{{route('asisten.index')}}" class="nav-link {{ ($title == "ASISTEN") ? 'active bg-info' :'' }}">
               <p class="text-light">
                 ASISTEN
               </p>
@@ -45,18 +45,25 @@
 
 
           <li class="nav-header rounded"style="
-    background-color: #EAD8B1;">REPORT</li>
+    background-color: #EAD8B1;">DATA</li>
           <li class="nav-item">
-            <a href="" class="nav-link {{ ($title == "FinancialStatements") ? 'active bg-info' :'' }}">
+            <a href="{{route('weekly.index')}}" class="nav-link {{ ($title == "Week") ? 'active bg-info' :'' }}">
               <p class="text-light">
-                Financial Statements
+                Weekly
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link {{ ($title == "Journal Report") ? 'active bg-info' :'' }}">
+            <a href="{{route('report.w')}}" class="nav-link {{ ($title == "report") ? 'active bg-info' :'' }}">
               <p class="text-light">
-                Weekly Journal Report
+                View Report Jurnal
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('poin.index')}}" class="nav-link {{ ($title == "Target") ? 'active bg-info' :'' }}">
+              <p class="text-light">
+                Target Poin
               </p>
             </a>
           </li>
