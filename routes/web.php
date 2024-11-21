@@ -3,6 +3,7 @@
 use App\Http\Controllers\Ad_asistenController;
 use App\Http\Controllers\Admin\AdasistenController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\PoinController;
 use App\Http\Controllers\Admin\WeeklyController;
 use App\Http\Controllers\Asisten\Asisten_BibleReadingController;
@@ -179,6 +180,7 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('Admin/report', [WeeklyController::class, 'reportw'])->name('report.w');
     Route::post('Admin/report', [WeeklyController::class, 'set'])->name('set');
     Route::resource('Admin/poin', PoinController::class);
+    Route::resource('Admin/Announcement', AnnouncementController::class);
 
 
 

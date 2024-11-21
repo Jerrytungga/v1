@@ -67,6 +67,13 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('Announcement.index')}}" class="nav-link {{ ($title == "Announcement") ? 'active bg-info' :'' }}">
+              <p class="text-light">
+              Announcement
+              </p>
+            </a>
+          </li>
        
         </ul>
       </nav>
