@@ -55,38 +55,6 @@
                             </div>
                         </div>
                         
-                        <!-- date_mulai Field -->
-                        <div class="form-group row">
-                            <label for="Date start" class="col-sm-2 col-form-label">Start date</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="date_mulai" required>
-                            </div>
-                        </div>
-                        
-                        <!-- time Field -->
-                        <div class="form-group row">
-                            <label for="Date start" class="col-sm-2 col-form-label">Start time</label>
-                            <div class="col-sm-10">
-                                <input type="time" class="form-control" name="jam_mulai" required>
-                            </div>
-                        </div>
-                        
-                        <!-- End date Field -->
-                        <div class="form-group row">
-                            <label for="End date" class="col-sm-2 col-form-label">End date</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="date_akhir" required>
-                            </div>
-                        </div>
-                        
-                        <!-- time Field -->
-                        <div class="form-group row">
-                            <label for="End time" class="col-sm-2 col-form-label">End time</label>
-                            <div class="col-sm-10">
-                                <input type="time" class="form-control" name="jam_akhir" required>
-                            </div>
-                        </div>
-
                         <!-- Status Field -->
                         <div class="form-group row">
                             <label for="status" class="col-sm-2 col-form-label">Status</label>

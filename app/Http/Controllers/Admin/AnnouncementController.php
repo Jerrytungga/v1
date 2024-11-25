@@ -42,10 +42,6 @@ class AnnouncementController extends Controller
         $request->validate([
             'angkatan' => 'required|string', // Batch is required
             'Announcement' => 'required|string', // Announcement content is required
-            'date_mulai' => 'required|date', // Start date is required
-            'jam_mulai' => 'required|date_format:H:i', // Start time is required in H:i format
-            'date_akhir' => 'required|date', // End date is required
-            'jam_akhir' => 'required|date_format:H:i', // End time is required in H:i format
             'status' => 'required|string|in:active,inactive', // Status can either be 'active' or 'inactive'
         ]);
 
@@ -53,10 +49,6 @@ class AnnouncementController extends Controller
         Announcement::create([
             'batch' => $request->angkatan,
             'announcement' => $request->Announcement,
-            'date_mulai' => $request->date_mulai,
-            'jam_mulai' => $request->jam_mulai,
-            'date_akhir' => $request->date_akhir,
-            'jam_akhir' => $request->jam_akhir,
             'status' => $request->status,
         ]);
 
@@ -85,11 +77,7 @@ public function update(Request $request, $id)
     // Validate the input data
     $request->validate([
         'angkatan' => 'required|string',
-        'announcement' => 'required|string',
-        'date_mulai' => 'required|date',
-        'jam_mulai' => 'required|date_format:H:i', // Ensure H:i format
-        'date_akhir' => 'required|date',
-        'jam_akhir' => 'required|date_format:H:i', // Ensure H:i format
+        'announcement' => 'required|string',// Ensure H:i format
         'status' => 'required|string|in:active,inactive',
     ]);
 
@@ -100,10 +88,6 @@ public function update(Request $request, $id)
     $announcement->update([
         'batch' => $request->angkatan,
         'announcement' => $request->announcement,
-        'date_mulai' => $request->date_mulai,
-        'jam_mulai' => $request->jam_mulai,
-        'date_akhir' => $request->date_akhir,
-        'jam_akhir' => $request->jam_akhir,
         'status' => $request->status,
     ]);
 

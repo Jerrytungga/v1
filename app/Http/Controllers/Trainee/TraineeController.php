@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Trainee;
 
+use Carbon\Carbon;
 use App\Models\Trainee;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class TraineeController extends Controller
 {
@@ -42,6 +45,51 @@ class TraineeController extends Controller
         }
     }
 
-
+    public function home(){
+        $batch = Session::get('batch');  // Mendapatkan batch dari session
+    
+        // Mendapatkan batch_id dari query parameter atau request
+        $batchId = $batch;  // Misalnya bisa didapatkan dari URL atau form
+    
+        // Mulai query dasar untuk pengumuman dengan status 'active'
+        $query = Announcement::where('status', 'active');
+    
+        // Ambil pengumuman pertama untuk melihat batch yang aktif
+        $announcement = $query->first();
+    
+        // Pastikan pengumuman ditemukan sebelum mengambil batch
+        if ($announcement) {
+            $ambil_batch = $announcement->batch;
+    
+            if ($ambil_batch == $batchId) {
+                // Jika batch yang diambil sama dengan batchId, filter pengumuman untuk batch tersebut
+                $query->where('batch', $batchId);
+            } elseif ($ambil_batch == 'all') {
+                // Jika batch adalah 'all', tampilkan pengumuman untuk semua batch
+                $query->where('batch', 'all');
+            } elseif ($batchId != 'all' && $batchId != $ambil_batch) {
+                // Jika batchId berbeda dan bukan 'all', tampilkan pesan
+                $message = "No announcements available.";
+                $Announcement = null;  // Tidak menampilkan pengumuman karena tidak ada yang cocok
+            }
+    
+            // Ambil pengumuman pertama setelah filter
+            if (!isset($message)) {
+                $Announcement = $query->first();
+            }
+        } else {
+            // Jika tidak ada pengumuman yang aktif, bisa handle sesuai kebutuhan
+            $Announcement = null;
+            $message = "No announcements available.";
+        }
+    
+        // Mengembalikan view dengan data pengumuman dan pesan (jika ada)
+        return view('Trainee.content.home', [
+            "title" => "Home",
+            "Announcement" => $Announcement,
+            "message" => isset($message) ? $message : null,  // Menyertakan pesan jika ada
+        ]);
+    }
+    
  
 }

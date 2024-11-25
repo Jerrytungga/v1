@@ -54,38 +54,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Start Date Field -->
-                                <div class="form-group row">
-                                    <label for="Date start" class="col-sm-2 col-form-label">Start date</label>
-                                    <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="date_mulai" required value="{{ $announcement->date_mulai }}">
-                                    </div>
-                                </div>
-
-                                <!-- Start Time Field -->
-                                <div class="form-group row">
-                                    <label for="Start Time" class="col-sm-2 col-form-label">Start time</label>
-                                    <div class="col-sm-10">
-                                        <input type="time" class="form-control" name="jam_mulai" required value="{{ $announcement->jam_mulai }}">
-                                    </div>
-                                </div>
-
-                                <!-- End Date Field -->
-                                <div class="form-group row">
-                                    <label for="End Date" class="col-sm-2 col-form-label">End date</label>
-                                    <div class="col-sm-10">
-                                        <input type="date" class="form-control" name="date_akhir" required value="{{ $announcement->date_akhir }}">
-                                    </div>
-                                </div>
-
-                                <!-- End Time Field -->
-                                <div class="form-group row">
-                                    <label for="End Time" class="col-sm-2 col-form-label">End time</label>
-                                    <div class="col-sm-10">
-                                        <input type="time" class="form-control" name="jam_akhir" required value="{{ $announcement->jam_akhir }}">
-                                    </div>
-                                </div>
-
                                 <!-- Status Field -->
                                 <div class="form-group row">
                                     <label for="status" class="col-sm-2 col-form-label">Status</label>

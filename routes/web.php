@@ -40,10 +40,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 
 Route::group(['middleware' => ['role:trainee']], function() {
-    Route::get('/Trainee', function () {
-        return view('Trainee.content.home',
-    ["title" => "Home"]);
-    })->name('trainee.Home');
+    Route::get('/Trainee', [TraineeController::class, 'home'])->name('trainee.Home');
     Route::resource('Trainee/BibleReading', BibleReadingController::class);
     Route::resource('Trainee/MemorizingVerses', MemorizingVersesController::class);
     Route::resource('Trainee/Hymns', HymnsController::class);

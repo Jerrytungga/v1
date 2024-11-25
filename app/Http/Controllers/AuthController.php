@@ -76,6 +76,7 @@ class AuthController extends Controller
             Session::put('asisten', $trainee->asisten_id);
             Session::put('semester', $trainee->semester);
             Session::put('name', $trainee->name);
+            Session::put('batch', $trainee->batch);
 
             return redirect()->route('trainee.Home');
         } elseif ($trainee && $request->password != $trainee->password) {
