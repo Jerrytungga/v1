@@ -76,6 +76,9 @@ class HymnsController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
+
+        
+        if ($weekly) {
         Hymns::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
@@ -87,6 +90,10 @@ class HymnsController extends Controller
            
         ]);
         return redirect()->route('Hymns.index')->with('success', 'Input Hymns successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('Hymns.index')->with('error', 'No active week found, cannot process input.');
+        }
     }
 
 

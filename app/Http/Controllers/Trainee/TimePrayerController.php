@@ -71,6 +71,8 @@ class TimePrayerController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
+
+        if ($weekly) {
         timeprayer::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
@@ -80,6 +82,10 @@ class TimePrayerController extends Controller
            
         ]);
         return redirect()->route('fiveTimesPrayer.index')->with('success', 'Input 5 Time Prayer successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('fiveTimesPrayer.index')->with('error', 'No active week found, cannot process input.');
+        }
     }
 
     public function edit(string $id)

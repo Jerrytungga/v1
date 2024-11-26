@@ -90,6 +90,8 @@ class GoodlandController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
+
+        if ($weekly) {
         GoodLand::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
@@ -102,6 +104,10 @@ class GoodlandController extends Controller
            
         ]);
         return redirect()->route('goodland.index')->with('success', 'Input Good Land successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('goodland.index')->with('error', 'No active week found, cannot process input.');
+        }
     }
 
 

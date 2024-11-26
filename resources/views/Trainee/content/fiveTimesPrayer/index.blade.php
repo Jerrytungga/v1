@@ -26,7 +26,7 @@
                   <thead class="text-center font-weight-bold bg-primary">
                   <tr>
                      <th>Date</th>
-                     <th>Topic Prayer</th>
+                     <th>Prayer topic</th>
                      <th>Action</th>
                   </tr>
                   </thead>

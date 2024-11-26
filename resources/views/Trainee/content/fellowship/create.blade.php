@@ -28,7 +28,7 @@
                   <input type="hidden" name="asisten" value="{{ $id_asisten }}" id="">
                   <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
-                    <label for="Name">Name Trainer Or Asistant [Nama pengajar atau asisten]</label>
+                    <label for="Name">Trainer’s or assistant’s name [Nama pengajar atau asisten]</label>
                     <input type="text" class="form-control" required name="name">
                   </div>
                   <div class="mt-2">

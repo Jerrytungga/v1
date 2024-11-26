@@ -52,7 +52,7 @@ class BibleReadingController extends Controller
         // Menyiapkan data untuk form input Bible Reading
         $nipTrainee = Session::get('nip');
         $id_asisten = Session::get('asisten');
-        return view('Trainee.content.biblereading.create', [
+        return view('Trainee.content.BibleReading.create', [
             "title" => "Bible Reading",
             'nipTrainee' => $nipTrainee, // Kirimkan NIP trainee ke view
             'id_asisten' => $id_asisten, // Kirimkan ID asisten ke view
@@ -66,14 +66,14 @@ class BibleReadingController extends Controller
         $nipTrainee = Session::get('nip');
     
         // Cek apakah sudah ada 2 entri Bible Reading pada hari ini untuk trainee yang sama
-        $entryCount = BibleReading::whereDate('created_at', $today)
-                                  ->where('nip', $nipTrainee)
-                                  ->count();
+        // $entryCount = BibleReading::whereDate('created_at', $today)
+        //                           ->where('nip', $nipTrainee)
+        //                           ->count();
     
         // Jika sudah ada 2 entri, batalkan dan beri pesan error
-        if ($entryCount >= 2) {
-            return redirect()->route('BibleReading.index')->with('error', 'You have entered data 2 times today');
-        }
+        // if ($entryCount >= 2) {
+        //     return redirect()->route('BibleReading.index')->with('error', 'You have entered data 2 times today');
+        // }
     
         // Validasi input yang diterima dari form
         $request->validate([
@@ -90,6 +90,7 @@ class BibleReadingController extends Controller
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
     
+        if ($weekly) {
         // Tentukan kitab berdasarkan input (Old Testament atau New Testament)
         $book = $request->kitab === 'Old Testament' ? $request->kitab_pl : $request->kitab_pb;
     
@@ -104,9 +105,12 @@ class BibleReadingController extends Controller
             'semester' => $semester,
             'week' => $weekly->Week, // Ambil data minggu aktif
         ]);
-    
-        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('BibleReading.index')->with('success', 'Input Bible Reading successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('BibleReading.index')->with('error', 'No active week found, cannot process input.');
+        }
+        
     }
     
     public function edit(string $id)

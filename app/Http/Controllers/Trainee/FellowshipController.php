@@ -102,7 +102,7 @@ public function store(Request $request)
     // Mengambil data minggu aktif
     $weekly = Weekly::where('status', 'active')->first();
     $semester = Session::get('semester'); // Mengambil semester dari sesi
-
+    if ($weekly) {
     // Menyimpan data Fellowship baru
     Fellowship::create([
         'nip' => $request->nip,
@@ -117,6 +117,10 @@ public function store(Request $request)
 
     // Redirect ke halaman index dengan pesan sukses
     return redirect()->route('fellowship.index')->with('success', 'Input Fellowship successfully!');
+}else {
+    // Handle the case where there's no active week
+    return redirect()->route('fellowship.index')->with('error', 'No active week found, cannot process input.');
+    }
 }
 
 /**

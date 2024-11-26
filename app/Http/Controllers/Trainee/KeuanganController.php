@@ -90,7 +90,7 @@ class KeuanganController extends Controller
         // Tambahkan saldo baru ke saldo sebelumnya
         $saldoTotal = $saldoSebelumnya + $saldo;  // Total saldo baru
                 $weekly = Weekly::where('status', 'active')->first();
-        
+                if ($weekly) {
            Keuangan::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
@@ -103,6 +103,10 @@ class KeuanganController extends Controller
            
         ]);
         return redirect()->route('keuangan.index')->with('success', 'Input Financial successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('keuangan.index')->with('error', 'No active week found, cannot process input.');
+        }
     }
 
 

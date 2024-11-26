@@ -65,6 +65,8 @@ class PersonalgoalController extends Controller
             'deskripsi' => 'required|string', ]);
          $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
+
+        if ($weekly) {
              Personalgoals::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
@@ -74,6 +76,10 @@ class PersonalgoalController extends Controller
         
         ]);
              return redirect()->route('personalgoal.index')->with('success', 'Input Personal Goals successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('personalgoal.index')->with('error', 'No active week found, cannot process input.');
+        }
     }
 
  

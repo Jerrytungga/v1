@@ -29,7 +29,7 @@
                   <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
                     <label for="poindoa">Today's prayer points [Poin Doa Hari ini]</label>
-                    <textarea name="doa" cols="4" rows="4" required placeholder=" Example [Pray for YKDE so that its expansion in Indonesia continues to progress and thrive.] " class="form-control"></textarea>
+                    <textarea name="doa" cols="4" rows="4" required placeholder=" Example [Pray for YKDE so that its expansion in Indonesia continues to grow and thrive.] " class="form-control"></textarea>
                   </div>
                    
                   </div>

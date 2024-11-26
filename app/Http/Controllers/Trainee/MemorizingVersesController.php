@@ -61,6 +61,8 @@ class MemorizingVersesController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
+
+        if ($weekly) {
         MemorizingVerses::create([
             'nip' => $request->nip,
             'asisten_id' => $request->asisten,
@@ -71,6 +73,11 @@ class MemorizingVersesController extends Controller
            
         ]);
         return redirect()->route('MemorizingVerses.index')->with('success', 'Input Memorizing Verses successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('MemorizingVerses.index')->with('error', 'No active week found, cannot process input.');
+        }
+        
     }
 
 

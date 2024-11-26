@@ -71,6 +71,8 @@ class PrayerbookController extends Controller
             ]);
             $weekly = Weekly::where('status', 'active')->first();
             $semester = Session::get('semester');
+
+            if ($weekly) {
                Prayers::create([
               'nip' => $request->nip,
               'asisten_id' => $request->asisten,
@@ -84,6 +86,10 @@ class PrayerbookController extends Controller
             
             ]);
                return redirect()->route('prayerbook.index')->with('success', 'Input Prayer Book successfully!');
+            }else {
+                // Handle the case where there's no active week
+                return redirect()->route('prayerbook.index')->with('error', 'No active week found, cannot process input.');
+                }
     }
 
   

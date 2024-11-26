@@ -92,6 +92,8 @@ class PameranController extends Controller
       
       $weekly = Weekly::where('status', 'active')->first();
       $semester = Session::get('semester');
+
+      if ($weekly) {
       Script::create([
         'nip' => $request->nip,
         'asisten_id' => $request->asisten,
@@ -105,6 +107,10 @@ class PameranController extends Controller
       ]);
 
       return redirect()->route('pameran.index')->with('success', 'Input script successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('pameran.index')->with('error', 'No active week found, cannot process input.');
+        }
       
     }
 

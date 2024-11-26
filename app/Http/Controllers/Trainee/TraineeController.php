@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Trainee;
 
 use Carbon\Carbon;
+use App\Models\Weekly;
 use App\Models\Trainee;
+use App\Models\Keuangan;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -82,14 +84,48 @@ class TraineeController extends Controller
             $Announcement = null;
             $message = "No announcements available.";
         }
-    
+        $nipTrainee = Session::get('nip');
+        $ambilT = Trainee::where('nip', $nipTrainee)->first();
+        $weekly = Weekly::where('status', 'active')->first();
+        $minggu =$weekly->Week;
+        $totals = Keuangan::where('nip', $nipTrainee)
+        ->where('week', $minggu)
+        ->selectRaw('sum(debit) as total_pemasukan, sum(credit) as total_pengeluaran')
+        ->first();
+
+
+                        
         // Mengembalikan view dengan data pengumuman dan pesan (jika ada)
         return view('Trainee.content.home', [
             "title" => "Home",
+            "ambil" => $ambilT,
+            "total" => $totals,
             "Announcement" => $Announcement,
             "message" => isset($message) ? $message : null,  // Menyertakan pesan jika ada
         ]);
+
+
+        
     }
+
+    public function changePassword(Request $request, $id)
+    {
+        // Validate the input
+        $request->validate([
+            'new_password' => 'required',  // Make sure the passwords match and are at least 8 characters
+        ]);
+    
+        // Find the user by ID
+        $user = Trainee::findOrFail($id);
+    
+        // Update the password
+        $user->password = $request->new_password;  // Hash the new password
+        $user->save();  // Save the updated password
+    
+        // Redirect back with a success message
+        return redirect()->route('trainee.Home')->with('success', 'Update successfully!');
+    }
+
     
  
 }

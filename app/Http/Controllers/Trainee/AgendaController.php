@@ -64,7 +64,7 @@ class AgendaController extends Controller
         $weekly = Weekly::where('status', 'active')->first();
         // Mengambil semester dari session
         $semester = Session::get('semester');
-        
+        if ($weekly) {
         // Menyimpan data agenda baru ke database
         Agenda::create([
             'nip' => $request->nip, // NIP yang diinput
@@ -77,6 +77,10 @@ class AgendaController extends Controller
         
         // Redirect ke halaman index agenda dengan pesan sukses
         return redirect()->route('agenda.index')->with('success', 'Input Agenda successfully!');
+    }else {
+        // Handle the case where there's no active week
+        return redirect()->route('agenda.index')->with('error', 'No active week found, cannot process input.');
+        }
     }
     
     public function edit(string $id)

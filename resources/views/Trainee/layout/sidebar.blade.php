@@ -1,125 +1,313 @@
- <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light-white elevation-4">
-    <!-- Brand Logo -->
-    <a href="" class="brand-link">
-      <h3 class="text-bold text-primary text-center">JURNAL FTTI</h3>
-    </a>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <!-- <div class="image">
-          <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div> -->
-        <div class="info">
-          <a href="{{ route('trainee.Home') }}" class="d-block"> {{ session('name') }}</a>
-        </div>
-      </div>
+<aside class="main-sidebar sidebar-light-dark elevation-4">
+  <!-- Brand Logo -->
+  <a href="{{ route('trainee.Home') }}" class="brand-link d-flex align-items-center">
+    <i class="fas fa-journal-whills fa-2x text-primary logo-icon"></i>  <!-- FontAwesome Icon -->
+    <h3 class="text-bold text-primary d-inline-block ml-2 brand-text">JURNAL FTTI</h3>  <!-- Brand Text -->
+  </a>
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
-          <li class="nav-header bg-blue rounded">DAILY</li>
-          <li class="nav-item">
-            <a href="{{ route('BibleReading.index') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active bg-dark' :'' }}">
-              <p>
-                Bible Reading
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('MemorizingVerses.index') }}" class="nav-link {{ ($title == "Memorizing Verses") ? 'active bg-dark' :'' }}">
-              <p>
-                Memorizing Verses
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('Hymns.index') }}" class="nav-link {{ ($title == "My Hymns") ? 'active bg-dark' :'' }}">
-              <p>
-                Hymns
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('fiveTimesPrayer.index') }}" class="nav-link {{ ($title == "5 Times Prayer") ? 'active bg-dark' :'' }}">
-              <p>
-                5 Times Prayer
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('personalgoal.index') }}" class="nav-link {{ ($title == "Personal Goals") ? 'active bg-dark' :'' }}">
-              <p>
-                Personal goals
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('goodland.index') }}" class="nav-link {{ ($title == "Good Land") ? 'active bg-dark' :'' }}">
-              <p>
-                Good Land
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('prayerbook.index') }}" class="nav-link {{ ($title == "Prayer Book") ? 'active bg-dark' :'' }}">
-              <p>
-                Prayer Book
-              </p>
-            </a>
-          </li>
-          <!-- Sidebar jurnal Mingguan -->
-          <li class="nav-header bg-blue rounded">WEEKLY</li>
-          <li class="nav-item">
-            <a href="{{ route('ministri.index') }}" class="nav-link {{ ($title == "Summary Of Ministry") ? 'active bg-dark' :'' }}">
-              <p>
-                Summary Of Ministry
-              </p>
-            </a>
-          </li>
-          
-          <li class="nav-item">
-            <a href="{{ route('fellowship.index') }}" class="nav-link {{ ($title == "Fellowship") ? 'active bg-dark' :'' }}">
-              <p>
-                Fellowship
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('pameran.index') }}" class="nav-link {{ ($title == "Script") ? 'active bg-dark' :'' }}">
-              <p>
-                Script
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('agenda.index') }}" class="nav-link {{ ($title == "Agenda") ? 'active bg-dark' :'' }}">
-              <p>
-               Agenda
-              </p>
-            </a>
-          </li>
+  <!-- Sidebar -->
+  <div class="sidebar">
+   
+    
 
-          <li class="nav-header bg-blue rounded">REPORT</li>
-          <li class="nav-item">
-            <a href="{{ route('keuangan.index') }}" class="nav-link {{ ($title == "Financial Statements") ? 'active bg-dark' :'' }}">
-              <p>
-                Financial Statements
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('report.index') }}" class="nav-link {{ ($title == "Journal Report") ? 'active bg-dark' :'' }}">
-              <p>
-                Weekly Journal Report
-              </p>
-            </a>
-          </li>
-       
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+
+        <li class="nav-item">
+          <a href="{{ route('trainee.Home') }}" class="nav-link">
+            <i class="fas fa-user nav-icon"></i>
+            <p>
+            {{ session('name') }}
+            </p>
+          </a>
+        </li>
+        
+        <!-- DAILY Section -->
+        <li class="nav-header bg-gradient-success rounded text-white">DAILY</li>
+
+        <li class="nav-item">
+          <a href="{{ route('BibleReading.index') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active' :'' }}">
+            <i class="fas fa-book-reader nav-icon"></i>
+            <p>
+              Bible Reading
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('MemorizingVerses.index') }}" class="nav-link {{ ($title == "Memorizing Verses") ? 'active' :'' }}">
+            <i class="fas fa-book nav-icon"></i>
+            <p>
+              Memorizing Verses
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('Hymns.index') }}" class="nav-link {{ ($title == "My Hymns") ? 'active' :'' }}">
+            <i class="fas fa-music nav-icon"></i>
+            <p>
+              Hymns
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('fiveTimesPrayer.index') }}" class="nav-link {{ ($title == "5 Times Prayer") ? 'active' :'' }}">
+            <i class="fas fa-praying-hands nav-icon"></i>
+            <p>
+              5 Times Prayer
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('personalgoal.index') }}" class="nav-link {{ ($title == "Personal Goals") ? 'active' :'' }}">
+            <i class="fas fa-tasks nav-icon"></i>
+            <p>
+              Personal Goals
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('goodland.index') }}" class="nav-link {{ ($title == "Good Land") ? 'active' :'' }}">
+            <i class="fas fa-flag nav-icon"></i>
+            <p>
+              Good Land
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('prayerbook.index') }}" class="nav-link {{ ($title == "Prayer Book") ? 'active' :'' }}">
+          <i class="fas fa-book nav-icon"></i>
+            <p>
+              Prayer Book
+            </p>
+          </a>
+        </li>
+
+        <!-- WEEKLY Section -->
+        <li class="nav-header bg-gradient-success rounded text-white">WEEKLY</li>
+
+        <li class="nav-item">
+          <a href="{{ route('ministri.index') }}" class="nav-link {{ ($title == "Summary Of Ministry") ? 'active' :'' }}">
+            <i class="fas fa-clipboard-list nav-icon"></i>
+            <p>
+              Summary Of Ministry
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('fellowship.index') }}" class="nav-link {{ ($title == "Fellowship") ? 'active' :'' }}">
+            <i class="fas fa-users nav-icon"></i>
+            <p>
+              Fellowship
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('pameran.index') }}" class="nav-link {{ ($title == "Script") ? 'active' :'' }}">
+            <i class="fas fa-theater-masks nav-icon"></i>
+            <p>
+              Script Ts & Exhibition
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('agenda.index') }}" class="nav-link {{ ($title == "Agenda") ? 'active' :'' }}">
+            <i class="fas fa-calendar-alt nav-icon"></i>
+            <p>
+              Agenda
+            </p>
+          </a>
+        </li>
+
+        <!-- REPORT Section -->
+        <li class="nav-header bg-gradient-success rounded text-white">REPORT</li>
+
+        <li class="nav-item">
+          <a href="{{ route('keuangan.index') }}" class="nav-link {{ ($title == "Financial Statements") ? 'active' :'' }}">
+            <i class="fas fa-file-invoice-dollar nav-icon"></i>
+            <p>
+              Financial Statements
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ route('report.index') }}" class="nav-link {{ ($title == "Journal Report") ? 'active' :'' }}">
+          <i class="fas fa-book nav-icon"></i>
+            <p>
+              Weekly Journal Report
+            </p>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
+<style>
+  /* Elegant Sidebar Color Scheme */
+  .main-sidebar {
+    background: linear-gradient(180deg, #005792, #00204A); /* Elegant gradient */
+    border-right: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Brand logo and text styling */
+  .brand-link {
+    display: flex;
+    align-items: center;
+    padding: 7px 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .logo-icon {
+    color: #007bff;
+  }
+  .nav-item .nav-link:hover{
+    background-color: #f8f9fa;
+    color: #ffffff;
+  }
+
+  .brand-text {
+    display: inline-block;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.25rem;
+    margin-left: 10px;
+  }
+
+  /* Hover effect on brand link */
+  .brand-link:hover {
+    background-color: #f8f9fa;
+  }
+
+  /* Sidebar menu items */
+  .nav-sidebar .nav-item .nav-link {
+    color: #f8f9fa;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Hover effect for sidebar links */
+  .nav-sidebar .nav-item .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #ffffff;
+  }
+
+  /* Active link style */
+  .nav-sidebar .nav-item .nav-link.active {
+    background-color: #0069d9;
+    color: #ffffff;
+  }
+
+  /* Style for navbar */
+  .main-header.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .main-header .navbar-nav {
+    margin-left: 15px;
+  }
+
+  .navbar-nav .nav-item .nav-link {
+    color: #495057;
+  }
+
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #007bff;
+  }
+
+  .navbar-nav .nav-item .nav-link.active {
+    color: #007bff;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .brand-text {
+      display: none;
+    }
+    .logo-icon {
+      margin-left: 0;
+    }
+  }
+
+  /* Navbar brand text */
+  .main-header .nav-item h4 {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  /* Adjust right navbar links for logout and fullscreen */
+  .navbar-nav.ml-auto {
+    margin-left: auto;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+  }
+
+  /* Sidebar menu items */
+.nav-sidebar .nav-item .nav-link {
+  color: #f8f9fa; /* Default text color */
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect for sidebar links */
+.nav-sidebar .nav-item .nav-link:hover {
+  background-color: #007bff; /* Change hover background to bright blue */
+  color: #ffffff !important;  /* Ensure font color changes to white on hover */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for effect */
+}
+
+/* Active link style */
+.nav-sidebar .nav-item .nav-link.active {
+  background-color: #0069d9; /* Active background color */
+  color: #ffffff; /* Active link text color */
+  border-radius: 4px;
+}
+
+/* Active item hover effect */
+.nav-sidebar .nav-item .nav-link.active:hover {
+  background-color: #0056b3; /* Darken active background on hover */
+  color: #ffffff; /* Keep text color white */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar header (Daily, Weekly, Report sections) */
+.nav-header.bg-gradient-success {
+  font-weight: bold;
+  color: #fff;
+  background-color: #28a745; /* Green background */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Hover effect for section headers */
+.nav-header.bg-gradient-success:hover {
+  background-color: #218838; /* Darken background on hover */
+  color: #fff; /* Keep the text white */
+}
+
+</style>
+<!-- FontAwesome CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">

@@ -96,6 +96,8 @@ class MinistriController extends Controller
             ]);
             $weekly = Weekly::where('status', 'active')->first();
             $semester = Session::get('semester');
+
+            if ($weekly) {
                Ministri::create([
               'nip' => $request->nip,
               'asisten_id' => $request->asisten,
@@ -108,6 +110,11 @@ class MinistriController extends Controller
             
             ]);
                return redirect()->route('ministri.index')->with('success', 'Input Summary Of Ministry successfully!');
+            }else {
+                // Handle the case where there's no active week
+                return redirect()->route('ministri.index')->with('error', 'No active week found, cannot process input.');
+                }
+               
     }
 
 

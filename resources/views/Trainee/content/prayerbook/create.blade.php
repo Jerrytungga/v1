@@ -29,19 +29,19 @@
                   <input type="hidden" name="nip" value="{{ $nipTrainee }}" id="">
                   <div class="mt-2">
                     <label for="poindoa">Topic [Poin Doa Hari ini]</label>
-                    <textarea name="doa" cols="2" rows="2" required placeholder=" Example [Pray for To have a strict schedule for discussing God's Word.] " class="form-control"></textarea>
+                    <textarea name="doa" cols="2" rows="2" required placeholder=" Example [Pray for a disciplined schedule to discuss God's Word.] " class="form-control"></textarea>
                   </div>
                   <div class="mt-2">
-                    <label for="light">Light [Terang Doa Hari ini] <sub class="text-danger">There must be a scripture reference. | Wajib ada refrensi ayat alkitab.</sub></label>
-                    <textarea name="terang" cols="2" rows="2" required placeholder=" Example [I was enlightened through the word of John 1:1 that the Word is God. I realize that I have been lax in my reading of God's Word.] " class="form-control"></textarea>
+                    <label for="light">Light [Terang Doa Hari ini] <sub class="text-danger">A Bible verse reference is required | Wajib mencantumkan referensi ayat Alkitab</sub></label>
+                    <textarea name="terang" cols="2" rows="2" required placeholder=" Example [I was enlightened by John 1:1, which reveals that the Word is God. I realize that I have been lax in my reading of God's Word.] " class="form-control"></textarea>
                   </div>
                   <div class="mt-2">
                     <label for="apresiasi">Appreciation [Apresiasi Doa Hari ini]</label>
-                    <textarea name="apresiasi" cols="2" rows="2" required placeholder=" Example [Praise God, the Word is the living person of God.] " class="form-control"></textarea>
+                    <textarea name="apresiasi" cols="2" rows="2" required placeholder=" Example [ Praise God, for the Word is the living expression of God.] " class="form-control"></textarea>
                   </div>
                   <div class="mt-2">
                     <label for="Tindakan">Action [Tindakan Doa Hari ini]</label>
-                    <textarea name="action" cols="2" rows="2" required placeholder=" Example [Next week, I want to prioritize my Bible reading every morning after my morning revival.] " class="form-control"></textarea>
+                    <textarea name="action" cols="2" rows="2" required placeholder=" Example [Next week, I want to prioritize reading my Bible every morning after my personal revival.] " class="form-control"></textarea>
                   </div>
                    
                   </div>

@@ -31,7 +31,7 @@
                   <thead class="text-center font-weight-bold bg-primary">
                   <tr>
                     <th rowspan="2" class="col-1">Date</th>
-                    <th rowspan="2" class="col-1">Number Hymns</th>
+                    <th rowspan="2" class="col-1">Hymns number</th>
                     <th rowspan="2" class="col-1">Stanza</th>
                     <th>Inspiration</th>
                     <th rowspan="2" class="col-1">Action</th>

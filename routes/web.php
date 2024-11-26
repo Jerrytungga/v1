@@ -41,6 +41,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::group(['middleware' => ['role:trainee']], function() {
     Route::get('/Trainee', [TraineeController::class, 'home'])->name('trainee.Home');
+    Route::patch('/user/{id}/change-password', [TraineeController::class, 'changePassword'])->name('change.password');
     Route::resource('Trainee/BibleReading', BibleReadingController::class);
     Route::resource('Trainee/MemorizingVerses', MemorizingVersesController::class);
     Route::resource('Trainee/Hymns', HymnsController::class);

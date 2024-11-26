@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group mt-2">
                   <label for="agenda">Debit [Pemasukan]</label>
-                  <input type="text" class="form-control rupiah" name="Pemasukan" onkeyup="formatCurrency(this)" >
+                  <input type="text" class="form-control rupiah" name="Pemasukan" onkeyup="formatCurrency(this)" placeholder="Please enter '0' if there is no debit" >
                 </div>
                 <div class="form-group mt-2">
                   <label for="agenda">Credit [Pengeluaran]</label>
-                  <input type="text" class="form-control rupiah" name="pengeluaran" onkeyup="formatCurrency(this)">
+                  <input type="text" class="form-control rupiah" name="pengeluaran" onkeyup="formatCurrency(this)" placeholder="Please enter '0' if there is no credit">
                 </div>
               </div>
 

@@ -28,7 +28,7 @@
                      <tr>
                         <td>Date</td>
                         <td>Bible</td>
-                        <td>Paraf</td>
+                        <td>Partner</td>
                         <td>Action</td>
                      </tr>
                   </thead>
@@ -44,7 +44,12 @@
                     </blockquote>
                     @endif
                   </td>
-                  <td>{{ $memorizingverses->paraf }}</td>
+                  <td>
+                  @php
+                   $trainee = \App\Models\Trainee::where('nip', $memorizingverses->paraf)->first();
+                  @endphp
+                  {{ $trainee ? $trainee->name : 'No trainee' }}
+                  </td>
                   <td>
                   @if (\Carbon\Carbon::parse($memorizingverses->created_at)->diffInDays() < 1)
                             <a href="{{ route('MemorizingVerses.edit', $memorizingverses->id) }}" class="btn btn-warning">Edit</a>
