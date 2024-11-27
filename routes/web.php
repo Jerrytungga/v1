@@ -6,8 +6,14 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\PoinController;
 use App\Http\Controllers\Admin\WeeklyController;
+use App\Http\Controllers\Asisten\Announcement_AsistenController;
 use App\Http\Controllers\Asisten\Asisten_BibleReadingController;
+use App\Http\Controllers\Asisten\Asisten_GoodlandController;
+use App\Http\Controllers\Asisten\Asisten_PrayerBookController;
 use App\Http\Controllers\Asisten\AsistenController;
+use App\Http\Controllers\Asisten\AtraineeController;
+use App\Http\Controllers\Asisten\Bible_readingController;
+use App\Http\Controllers\Asisten\BibleReadingController as AsistenBibleReadingController;
 use App\Models\Asisten;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -92,72 +98,25 @@ Route::group(['middleware' => ['role:trainee']], function() {
 // Hanya bisa diakses oleh role asisten
 Route::group(['middleware' => ['role:asisten']], function() {
 // View Asisten
-// Route::resource('Asisten/BibleReading', Asisten_BibleReadingController::class);
-Route::resource('Asisten', AsistenController::class)->names([
-    'index'   => 'asisten.Home',
-]);
+Route::get('/Asisten', [AsistenController::class, 'index'])->name('asisten.Home');
+Route::get('Asisten/trainee', [AtraineeController::class, 'strainee'])->name('htrainee.asisten');
+// Route::get('Asisten/Bible/{$nip}', [Bible_readingController::class, 'index'])->name('bible.asisten');
+Route::get('Asisten/Bible/{nip}', [Bible_readingController::class, 'index'])->name('bible-asisten');
+Route::patch('/Asisten/{id}/poin', [Bible_readingController::class, 'bpoin'])->name('bible-poin');
+Route::post('/Asisten/{id}/filter-week', [Bible_readingController::class, 'filterWeek'])->name('bible-week');
+Route::get('Asisten/GoodLand/{nip}/Trainee', [Asisten_GoodlandController::class, 'index'])->name('Goodland-asisten');
+Route::patch('/Asisten/GoodLand/{id}/poin', [Asisten_GoodlandController::class, 'GLpoin'])->name('GL-poin');
+Route::post('/Asisten/{id}/filter-goodland', [Asisten_GoodlandController::class, 'filterWeekGL'])->name('GL-week');
+Route::get('Asisten/Prayer-Book/{nip}/Trainee', [Asisten_PrayerBookController::class, 'index'])->name('Prayerbook-asisten');
+Route::patch('/Asisten/Prayer-Book/{id}/poin', [Asisten_PrayerBookController::class, 'PBpoin'])->name('Pb-poin');
+Route::post('/Asisten/{id}/filter-prayerbook', [Asisten_PrayerBookController::class, 'filterWeek_prayer'])->name('prayerBook-week');
+Route::resource('Asisten/notif', Announcement_AsistenController::class);
+// Menggunakan method PUT untuk route ini, yang akan memanggil metode update
+Route::put('/Asisten/notif/{id}', [Announcement_AsistenController::class, 'update'])->name('h.message');
 
 
 
-Route::get('/Asisten/Memorizing', function () {
-    return view('Asisten.content.Memorizing',
-["title" => "Memorizing Verses"]);
-})->name('Asisten.A_Memorizing');
 
-Route::get('/Asisten/Hymn', function () {
-    return view('Asisten.content.hymn',
-["title" => "Hymn"]);
-})->name('Asisten.A_Hymn');
-
-Route::get('/Asisten/5 Times Prayer', function () {
-    return view('Asisten.content.TimesPrayer',
-["title" => "5 Times Prayer"]);
-})->name('Asisten.A_TimesPrayer');
-
-Route::get('/Asisten/Personal goals', function () {
-    return view('Asisten.content.Personalgoals',
-["title" => "Personal goals"]);
-})->name('Asisten.A_Personalgoals');
-
-Route::get('/Asisten/Good Land', function () {
-    return view('Asisten.content.GoodLand',
-["title" => "Good Land"]);
-})->name('Asisten.A_GoodLand');
-
-Route::get('/Asisten/Prayer Book', function () {
-    return view('Asisten.content.PrayerBook',
-["title" => "Prayer Book"]);
-})->name('Asisten.A_PrayerBook');
-
-Route::get('/Asisten/Summary Of Ministry', function () {
-    return view('Asisten.content.SummaryOfMinistry',
-["title" => "Summary Of Ministry"]);
-})->name('Asisten.A_SummaryOfMinistry');
-
-Route::get('/Asisten/Fellowship', function () {
-    return view('Asisten.content.Fellowship',
-["title" => "Fellowship"]);
-})->name('Asisten.A_Fellowship');
-
-Route::get('/Asisten/ScriptTs', function () {
-    return view('Asisten.content.ScriptTs',
-["title" => "Script Ts"]);
-})->name('Asisten.A_ScriptTs');
-
-Route::get('/Asisten/Agenda', function () {
-    return view('Asisten.content.Agenda',
-["title" => "Agenda"]);
-})->name('Asisten.A_Agenda');
-
-Route::get('/Asisten/Financial Statements', function () {
-    return view('Asisten.content.FinancialStatements',
-["title" => "Financial Statements"]);
-})->name('Asisten.A_FinancialStatements');
-
-Route::get('/Asisten/Journal Report', function () {
-    return view('Asisten.content.JournalReport',
-["title" => "Journal Report"]);
-})->name('Asisten.A_JournalReport');
 
 
 

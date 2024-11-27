@@ -183,14 +183,17 @@
 </style>
 
 
-
-<div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="
-    background-color: #FAF5E4;">
-  <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
-  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-  <hr>
-  <p class="mb-0 from-admin">From Asisten</p>
-</div><br>
+@if($pesan_Asisten)
+    
+    <div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="
+        background-color: #FAF5E4;">
+      <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
+      <p>{{ $pesan_Asisten->pesan }}</p>
+      <hr>
+      <p class="mb-0 from-admin">From Asisten</p>
+    </div><br>
+ 
+  @endif
 
    <!-- Modal for Change Password -->
 <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">

@@ -15,6 +15,7 @@ class BibleReading extends Model
         'nip',
         'pl_pb',       // Use 'pl_pb' instead of 'pl/pb'
         'book',
+        'poin',
         'verse',
         'phrase_light',
         'semester',

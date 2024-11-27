@@ -69,6 +69,7 @@
                                     <label class="form-label">Please Select Your Batch</label>
                                    <select name="angkatan" id="" class="form-control">
                                     <option value="50">50</option>
+                                    <option value="51">51</option>
                                     <option value="52">52</option>
                                     <option value="53">53</option>
                                     <option value="54">54</option>

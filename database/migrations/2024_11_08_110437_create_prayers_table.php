@@ -19,10 +19,14 @@ return new class extends Migration
             $table->text('week')->nullable();
             $table->text('catatan')->nullable();
             $table->text('topic');
+            $table->string('poin_topic')->nullable();
             $table->date('prayer_date');
             $table->text('light'); // 'Terang' column
+            $table->string('light_poin')->nullable();
             $table->text('appreciation'); // 'Apresiasi' column
+            $table->string('appreciation_poin')->nullable();
             $table->text('action'); // 'Tindakan' column
+            $table->string('action_poin')->nullable();
             $table->date('prayer_answered_date')->nullable(); // 'Tanggal Doa dijawab' column (nullable)
             $table->text('prayer_answer')->nullable(); // 'Jawaban Doa' column (nullable)
             $table->timestamps(); // created_at, updated_at

@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('asisten_id');
             $table->string('nip');
             $table->string('pl_pb');
+            $table->string('poin')->nullable();
             $table->string('book');
             $table->integer('verse');
             $table->text('phrase_light');

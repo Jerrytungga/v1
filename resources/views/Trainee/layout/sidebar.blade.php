@@ -112,7 +112,7 @@
 
         <li class="nav-item">
           <a href="{{ route('pameran.index') }}" class="nav-link {{ ($title == "Script") ? 'active' :'' }}">
-            <i class="fas fa-theater-masks nav-icon"></i>
+          <i class="fas fa-book-reader nav-icon"></i>
             <p>
               Script Ts & Exhibition
             </p>

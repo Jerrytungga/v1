@@ -17,19 +17,19 @@ class WeeklySeeder extends Seeder
          // Insert data for PT1 to PT3
          DB::table('weekly')->insert([
             [
-                'Week' => 'PT1',
+                'Week' => 'PT 1',
                 'status' => 'inactive',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'Week' => 'PT2',
+                'Week' => 'PT 2',
                 'status' => 'inactive',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'Week' => 'PT3',
+                'Week' => 'PT 3',
                 'status' => 'inactive',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

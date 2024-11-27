@@ -7,6 +7,7 @@ use App\Models\Weekly;
 use App\Models\Trainee;
 use App\Models\Keuangan;
 use App\Models\Announcement;
+use App\Models\PesanAsisten;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -84,6 +85,7 @@ class TraineeController extends Controller
             $Announcement = null;
             $message = "No announcements available.";
         }
+
         $nipTrainee = Session::get('nip');
         $ambilT = Trainee::where('nip', $nipTrainee)->first();
         $weekly = Weekly::where('status', 'active')->first();
@@ -92,13 +94,18 @@ class TraineeController extends Controller
         ->where('week', $minggu)
         ->selectRaw('sum(debit) as total_pemasukan, sum(credit) as total_pengeluaran')
         ->first();
+        
+        
+        
+        $pesan_Asisten = PesanAsisten::where('status', 'active')
+        ->where('nip', $nipTrainee)
+        ->first();
 
-
-                        
         // Mengembalikan view dengan data pengumuman dan pesan (jika ada)
         return view('Trainee.content.home', [
             "title" => "Home",
             "ambil" => $ambilT,
+            "pesan_Asisten" => $pesan_Asisten,
             "total" => $totals,
             "Announcement" => $Announcement,
             "message" => isset($message) ? $message : null,  // Menyertakan pesan jika ada
