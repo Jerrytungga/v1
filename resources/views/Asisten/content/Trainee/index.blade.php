@@ -45,12 +45,12 @@
                       <span class="badge badge-success">BACTH {{ $data->batch }}</span>
                       <span class="badge badge-warning">SEMESTER {{ $data->semester }}</span>
                       </td>
-                      <td>
+                      <td class="col-4">
                         <a href="{{ route('bible-asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Bible Reading</a>
-                        <!-- <a href="" class="btn btn-sm btn-info m-1">Memorizing Verses</a> -->
-                        <!-- <a href="" class="btn btn-sm btn-info m-1">Hymns</a> -->
-                        <!-- <a href="" class="btn btn-sm btn-info m-1">5 Times Prayer</a> -->
-                        <!-- <a href="" class="btn btn-sm btn-info m-1">Personal Goals</a> -->
+                        <a href="{{ route('Memorizing_verses-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Memorizing Verses</a>
+                        <a href="{{ route('Hymns-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Hymns</a>
+                        <a href="{{ route('Fivetimeprayer-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">5 Times Prayer</a>
+                        <a href="{{ route('personalgoals-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Personal Goals</a>
                         <a href="{{ route('Goodland-asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Good Land</a>
                         <a href="{{ route('Prayerbook-asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Prayer Book</a>
                       </td>
@@ -61,7 +61,6 @@
                         <a href="" class="btn btn-sm btn-info m-1">Agenda</a>
                         <a href="" class="btn btn-sm btn-info m-1">Financial Statements</a>
                         <a href="" class="btn btn-sm btn-info m-1">Journal Report</a> -->
-
                       </td>
                   
                     </tr>

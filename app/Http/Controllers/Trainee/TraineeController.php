@@ -89,7 +89,7 @@ class TraineeController extends Controller
         $nipTrainee = Session::get('nip');
         $ambilT = Trainee::where('nip', $nipTrainee)->first();
         $weekly = Weekly::where('status', 'active')->first();
-        $minggu =$weekly->Week;
+        $minggu = $weekly ? $weekly->Week : null;
         $totals = Keuangan::where('nip', $nipTrainee)
         ->where('week', $minggu)
         ->selectRaw('sum(debit) as total_pemasukan, sum(credit) as total_pengeluaran')
@@ -104,6 +104,7 @@ class TraineeController extends Controller
         // Mengembalikan view dengan data pengumuman dan pesan (jika ada)
         return view('Trainee.content.home', [
             "title" => "Home",
+            "Week" => $minggu,
             "ambil" => $ambilT,
             "pesan_Asisten" => $pesan_Asisten,
             "total" => $totals,

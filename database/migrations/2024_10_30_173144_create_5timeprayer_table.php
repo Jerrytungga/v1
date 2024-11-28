@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('poin_prayer'); // Chapter number
             $table->string('catatan')->nullable();
             $table->text('week')->nullable();
+            $table->text('poin')->nullable();
             $table->text('semester');
             $table->timestamps(); // Created at and updated at
         });

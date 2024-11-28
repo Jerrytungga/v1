@@ -34,6 +34,8 @@
 </script>
 
 
+
+
 {{-- JavaScript Section --}}
    @push('scripts')
        <script>

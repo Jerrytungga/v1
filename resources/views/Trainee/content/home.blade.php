@@ -24,6 +24,34 @@
         @endif
 
 
+        @if($Announcement)
+    <div class="alert ml-3 mr-3 mt-1" role="alert" style="background-color: #FFFF; color:black;">
+      <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
+      <p>{{ $Announcement->announcement }}</p>
+      <hr>
+      <p class="mb-0 from-admin">From Admin</p>
+    </div>
+ 
+  @endif
+
+  @if ($message)
+   
+@endif
+
+
+@if($pesan_Asisten)
+    
+    <div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="
+        background-color: #FAF5E4;">
+      <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
+      <p>{{ $pesan_Asisten->pesan }}</p>
+      <hr>
+      <p class="mb-0 from-admin">From Asisten</p>
+    </div><br>
+ 
+  @endif
+
+
         <div class="row m-2">
   
   <!-- Card 1 (User Info) -->
@@ -45,6 +73,11 @@
       </div>
     </div>
   </div>
+
+
+
+
+
 
   <!-- Card 2 (Balance 1) -->
   <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
@@ -138,21 +171,6 @@
 
 
 
-@if($Announcement)
-    <div class="alert ml-3 mr-3 mt-1" role="alert" style="background-color: #FFFF; color:black;">
-      <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
-      <p>{{ $Announcement->announcement }}</p>
-      <hr>
-      <p class="mb-0 from-admin">From Admin</p>
-    </div>
- 
-  @endif
-
-  @if ($message)
-    <div class="alert m-3" style="background-color: #B3C8CF; color:black;">
-        {{ $message }}
-    </div>
-@endif
 
 
 
@@ -183,17 +201,6 @@
 </style>
 
 
-@if($pesan_Asisten)
-    
-    <div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="
-        background-color: #FAF5E4;">
-      <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
-      <p>{{ $pesan_Asisten->pesan }}</p>
-      <hr>
-      <p class="mb-0 from-admin">From Asisten</p>
-    </div><br>
- 
-  @endif
 
    <!-- Modal for Change Password -->
 <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
@@ -225,6 +232,34 @@
   </div>
 </div>
  
- 
+@if (empty($Week))
+<script>
+        Swal.fire({
+            title: "Announcement",
+            text: "Sorry, at this time the journal system cannot be used because the current week has not been activated. Please inform the assistant or admin.",  // Pesan Anda
+            icon: "warning",  // Ikon segitiga tanda seru
+            confirmButtonText: "OK",
+            customClass: {
+                title: 'swal-title-red'  // Menambahkan kelas CSS khusus pada title
+            },
+            showClass: {
+                popup: 'animate__animated animate__bounceIn'  // Animasi Bounce In saat popup muncul
+            },
+            hideClass: {
+                popup: 'animate__animated animate__bounceOut'  // Animasi Bounce Out saat popup ditutup
+            }
+        });
+    </script>
+@endif
+<head>
+    <!-- CDN Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<style>
+    .swal-title-red {
+        color: red !important;  /* Menetapkan warna merah untuk title */
+    }
+</style>
 @endsection
 

@@ -14,6 +14,10 @@ use App\Http\Controllers\Asisten\AsistenController;
 use App\Http\Controllers\Asisten\AtraineeController;
 use App\Http\Controllers\Asisten\Bible_readingController;
 use App\Http\Controllers\Asisten\BibleReadingController as AsistenBibleReadingController;
+use App\Http\Controllers\Asisten\five_timeprayerController;
+use App\Http\Controllers\Asisten\Hymns_AsistenController;
+use App\Http\Controllers\Asisten\Memorizing_Verses_AsistenController;
+use App\Http\Controllers\Asisten\Personal_Goals_AsistenController;
 use App\Models\Asisten;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -111,9 +115,19 @@ Route::get('Asisten/Prayer-Book/{nip}/Trainee', [Asisten_PrayerBookController::c
 Route::patch('/Asisten/Prayer-Book/{id}/poin', [Asisten_PrayerBookController::class, 'PBpoin'])->name('Pb-poin');
 Route::post('/Asisten/{id}/filter-prayerbook', [Asisten_PrayerBookController::class, 'filterWeek_prayer'])->name('prayerBook-week');
 Route::resource('Asisten/notif', Announcement_AsistenController::class);
-// Menggunakan method PUT untuk route ini, yang akan memanggil metode update
 Route::put('/Asisten/notif/{id}', [Announcement_AsistenController::class, 'update'])->name('h.message');
-
+Route::get('Asisten/Memorizing-verses/{nip}/trainee', [Memorizing_Verses_AsistenController::class, 'index'])->name('Memorizing_verses-Asisten');
+Route::patch('/Asisten/Memorizing-verses/{id}/poin', [Memorizing_Verses_AsistenController::class, 'MVpoin'])->name('MV-poin');
+Route::post('/Asisten/{id}/Memorizing-verses', [Memorizing_Verses_AsistenController::class, 'filterMemorizingVersesWeek'])->name('Memorizing_Verses-week');
+Route::get('Asisten/Hymns/{nip}/trainee', [Hymns_AsistenController::class, 'index'])->name('Hymns-Asisten');
+Route::patch('/Asisten/Hymns/{id}/poin', [Hymns_AsistenController::class, 'Hymnspoin'])->name('HYMNS-poin');
+Route::post('/Asisten/{id}/Hymns', [Hymns_AsistenController::class, 'filterHymnsWeek'])->name('Hymns-week');
+Route::get('Asisten/fivetimeprayer/{nip}/trainee', [five_timeprayerController::class, 'index'])->name('Fivetimeprayer-Asisten');
+Route::patch('/Asisten/fivetimeprayer/{id}/poin', [five_timeprayerController::class, 'fivetimeprayerpoin'])->name('fivetimeprayer-poin');
+Route::post('/Asisten/{id}/fivetimeprayer', [five_timeprayerController::class, 'filterfivetimeprayerWeek'])->name('fivetimeprayer-week');
+Route::get('Asisten/personal-goals/{nip}/trainee', [Personal_Goals_AsistenController::class, 'index'])->name('personalgoals-Asisten');
+Route::patch('/Asisten/personal-goals/{id}/poin', [Personal_Goals_AsistenController::class, 'personalgoalspoin'])->name('personalgoals-poin');
+Route::post('/Asisten/{id}/personal-goals', [Personal_Goals_AsistenController::class, 'filterpersonalgoalsWeek'])->name('personalgoals-week');
 
 
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bible'); // Chapter number
             $table->string('paraf'); // Specific verse number
             $table->text('semester');
+            $table->text('poin')->nullable();
             $table->text('week')->nullable();
             $table->string('catatan')->nullable();
             $table->timestamps(); // Created at and updated at

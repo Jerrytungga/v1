@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('frase'); // Specific verse number
             $table->text('semester');
             $table->text('week')->nullable();
+            $table->text('poin')->nullable();
             $table->string('catatan')->nullable();
             $table->timestamps(); // Created at and updated at
         });

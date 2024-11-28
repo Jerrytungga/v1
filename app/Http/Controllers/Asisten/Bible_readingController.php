@@ -21,7 +21,7 @@ class Bible_readingController extends Controller
         $nipAsisten = Session::get('nip');
         $namaAsisten = Session::get('nama');
         $weekly = Weekly::where('status', 'active')->first();
-        $minggu = $weekly->Week;
+        $minggu = $weekly ? $weekly->Week : null;
         $ambil_trainee = Trainee::where('nip', $nip)->first();
         $ambil_biblereading = BibleReading::where('asisten_id', $nipAsisten)
             ->where('nip', $nip)

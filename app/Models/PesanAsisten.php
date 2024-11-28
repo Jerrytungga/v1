@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PesanAsisten extends Model
 {
     use HasFactory;
-    protected $table = 'Asisten_message';
+    protected $table = 'asisten_message';
     protected $fillable = [
         'id',
         'nip',

@@ -36,7 +36,6 @@ class BibleReadingController extends Controller
         $id_asisten = Session::get('asisten');
         $asisten = Asisten::where('nip', $id_asisten)->first();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
-    
         // Ambil data BibleReading berdasarkan filter yang diterapkan, urutkan berdasarkan created_at DESC
         $entrys = $query->orderBy("created_at", "DESC")->get();
     

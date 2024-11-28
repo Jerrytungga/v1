@@ -26,31 +26,11 @@
                   @csrf
                   <div class="form-inline">
                     <label for="semester" class="mr-2 ml-2">Chosen Week :</label>
-                    <select class="form-control ml-2 col-12 col-sm-4 col-md-2" style="background-color:#001F3F; color:#FFFf;" id="chosenWeek" name="week">
-                      <option value="">Please select a week</option>
-                      <option value="PT 1" {{ old('week') == 'PT 1' ? 'selected' : '' }}>PT 1</option>
-                      <option value="PT 2" {{ old('week') == 'PT 2' ? 'selected' : '' }}>PT 2</option>
-                      <option value="PT 3" {{ old('week') == 'PT 3' ? 'selected' : '' }}>PT 3</option>
-                      <option value="WEEK 1" {{ old('week') == 'WEEK 1' ? 'selected' : '' }}>WEEK 1</option>
-                      <option value="WEEK 2" {{ old('week') == 'WEEK 2' ? 'selected' : '' }}>WEEK 2</option>
-                      <option value="WEEK 3" {{ old('week') == 'WEEK 3' ? 'selected' : '' }}>WEEK 3</option>
-                      <option value="WEEK 4" {{ old('week') == 'WEEK 4' ? 'selected' : '' }}>WEEK 4</option>
-                      <option value="WEEK 5" {{ old('week') == 'WEEK 5' ? 'selected' : '' }}>WEEK 5</option>
-                      <option value="WEEK 6" {{ old('week') == 'WEEK 6' ? 'selected' : '' }}>WEEK 6</option>
-                      <option value="WEEK 7" {{ old('week') == 'WEEK 7' ? 'selected' : '' }}>WEEK 7</option>
-                      <option value="WEEK 8" {{ old('week') == 'WEEK 8' ? 'selected' : '' }}>WEEK 8</option>
-                      <option value="WEEK 9" {{ old('week') == 'WEEK 9' ? 'selected' : '' }}>WEEK 9</option>
-                      <option value="WEEK 10" {{ old('week') == 'WEEK 10' ? 'selected' : '' }}>WEEK 10</option>
-                      <option value="WEEK 11" {{ old('week') == 'WEEK 11' ? 'selected' : '' }}>WEEK 11</option>
-                      <option value="WEEK 12" {{ old('week') == 'WEEK 12' ? 'selected' : '' }}>WEEK 12</option>
-                      <option value="WEEK 13" {{ old('week') == 'WEEK 13' ? 'selected' : '' }}>WEEK 13</option>
-                      <option value="WEEK 14" {{ old('week') == 'WEEK 14' ? 'selected' : '' }}>WEEK 14</option>
-                      <option value="WEEK 15" {{ old('week') == 'WEEK 15' ? 'selected' : '' }}>WEEK 15</option>
-                      <option value="WEEK 16" {{ old('week') == 'WEEK 16' ? 'selected' : '' }}>WEEK 16</option>
-                      <option value="WEEK 17" {{ old('week') == 'WEEK 17' ? 'selected' : '' }}>WEEK 17</option>
-                      <option value="EVALUASI 1" {{ old('week') == 'EVALUASI 1' ? 'selected' : '' }}>EVALUASI 1</option>
-                      <option value="EVALUASI 2" {{ old('week') == 'EVALUASI 2' ? 'selected' : '' }}>EVALUASI 2</option>
-                      <option value="EVALUASI 3" {{ old('week') == 'EVALUASI 3' ? 'selected' : '' }}>EVALUASI 3</option>
+                    <select class="form-control ml-2 col-12 col-sm-4 col-md-2" style="background-color:#001F3F; color:#FFF;" id="chosenWeek" name="week">
+                    <option value="">Please select a week</option>
+                    @foreach (['PT 1', 'PT 2', 'PT 3', 'WEEK 1', 'WEEK 2', 'WEEK 3', 'WEEK 4', 'WEEK 5', 'WEEK 6', 'WEEK 7', 'WEEK 8', 'WEEK 9', 'WEEK 10', 'WEEK 11', 'WEEK 12', 'WEEK 13', 'WEEK 14', 'WEEK 15', 'WEEK 16', 'WEEK 17', 'EVALUASI 1', 'EVALUASI 2', 'EVALUASI 3'] as $week)
+                    <option value="{{ $week }}" {{ old('week') == $week ? 'selected' : '' }}>{{ $week }}</option>
+                    @endforeach
                     </select>
                     <button type="submit" class="btn ml-2" style="background-color:#001F3F; color:#FFFf;">View</button>
                     <a href="{{ route('Goodland-asisten', $ambil_trainee->nip) }}" class="btn btn-danger ml-2">Reset</a>
@@ -212,9 +192,44 @@
                           <td>
                           <a href="javascript:void(0)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ipoin-{{ $data->id }}">Input Note & Poin</a>
 
-                              <!-- Modal for Input Note & Poin -->
-                              <div class="modal fade" id="ipoin-{{ $data->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                          
+                              </td>
+                        </tr>
+                      @endforeach
+                      @else
+                      <script>
+                        Swal.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: "No data available for this week.",
+                        });
+                      </script>
+                     @endif
+                    </tbody>
+
+                    <tfoot>
+                      <tr style="background-color: #F5F5F5; font-weight: bold;">
+                        <td colspan="13" class="text-left">Total Poin : <span class="badge badge-pill badge-danger">{{$totalPoin }} </span></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    @if ($ambil_goodland->isNotEmpty())
+    @foreach($ambil_goodland as $data)
+    <!-- Modal for Input Note & Poin -->
+    <div class="modal fade" id="ipoin-{{ $data->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header" style="background-color:#001F3F; color:#FFFf;">
                                       <h5 class="modal-title" id="changePasswordModalLabel">Input Note & Poin</h5>
@@ -390,36 +405,10 @@
                                   </div>
                                 </div>
                               </div>
-                              </td>
-                        </tr>
-                      @endforeach
-                      @else
-                      <script>
-                        Swal.fire({
-                          icon: "error",
-                          title: "Oops...",
-                          text: "No data available for this week.",
-                        });
-                      </script>
-                     @endif
-                    </tbody>
+                              @endforeach
+                              @endif
 
-                    <tfoot>
-                      <tr style="background-color: #F5F5F5; font-weight: bold;">
-                        <td colspan="13" class="text-left">Total Poin : <span class="badge badge-pill badge-danger">{{$totalPoin }} </span></td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
+
+
+
 @endsection

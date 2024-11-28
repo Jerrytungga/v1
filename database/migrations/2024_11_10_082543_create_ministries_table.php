@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('semester');
             $table->text('week')->nullable();
             $table->text('catatan')->nullable();
+            $table->text('poin')->nullable();
             $table->text('book_title');
             $table->text('news');
             $table->text('inspirasi');

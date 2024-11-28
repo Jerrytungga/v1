@@ -21,8 +21,11 @@ return new class extends Migration
             $table->string('script'); // Chosen script (e.g., Sidang Pemecahan Roti or Exhibition)
             $table->string('Topic'); // Book Title
             $table->text('verse'); // Bible Verse
+            $table->text('poin_verse')->nullable();
             $table->text('Truth'); // Truth
+            $table->text('poin_truth')->nullable();
             $table->text('Experience'); // Experience
+            $table->text('poin_experience')->nullable();
             $table->timestamps(); // Created at and updated at timestamps
         });
     }

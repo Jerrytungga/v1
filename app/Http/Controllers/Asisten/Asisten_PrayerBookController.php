@@ -16,7 +16,7 @@ class Asisten_PrayerBookController extends Controller
         $namaAsisten = Session::get('nama');
         $nipAsisten = Session::get('nip');
         $weekly = Weekly::where('status', 'active')->first();
-        $minggu = $weekly->Week;
+        $minggu = $weekly ? $weekly->Week : null;
         $ambil_trainee = Trainee::where('nip', $nip)->first();
         $ambil_prayer = Prayers::where('asisten_id', $nipAsisten)
             ->where('nip', $nip)

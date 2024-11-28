@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('debit');
             $table->text('credit');
             $table->text('saldo')->nullable();
+            $table->text('poin')->nullable();
             $table->timestamps(); // Created at and updated at
         });
     }

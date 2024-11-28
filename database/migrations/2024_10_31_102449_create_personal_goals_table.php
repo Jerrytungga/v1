@@ -20,6 +20,7 @@ return new class extends Migration
                 $table->string('catatan')->nullable();
                 $table->text('semester');
                 $table->timestamps(); // Created at and updated at
+                $table->text('poin')->nullable();
                 $table->text('week')->nullable();
         });
     }
