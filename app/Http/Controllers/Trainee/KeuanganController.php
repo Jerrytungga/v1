@@ -35,12 +35,14 @@ class KeuanganController extends Controller
         $noDataMessage = $entrys->isEmpty() ? 'No data found for this week' : null;
         $id_asisten = Session::get('asisten');
         $asisten = Asisten::where('nip', $id_asisten)->first();
+        $weekly = Weekly::all();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         return view('Trainee.content.keuangan.index', [
             "title" => "Financial Statements",
             'entrys' => $entrys,
             'name_asisten' => $nama_asisten,
             'noDataMessage' => $noDataMessage,
+            'weekly' => $weekly,
         ]);
     }
 
@@ -108,19 +110,6 @@ class KeuanganController extends Controller
         return redirect()->route('keuangan.index')->with('error', 'No active week found, cannot process input.');
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -218,13 +207,15 @@ class KeuanganController extends Controller
     
         // Menyediakan pesan jika tidak ada data yang ditemukan setelah filter
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-    
+        $weekly = Weekly::all();
         // Menampilkan halaman index dengan data yang sudah difilter
         return view('Trainee.content.keuangan.index', [
            "title" => "Financial Statements",
             "entrys" => $entrys, // Data agenda yang sudah difilter
             "smt" => $selectsemester, // Semester yang dipilih
-            "noDataMessage" => $noDataMessage // Pesan jika tidak ada data
+            "noDataMessage" => $noDataMessage, // Pesan jika tidak ada data
+            'week' => $selectedWeek,
+            'weekly' => $weekly,
         ]);
     }
 }

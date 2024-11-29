@@ -31,7 +31,7 @@ class PameranController extends Controller
         ->orderBy('created_at', 'DESC')
         ->take(2) // Limit to 4 records
         ->get();
-
+        $weekly = Weekly::all();
         $noDataMessage = $entrys->isEmpty() ? 'No data found for this week' : null;
         $id_asisten = Session::get('asisten');
         $asisten = Asisten::where('nip', $id_asisten)->first();
@@ -41,6 +41,7 @@ class PameranController extends Controller
             'entrys' => $entrys,
             'name_asisten' => $nama_asisten,
             'noDataMessage' => $noDataMessage,
+            'weekly' => $weekly,
         ]);
     }
 
@@ -180,13 +181,15 @@ class PameranController extends Controller
     
         // Pesan jika tidak ada data ditemukan
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-    
+        $weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Trainee.content.pameran.index', [
             'title' => 'Script',
             'entrys' => $entrys,
             'smt' => $selectsemester,
-            'noDataMessage' => $noDataMessage
+            'noDataMessage' => $noDataMessage,
+            'week' => $selectedWeek,
+            'weekly' => $weekly,
         ]);
     }
     

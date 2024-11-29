@@ -58,12 +58,19 @@ Route::group(['middleware' => ['role:trainee']], function() {
     Route::get('/Trainee', [TraineeController::class, 'home'])->name('trainee.Home');
     Route::patch('/user/{id}/change-password', [TraineeController::class, 'changePassword'])->name('change.password');
     Route::resource('Trainee/BibleReading', BibleReadingController::class);
+    Route::post('Trainee/BibleReading/gd527253', [BibleReadingController::class, 'BibleReadingFil'])->name('Bible.Filter');
     Route::resource('Trainee/MemorizingVerses', MemorizingVersesController::class);
+    Route::post('Trainee/MemorizingVerses/v-261426', [MemorizingVersesController::class, 'MemorizingVersesFil'])->name('MemorizingVerses.Filter');
     Route::resource('Trainee/Hymns', HymnsController::class);
+    Route::post('Trainee/Hymns/H-72762', [HymnsController::class, 'HymnsFil'])->name('Hymns.Filter');
     Route::resource('Trainee/fiveTimesPrayer', TimePrayerController::class);
+    Route::post('Trainee/fiveTimesPrayer/fv-826152', [TimePrayerController::class, 'fiveTimesPrayerFil'])->name('fiveTimesPrayer.Filter');
     Route::resource('Trainee/personalgoal', PersonalgoalController::class);
+    Route::post('Trainee/personalgoal/Ps-826152', [PersonalgoalController::class, 'personalgoalFil'])->name('personalgoal.Filter');
     Route::resource('Trainee/goodland', GoodlandController::class);
+    
     Route::resource('Trainee/prayerbook', PrayerbookController::class);
+    Route::post('Trainee/prayerbook/Pb-8266752', [PrayerbookController::class, 'prayerbookFil'])->name('prayerbook.Filter');
     Route::get('Trainee/prayerbook/{id}/answer', [PrayerbookController::class, 'answer'])->name('prayerbook.answer');
     Route::put('Trainee/prayerbook/{id}/answer', [PrayerbookController::class, 'save_answer'])->name('prayerbook.save_answer');
     Route::resource('Trainee/ministri', MinistriController::class);

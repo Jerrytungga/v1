@@ -25,10 +25,17 @@ class HymnsController extends Controller
         $asisten = Asisten::where('nip', $id_asisten)->first();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         $nipTrainee = Session::get('nip');
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
+        $weekly = Weekly::all();
         return view('Trainee.content.Hymns.index', [
             "title" => "My Hymns",
             'name_asisten' => $nama_asisten,
-            'entrys' => Hymns::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+            'entrys' => Hymns::where('nip', $nipTrainee)
+            ->where('week', $dapat_minggu)
+            ->orderBy('created_at', 'DESC')
+            ->get(),
+            'weekly' => $weekly,
            
         ]);
 
@@ -134,7 +141,39 @@ class HymnsController extends Controller
 
     }
 
-    
+    public function HymnsFil(Request $request)
+    {
+        // Mengambil input dari form filter (minggu dan semester)
+        $selectedWeek = $request->input('week');
+        $selectsemester = $request->input('semester');
+        $nipTrainee = Session::get('nip');
+
+        // Query dasar untuk mengambil data Fellowship
+        $query = Hymns::where('semester', $selectsemester)
+                            ->where('nip', $nipTrainee);
+
+        // Menambahkan filter untuk minggu jika ada nilai minggu yang dipilih
+        if (!empty($selectedWeek)) {
+            $query->where('week', $selectedWeek);
+        }
+
+        // Mengambil data berdasarkan filter
+        $entrys = $query->orderBy('week', 'ASC')->get();
+
+        $id_asisten = Session::get('asisten');
+        $weekly = Weekly::all();
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+        return view('Trainee.content.Hymns.index', [
+           "title" => "My Hymns",
+            "entrys" => $entrys,
+            'name_asisten' => $nama_asisten,
+            'weekly' => $weekly,
+            'smt' => $selectsemester,
+            'week' => $selectedWeek,
+        ]);
+
+    }
 
  
 }

@@ -28,12 +28,18 @@ class AgendaController extends Controller
         
         // Mengambil NIP Trainee dari session
         $nipTrainee = Session::get('nip');
-        
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
+        $weekly = Weekly::all();
         // Menampilkan data agenda Trainee berdasarkan NIP-nya, diurutkan berdasarkan waktu dibuat (created_at)
         return view('Trainee.content.Agenda.index', [
             "title" => "Agenda", // Judul halaman
             'name_asisten' => $nama_asisten, // Nama Asisten yang dikirim ke view
-            'entrys' => Agenda::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(), // Data agenda yang akan ditampilkan
+            'entrys' => Agenda::where('nip', $nipTrainee)
+            ->where('week', $dapat_minggu)
+            ->orderBy('created_at', 'DESC')
+            ->get(), // Data agenda yang akan ditampilkan
+            'weekly' => $weekly,
         ]);
     }
     
@@ -120,7 +126,10 @@ class AgendaController extends Controller
         $selectedWeek = $request->input('week');
         $selectsemester = $request->input('semester');
         $nipTrainee = Session::get('nip'); // Mengambil NIP Trainee dari session
-    
+        $id_asisten = Session::get('asisten');
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        // Jika Asisten ditemukan, ambil nama asisten, jika tidak, beri nilai default 'Asisten Not Found'
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         // Menyiapkan query dasar untuk mengambil agenda berdasarkan semester dan NIP Trainee
         $query = Agenda::where('semester', $selectsemester)
                         ->where('nip', $nipTrainee);
@@ -135,13 +144,16 @@ class AgendaController extends Controller
     
         // Menyediakan pesan jika tidak ada data yang ditemukan setelah filter
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-    
+        $weekly = Weekly::all();
         // Menampilkan halaman index dengan data yang sudah difilter
         return view('Trainee.content.Agenda.index', [
             "title" => "Agenda", // Judul halaman
             "entrys" => $entrys, // Data agenda yang sudah difilter
             "smt" => $selectsemester, // Semester yang dipilih
-            "noDataMessage" => $noDataMessage // Pesan jika tidak ada data
+            "noDataMessage" => $noDataMessage, // Pesan jika tidak ada data
+            'weekly' => $weekly,
+            'week' => $selectedWeek,
+            'name_asisten' => $nama_asisten, // Nama Asisten yang dikirim ke view
         ]);
     }
     

@@ -25,10 +25,17 @@ class PersonalgoalController extends Controller
         $id_asisten = Session::get('asisten');
         $asisten = Asisten::where('nip', $id_asisten)->first();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+        $weekly = Weekly::all();
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
         return view('Trainee.content.personalgoal.index', [
             "title" => "Personal Goals",
             'name_asisten' => $nama_asisten,
-            'entrys' => Personalgoals::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+            'weekly' => $weekly,
+            'entrys' => Personalgoals::where('nip', $nipTrainee)
+            ->where('week', $dapat_minggu)
+            ->orderBy('created_at', 'DESC')
+            ->get(),
             'tasks' => Taskpersonalgoal::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
         ]);
        
@@ -110,5 +117,42 @@ class PersonalgoalController extends Controller
         return redirect()->route('personalgoal.index')->with('success', 'Personal Goals updated successfully!');
         
     }
+
+    public function personalgoalFil(Request $request)
+    {
+        // Mengambil input dari form filter (minggu dan semester)
+        $selectedWeek = $request->input('week');
+        $selectsemester = $request->input('semester');
+        $nipTrainee = Session::get('nip');
+
+        // Query dasar untuk mengambil data Fellowship
+        $query = Personalgoals::where('semester', $selectsemester)
+                            ->where('nip', $nipTrainee);
+
+        // Menambahkan filter untuk minggu jika ada nilai minggu yang dipilih
+        if (!empty($selectedWeek)) {
+            $query->where('week', $selectedWeek);
+        }
+
+        // Mengambil data berdasarkan filter
+        $entrys = $query->orderBy('week', 'ASC')->get();
+
+        $id_asisten = Session::get('asisten');
+        $weekly = Weekly::all();
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+        return view('Trainee.content.personalgoal.index', [
+            "title" => "Personal Goals",
+            "entrys" => $entrys,
+            'name_asisten' => $nama_asisten,
+            'weekly' => $weekly,
+            'smt' => $selectsemester,
+            'week' => $selectedWeek,
+            'tasks' => Taskpersonalgoal::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+            
+        ]);
+
+    }
+
 
 }

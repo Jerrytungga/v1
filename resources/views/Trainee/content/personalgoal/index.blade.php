@@ -22,11 +22,45 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
+           
+            <form action="{{ route('personalgoal.Filter') }}" method="POST">
+              @csrf
+              <div class="form-inline flex-wrap">
+                <label for="semester" class="mr-2 ml-2">Chosen Semester & Week :</label>
+
+                <!-- Semester Dropdown -->
+                <select class="form-control col-12 col-md-2 mr-2 mb-2 bg-primary" required id="semester" name="semester">
+                  <option value="">Please select a semester</option>
+                  @foreach([1 => 'Semester 1', 2 => 'Semester 2', 3 => 'Semester 3', 4 => 'Semester 4'] as $value => $label)
+                    <option value="{{ $value }}" {{ old('semester') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                  @endforeach
+                </select>
+
+                <!-- Week Dropdown -->
+                <select name="week" class="form-control col-12 col-md-2 mr-2 mb-2 ml-md-2 bg-primary"  required>
+                <option value="">Please select a week</option>
+                  @foreach ($weekly as $data)
+                    <option value="{{ $data->Week }}">{{ $data->Week }}</option>
+                  @endforeach
+                </select>
+
+                <!-- Submit and Reset Buttons -->
+                <button type="submit" class="btn btn-primary col-12 mr-2 col-md-auto mb-2">View</button>
+                <a href="{{ route('personalgoal.index') }}" class="btn btn-danger col-12 col-md-auto mb-2">Reset</a>
+              </div>
+            </form>
             <a href="{{route('personalgoal.create')}}" class="btn btn-success">Input Personal Goals</a>
-            <!-- <a href="" class="btn btn-info">View Personal Goals Task</a> -->
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
             View Personal Goals Task
             </button>
+            @if (!empty($smt))
+              <div class="alert m-2 alert-warning alert-dismissible fade show" role="alert">
+              <strong>Semester {{$smt}} & {{$week}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
             </div>
         
               <!-- /.card-header -->

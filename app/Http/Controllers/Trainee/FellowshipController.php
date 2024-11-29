@@ -43,13 +43,14 @@ public function index()
 
     // Menampilkan pesan jika tidak ada data untuk minggu ini
     $noDataMessage = $entrys->isEmpty() ? 'No data found for this week' : null;
-
+    $weekly = Weekly::all();
     // Mengirimkan data ke view
     return view('Trainee.content.fellowship.index', [
         "title" => "Fellowship",
         'entrys' => $entrys,
         'name_asisten' => $nama_asisten,
-        'noDataMessage' => $noDataMessage, // Mengirimkan pesan jika tidak ada data
+        'noDataMessage' => $noDataMessage, 
+        'weekly' => $weekly,// Mengirimkan pesan jika tidak ada data
     ]);
 }
 
@@ -191,13 +192,15 @@ public function filterWeek(Request $request)
 
     // Pesan jika tidak ada data ditemukan
     $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-
+    $weekly = Weekly::all();
     // Mengirimkan data ke view setelah difilter
     return view('Trainee.content.fellowship.index', [
         "title" => "Fellowship",
         'entrys' => $entrys,
         'smt' => $selectsemester,
-        'noDataMessage' => $noDataMessage, // Mengirimkan pesan jika tidak ada data ditemukan
+        'noDataMessage' => $noDataMessage, 
+        'weekly' => $weekly,
+        'week' => $selectedWeek,// Mengirimkan pesan jika tidak ada data ditemukan
     ]);
 }
 

@@ -25,10 +25,17 @@ class PrayerbookController extends Controller
         $asisten = Asisten::where('nip', $id_asisten)->first();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         $nipTrainee = Session::get('nip');
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
+        $weekly = Weekly::all();
         return view("Trainee.content.prayerbook.index", [
             "title" => "Prayer Book",
             'name_asisten' => $nama_asisten,
-            'entrys' => Prayers::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+            'entrys' => Prayers::where('nip', $nipTrainee)
+            ->orderBy('created_at', 'DESC')
+            ->where('week', $dapat_minggu)
+            ->get(),
+            'weekly' => $weekly,
         ]);
     }
 
@@ -159,6 +166,40 @@ class PrayerbookController extends Controller
 
                 // Redirect to the prayerbook index or show page with a success message
         return redirect()->route('prayerbook.index')->with('success', 'Prayer entry updated successfully!');
+
+    }
+
+    public function prayerbookFil(Request $request)
+    {
+        // Mengambil input dari form filter (minggu dan semester)
+        $selectedWeek = $request->input('week');
+        $selectsemester = $request->input('semester');
+        $nipTrainee = Session::get('nip');
+
+        // Query dasar untuk mengambil data Fellowship
+        $query = Prayers::where('semester', $selectsemester)
+                            ->where('nip', $nipTrainee);
+
+        // Menambahkan filter untuk minggu jika ada nilai minggu yang dipilih
+        if (!empty($selectedWeek)) {
+            $query->where('week', $selectedWeek);
+        }
+
+        // Mengambil data berdasarkan filter
+        $entrys = $query->orderBy('week', 'ASC')->get();
+
+        $id_asisten = Session::get('asisten');
+        $weekly = Weekly::all();
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+        return view('Trainee.content.prayerbook.index', [
+            "title" => "Prayer Book",
+            "entrys" => $entrys,
+            'name_asisten' => $nama_asisten,
+            'weekly' => $weekly,
+            'smt' => $selectsemester,
+            'week' => $selectedWeek,
+        ]);
 
     }
 

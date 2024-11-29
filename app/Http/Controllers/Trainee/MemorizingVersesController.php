@@ -20,14 +20,25 @@ class MemorizingVersesController extends Controller
         //halaman utama Memorizing Verse
         $id_asisten = Session::get('asisten');
         $nipTrainee = Session::get('nip');
+        $weekly = Weekly::all();
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
         $asisten = Asisten::where('nip', $id_asisten)->first();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         return view('Trainee.content.MemorizingVerses.index', [
             "title" => "Memorizing Verses",
-            'entrys' => MemorizingVerses::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+            'entrys' => MemorizingVerses::where('nip', $nipTrainee)
+            ->where('week', $dapat_minggu)
+            ->orderBy('created_at', 'DESC')
+            ->get(),
             'name_asisten' => $nama_asisten,
+            'weekly' => $weekly,
         ]);
     }
+
+
+
+
 
     public function create()
     {
@@ -109,5 +120,40 @@ class MemorizingVersesController extends Controller
     // Redirect ke halaman index dengan pesan sukses
     return redirect()->route('MemorizingVerses.index')->with('success', 'Memorizing Verses updated successfully!');
     }
+
+        public function MemorizingVersesFil(Request $request)
+    {
+        // Mengambil input dari form filter (minggu dan semester)
+        $selectedWeek = $request->input('week');
+        $selectsemester = $request->input('semester');
+        $nipTrainee = Session::get('nip');
+
+        // Query dasar untuk mengambil data Fellowship
+        $query = MemorizingVerses::where('semester', $selectsemester)
+                            ->where('nip', $nipTrainee);
+
+        // Menambahkan filter untuk minggu jika ada nilai minggu yang dipilih
+        if (!empty($selectedWeek)) {
+            $query->where('week', $selectedWeek);
+        }
+
+        // Mengambil data berdasarkan filter
+        $entrys = $query->orderBy('week', 'ASC')->get();
+
+        $id_asisten = Session::get('asisten');
+        $weekly = Weekly::all();
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+        return view('Trainee.content.MemorizingVerses.index', [
+            "title" => "Memorizing Verses",
+            "entrys" => $entrys,
+            'name_asisten' => $nama_asisten,
+            'weekly' => $weekly,
+            'smt' => $selectsemester,
+            'week' => $selectedWeek,
+        ]);
+
+    }
+
 
 }

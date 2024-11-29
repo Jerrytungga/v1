@@ -40,11 +40,13 @@ class MinistriController extends Controller
         $id_asisten = Session::get('asisten');
         $asisten = Asisten::where('nip', $id_asisten)->first();
         $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
+        $weekly = Weekly::all();
         return view("Trainee.content.ministri.index", [
             "title" => "Summary Of Ministry",
             'entrys' => $entrys,
             'name_asisten' => $nama_asisten,
             'noDataMessage' => $noDataMessage, // Pass the no data message
+            'weekly' => $weekly,
         ]);
     }
 
@@ -175,13 +177,15 @@ class MinistriController extends Controller
     
         // Pesan jika tidak ada data ditemukan
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
-    
+        $weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Trainee.content.ministri.index', [
             "title" => "Summary Of Ministry",
             'entrys' => $entrys,
             'smt' => $selectsemester,
-            'noDataMessage' => $noDataMessage
+            'noDataMessage' => $noDataMessage,
+            'weekly' => $weekly,
+            'week' => $selectedWeek,
         ]);
     }
     
