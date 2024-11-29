@@ -24,11 +24,11 @@ class KeuanganController extends Controller
         }
         //menampilkan data awal
         $nipTrainee = Session::get('nip');
-        $startOfWeek = Carbon::now()->startOfWeek(); // Start of the current week (Monday)
-        $endOfWeek = Carbon::now()->endOfWeek(); // End of the current week (Sunday)
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
         
         $entrys = Keuangan::where('nip', $nipTrainee)
-            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->where('week', $dapat_minggu)
             ->orderBy('created_at', 'DESC') // Order by created_at in ascending order
             ->get();
         
@@ -201,10 +201,11 @@ class KeuanganController extends Controller
         if (!empty($selectedWeek)) {
             $query->where('week', $selectedWeek);
         }
-    
+        $id_asisten = Session::get('asisten');
         // Ambil data agenda yang sudah difilter dan urutkan berdasarkan minggu
         $entrys = $query->orderBy('week', 'ASC')->get();
-    
+        $asisten = Asisten::where('nip', $id_asisten)->first();
+        $nama_asisten = $asisten ? $asisten->name : 'Asisten Not Found';
         // Menyediakan pesan jika tidak ada data yang ditemukan setelah filter
         $noDataMessage = $entrys->isEmpty() ? 'No data found for the selected week' : null;
         $weekly = Weekly::all();
@@ -216,6 +217,7 @@ class KeuanganController extends Controller
             "noDataMessage" => $noDataMessage, // Pesan jika tidak ada data
             'week' => $selectedWeek,
             'weekly' => $weekly,
+            'name_asisten' => $nama_asisten,
         ]);
     }
 }

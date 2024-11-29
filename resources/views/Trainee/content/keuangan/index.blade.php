@@ -100,11 +100,11 @@
                 <td>Rp {{ number_format($entrys->sum('debit'), 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($entrys->sum('credit'), 0, ',', '.') }}</td>
                 <td>Rp 
-                @if($entrys->isNotEmpty()) 
-                {{ number_format($entrys->last()->saldo, 0, ',', '.') }}
-                @else
-                  0
-                @endif
+                  @if($entrys->isNotEmpty()) 
+                    {{ number_format($entrys->last()->saldo, 0, ',', '.') }}
+                  @else
+                    {{ number_format(0, 0, ',', '.') }}
+                  @endif
                 </td>
                 <td>
                

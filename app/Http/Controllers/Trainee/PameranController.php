@@ -24,10 +24,11 @@ class PameranController extends Controller
 
         //menampilkan data awal
         $nipTrainee = Session::get('nip');
-        $startOfWeek = Carbon::now()->startOfWeek(); // Start of the current week (Monday)
-        $endOfWeek = Carbon::now()->endOfWeek(); // End of the current week (Sunday)
+        $ambil_minggu = Weekly::where('status', 'active')->first();
+        $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
+        
         $entrys = Script::where('nip', $nipTrainee)
-        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+        ->where('week', $dapat_minggu)
         ->orderBy('created_at', 'DESC')
         ->take(2) // Limit to 4 records
         ->get();

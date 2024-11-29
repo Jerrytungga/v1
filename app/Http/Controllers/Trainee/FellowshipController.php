@@ -21,11 +21,9 @@ public function index()
     if (!Session::has('role') || Session::get('role') !== 'trainee') {
         return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
     }
-
-    // Menentukan rentang waktu minggu ini
-    $startOfWeek = Carbon::now()->startOfWeek(); // Mulai minggu ini (Senin)
-    $endOfWeek = Carbon::now()->endOfWeek(); // Akhir minggu ini (Minggu)
-
+    $ambil_minggu = Weekly::where('status', 'active')->first();
+    $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
+    
     // Mengambil data dari sesi (nip trainee dan id asisten)
     $nipTrainee = Session::get('nip');
     $id_asisten = Session::get('asisten');
@@ -36,7 +34,7 @@ public function index()
 
     // Mengambil data Fellowship berdasarkan NIP trainee dan rentang waktu minggu ini
     $entrys = Fellowship::where('nip', $nipTrainee)
-        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+        ->where('week', $dapat_minggu)
         ->orderBy('created_at', 'DESC')
         ->take(4) // Batasi hanya 4 data
         ->get();
