@@ -55,7 +55,7 @@
                         @endif
                         </td>
                         <td>
-                        @if (\Carbon\Carbon::parse($hymns->created_at)->diffInDays() < 1)
+                        @if($hymns && \Carbon\Carbon::parse($hymns->created_at)->isToday())
                             <a href="{{ route('Hymns.edit', $hymns->id) }}" class="btn btn-warning">Edit</a>
                         @endif
                         </td>

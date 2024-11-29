@@ -65,9 +65,11 @@
                         </div>
                       @endif
 
+                      @if($data && \Carbon\Carbon::parse($data->created_at)->isToday())
                       <div class="btn-group m-2" role="group">
                       <a href="{{ route('prayerbook.edit', $data->id) }}" class="btn btn-warning">Edit</a>
                      </div>
+                     @endif
                       </td>
                   </tr>
                     @endforeach

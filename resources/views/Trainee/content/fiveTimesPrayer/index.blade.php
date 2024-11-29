@@ -43,7 +43,7 @@
                         @endif
                       </td>
                       <td class="col-2">
-                          @if (\Carbon\Carbon::parse($data->created_at)->diffInDays() < 1)
+                      @if($data && \Carbon\Carbon::parse($data->created_at)->isToday())
                               <a href="{{ route('fiveTimesPrayer.edit', $data->id) }}" class="btn btn-warning">Edit</a>
                           @endif
                       </td>

@@ -28,10 +28,10 @@
 
             <!-- Tambahkan kelas mr-2 -->
             <a href="{{route('goodland.create')}}" class="btn btn-light">Input Good Land</a>
-            @if($entry)
-            <a href="{{route('goodland.edit', $entry->id)}}" class="btn ml-2 btn-warning">Edit Good Land</a>
-            @else
+            @if($entry && \Carbon\Carbon::parse($entry->created_at)->isToday())
+                <a href="{{ route('goodland.edit', $entry->id) }}" class="btn ml-2 btn-warning">Edit Good Land</a>
             @endif
+
           </div>
 
         </div>

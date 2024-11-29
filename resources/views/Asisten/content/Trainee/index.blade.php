@@ -55,12 +55,12 @@
                         <a href="{{ route('Prayerbook-asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Prayer Book</a>
                       </td>
                       <td>
-                        <!-- <a href="" class="btn btn-sm btn-info m-1">Summary Of Ministry</a>
-                        <a href="" class="btn btn-sm btn-info m-1">Fellowship</a>
-                        <a href="" class="btn btn-sm btn-info m-1">Script Ts & Exhibition</a>
-                        <a href="" class="btn btn-sm btn-info m-1">Agenda</a>
-                        <a href="" class="btn btn-sm btn-info m-1">Financial Statements</a>
-                        <a href="" class="btn btn-sm btn-info m-1">Journal Report</a> -->
+                        <a href="{{ route('Ministry-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Summary Of Ministry</a>
+                        <a href="{{ route('Fellowship-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Fellowship</a>
+                        <a href="{{ route('Script-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Script Ts & Exhibition</a>
+                        <a href="{{ route('Agenda-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Agenda</a>
+                        <a href="{{ route('Financial-Asisten', $data->nip) }}" class="btn btn-sm btn-info m-1">Financial Statements</a>
+                        <!-- <a href="" class="btn btn-sm btn-info m-1">Journal Report</a> -->
                       </td>
                   
                     </tr>

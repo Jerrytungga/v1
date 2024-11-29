@@ -77,9 +77,11 @@
                   <input type="text" disabled value="Name : {{ $data->asisten_trainer }}" >
                   <input type="text" disabled class="col-5" value="Topic : {{ $data->topic }}" >
                   <input type="text" disabled class="col-2" value="Date : {{ $data->created_at }}">
-                  <input type="text" disabled class="col-1" value="Week : {{ $data->week }}" > 
+                  <input type="text" disabled class="col-1" value="Week : {{ $data->week }}" >
+                  @if($data && \Carbon\Carbon::parse($data->created_at)->isToday()) 
                   @if (empty($data->catatan))
                  <a href="{{route('fellowship.edit', $data->id)}}" class="btn btn-sm mb-1 btn-warning">Edit</a>
+                  @endif
                   @endif
                   <br>
                   <textarea disabled id="" cols="30" rows="5" class="form-control mt-1">Note : 

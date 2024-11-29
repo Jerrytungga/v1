@@ -99,9 +99,11 @@
                   <input type="text" disabled class="col-1" value="News : {{ $data->news }}">
                   <input type="text" disabled class="col-2" value="Date : {{ $data->created_at }}">
                   <input type="text" disabled class="col-1" value="Week : {{ $data->week }}"> 
-                  <input type="text" disabled class="col-2" value="Category : {{ $data->category }}"> 
+                  <input type="text" disabled class="col-2" value="Category : {{ $data->category }}">
+                  @if($data && \Carbon\Carbon::parse($data->created_at)->isToday()) 
                   @if (empty($data->catatan))
                   <a href="{{route('ministri.edit', $data->id)}}" class="btn btn-sm mb-1 btn-warning">Edit</a>
+                  @endif
                   @endif
                   <br>
                   <textarea disabled id="" cols="30" rows="10" class="form-control mt-1" style="text-align: left;">Light/inspiration : 

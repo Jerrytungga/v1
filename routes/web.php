@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\PoinController;
 use App\Http\Controllers\Admin\WeeklyController;
+use App\Http\Controllers\Asisten\Agenda_AsistenController;
 use App\Http\Controllers\Asisten\Announcement_AsistenController;
 use App\Http\Controllers\Asisten\Asisten_BibleReadingController;
 use App\Http\Controllers\Asisten\Asisten_GoodlandController;
@@ -14,10 +15,14 @@ use App\Http\Controllers\Asisten\AsistenController;
 use App\Http\Controllers\Asisten\AtraineeController;
 use App\Http\Controllers\Asisten\Bible_readingController;
 use App\Http\Controllers\Asisten\BibleReadingController as AsistenBibleReadingController;
+use App\Http\Controllers\Asisten\Fellowship_AsistenController;
+use App\Http\Controllers\Asisten\Financial_AsistenController;
 use App\Http\Controllers\Asisten\five_timeprayerController;
 use App\Http\Controllers\Asisten\Hymns_AsistenController;
 use App\Http\Controllers\Asisten\Memorizing_Verses_AsistenController;
 use App\Http\Controllers\Asisten\Personal_Goals_AsistenController;
+use App\Http\Controllers\Asisten\Script_AsistenController;
+use App\Http\Controllers\Asisten\Summery_of_MinistryController;
 use App\Models\Asisten;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -128,9 +133,22 @@ Route::post('/Asisten/{id}/fivetimeprayer', [five_timeprayerController::class, '
 Route::get('Asisten/personal-goals/{nip}/trainee', [Personal_Goals_AsistenController::class, 'index'])->name('personalgoals-Asisten');
 Route::patch('/Asisten/personal-goals/{id}/poin', [Personal_Goals_AsistenController::class, 'personalgoalspoin'])->name('personalgoals-poin');
 Route::post('/Asisten/{id}/personal-goals', [Personal_Goals_AsistenController::class, 'filterpersonalgoalsWeek'])->name('personalgoals-week');
+Route::get('Asisten/Summery_of_Ministry/{nip}/trainee', [Summery_of_MinistryController::class, 'index'])->name('Ministry-Asisten');
+Route::patch('/Asisten/Summery_of_Ministry/{id}/poin', [Summery_of_MinistryController::class, 'Summery_of_Ministrypoin'])->name('Summery_of_Ministry-poin');
+Route::post('/Asisten/{id}/Summery_of_Ministry', [Summery_of_MinistryController::class, 'Summery_of_MinistryWeek'])->name('personalgoals-week');
+Route::get('Asisten/Fellowship/{nip}/trainee', [Fellowship_AsistenController::class, 'index'])->name('Fellowship-Asisten');
+Route::patch('/Asisten/Fellowship/{id}/poin', [Fellowship_AsistenController::class, 'FellowshipAsistenpoin'])->name('Fellowship-poin');
+Route::post('/Asisten/{id}/Fellowship', [Fellowship_AsistenController::class, 'FellowshipAsistenWeek'])->name('personalgoals-week');
+Route::get('Asisten/Script/{nip}/trainee', [Script_AsistenController::class, 'index'])->name('Script-Asisten');
+Route::patch('/Asisten/Script/{id}/poin', [Script_AsistenController::class, 'Scriptpoin'])->name('Script-poin');
+Route::post('/Asisten/{id}/Script', [Script_AsistenController::class, 'ScriptWeek'])->name('Script-week');
+Route::get('Asisten/Agenda/{nip}/trainee', [Agenda_AsistenController::class, 'index'])->name('Agenda-Asisten');
+Route::patch('/Asisten/Agenda/{id}/poin', [Agenda_AsistenController::class, 'Agendapoin'])->name('Agenda-poin');
+Route::post('/Asisten/{id}/Agenda', [Agenda_AsistenController::class, 'AgendaWeek'])->name('Agenda-week');
 
-
-
+Route::get('Asisten/Financial/{nip}/trainee', [Financial_AsistenController::class, 'index'])->name('Financial-Asisten');
+Route::patch('/Asisten/Financial/{id}/poin', [Financial_AsistenController::class, 'Agendapoin'])->name('Financial-poin');
+Route::post('/Asisten/{id}/Financial', [Financial_AsistenController::class, 'AgendaWeek'])->name('Financial-week');
 
 
 

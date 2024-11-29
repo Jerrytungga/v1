@@ -51,7 +51,7 @@
                   {{ $trainee ? $trainee->name : 'No trainee' }}
                   </td>
                   <td>
-                  @if (\Carbon\Carbon::parse($memorizingverses->created_at)->diffInDays() < 1)
+                  @if($memorizingverses && \Carbon\Carbon::parse($memorizingverses->created_at)->isToday())
                             <a href="{{ route('MemorizingVerses.edit', $memorizingverses->id) }}" class="btn btn-warning">Edit</a>
                         @endif
                   </td>

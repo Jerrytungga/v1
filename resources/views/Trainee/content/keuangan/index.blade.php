@@ -110,7 +110,7 @@
                 <td>Rp {{ number_format($data->credit, 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
                <td>
-               @if (\Carbon\Carbon::parse($data->created_at)->diffInDays() < 1)
+               @if($data && \Carbon\Carbon::parse($data->created_at)->isToday())
                             <a href="{{ route('keuangan.edit', $data->id) }}" class="btn btn-warning">Edit</a>
                 @endif
                </td>

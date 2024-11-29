@@ -66,7 +66,7 @@
                         @endif
                         </td>
                         <td>
-                        @if (\Carbon\Carbon::parse($bible->created_at)->diffInDays() < 1)
+                        @if($bible && \Carbon\Carbon::parse($bible->created_at)->isToday())
                             <a href="{{ route('BibleReading.edit', $bible->id) }}" class="btn btn-warning">Edit</a>
                         @endif
                         </td>

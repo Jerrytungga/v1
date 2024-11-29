@@ -99,10 +99,17 @@
                 @foreach($entrys as $data)
                   <tr>
                     <td>{{ $data->created_at }}</td>
-                    <td>{{ $data->agenda }}</td>
+                    <td>{{ $data->agenda }}
+                    @if (!empty($data->catatan))
+                    <blockquote class="blockquote" style="background-color: #FFF5E4;">
+                    <p class="mb-0 text-danger">{{ $data->catatan }}</p>
+                     <footer class="blockquote-footer">Asisten {{ $name_asisten }}</footer>
+                    </blockquote>
+                    @endif
+                    </td>
                     <td>{{ $data->week }}</td>
                     <td>
-                      @if (\Carbon\Carbon::parse($data->created_at)->diffInDays() < 1)
+                    @if($data && \Carbon\Carbon::parse($data->created_at)->isToday())
                         <!-- Button Edit hanya tampil jika agenda baru (kurang dari 1 hari) -->
                         <a href="{{ route('agenda.edit', $data->id) }}" class="btn btn-warning">Edit</a>
                       @endif
