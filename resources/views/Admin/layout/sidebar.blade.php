@@ -45,32 +45,46 @@
 
 
           <li class="nav-header rounded"style="
-    background-color: #EAD8B1;">DATA</li>
+    background-color: #EAD8B1;">SETTINGS</li>
           <li class="nav-item">
             <a href="{{route('weekly.index')}}" class="nav-link {{ ($title == "Week") ? 'active bg-info' :'' }}">
               <p class="text-light">
-                Weekly
+                WEEKLY
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{route('report.w')}}" class="nav-link {{ ($title == "report") ? 'active bg-info' :'' }}">
               <p class="text-light">
-                View Report Jurnal
+               VIEW REPORT JOURNAL
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{route('poin.index')}}" class="nav-link {{ ($title == "Target") ? 'active bg-info' :'' }}">
               <p class="text-light">
-                Target Poin
+               TARGET POINTS
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{route('Announcement.index')}}" class="nav-link {{ ($title == "Announcement") ? 'active bg-info' :'' }}">
               <p class="text-light">
-              Announcement
+              ANNOUNCEMENT
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('batch.index')}}" class="nav-link {{ ($title == "Batch") ? 'active bg-info' :'' }}">
+              <p class="text-light">
+              BATCH
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('item.jurnal')}}" class="nav-link {{ ($title == "jurnal") ? 'active bg-info' :'' }}">
+              <p class="text-light">
+              ITEM JOURNAL
               </p>
             </a>
           </li>

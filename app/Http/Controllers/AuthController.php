@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Batch;
 use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Trainee;
@@ -27,9 +28,10 @@ class AuthController extends Controller
     {
         // Ambil data dari tabel asisten
         $asistens = Asisten::all();
+        $batch = Batch::all();
 
         // Kirim data ke view dengan nama yang konsisten
-        return view('auth.register', compact('asistens'));
+        return view('auth.register', compact('asistens', 'batch'));
     }
 
 

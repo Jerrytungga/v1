@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Poinjurnal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class PoinController extends Controller
@@ -41,57 +42,62 @@ class PoinController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi data input
-        $request->validate([
-            'semester' => 'required|string',
-            'bible' => 'required|string',
-            'Memorizing' => 'required|string',
-            'Hymns' => 'required|string',
-            'TimesPrayer' => 'required|string',
-            'pgoals' => 'required|string',
-            'tp' => 'required|string',
-            'bprayer' => 'required|string',
-            'sministry' => 'required|string',
-            'fellowship' => 'required|string',
-            'script' => 'required|string',
-            'agenda' => 'required|string',
+      
+         // Validasi data input
+         $request->validate([
+            'semester' => 'required|string', // Validasi semester
+            'bible' => 'required|integer', // Poin Bible, pastikan integer
+            'Memorizing' => 'required|integer', // Poin Memorizing, pastikan integer
+            'Hymns' => 'required|integer', // Poin Hymns, pastikan integer
+            'TimesPrayer' => 'required|integer', // Poin TimesPrayer, pastikan integer
+            'pgoals' => 'required|integer', // Poin Personal Goals, pastikan integer
+            'tp' => 'required|integer', // Poin TP, pastikan integer
+            'bprayer' => 'required|integer', // Poin Prayer Book, pastikan integer
+            'sministry' => 'required|integer', // Poin Ministry, pastikan integer
+            'fellowship' => 'required|integer', // Poin Fellowship, pastikan integer
+            'script' => 'required|integer', // Poin Script, pastikan integer
+            'agenda' => 'required|integer', // Poin Agenda, pastikan integer
+            'keuangan' => 'required|integer', // Poin Keuangan, pastikan integer
         ]);
     
-        // Cek apakah sudah ada record dengan semester yang sama
-         $existingRecord = Poinjurnal::where('semester', $request->semester)->first();
+        // Menghitung total poin
+        $total = $request->bible + $request->Memorizing + $request->Hymns + 
+                $request->TimesPrayer + $request->pgoals + $request->tp + 
+                $request->bprayer + $request->sministry + $request->fellowship + 
+                $request->script + $request->agenda + $request->keuangan;
 
+        // Cek apakah sudah ada record dengan semester yang sama
+        $existingRecord = Poinjurnal::where('semester', $request->semester)->first();
+    
         // Jika ada, tampilkan pesan error
         if ($existingRecord) {
             return redirect()->route('poin.index')->with('error', 'Record with the same semester already exists!');
         }
-
+    
         // Cek jumlah total record di Poinjurnal
         $existingRecords = Poinjurnal::count();
-
+    
         // Batasi hanya 4 record secara total
         if ($existingRecords >= 4) {
             return redirect()->route('poin.index')->with('error', 'You can only input up to 4 records.');
         }
     
-        // Hitung total dari semua kolom
-        $total = $request->bible + $request->Memorizing + $request->Hymns + $request->TimesPrayer + $request->pgoals + $request->tp + $request->bprayer + $request->sministry + $request->fellowship + $request->script + $request->agenda;
-    
-        // Simpan data ke dalam database
-        Poinjurnal::create([
-            'semester' => $request->semester,
-            'bible' => $request->bible,
-            'memorizing_bible' => $request->Memorizing,
-            'hymns' => $request->Hymns,
-            'five_times_prayer' => $request->TimesPrayer,
-            'personal_goals' => $request->pgoals,
-            'good_land' => $request->tp,
-            'prayer_book' => $request->bprayer,
-            'summary_of_ministry' => $request->sministry,
-            'fellowship' => $request->fellowship,
-            'script_ts_exhibition' => $request->script,
-            'agenda' => $request->agenda,
-            'total' => $total,
-        ]);
+         Poinjurnal::create([
+        'semester' => $request->semester,
+        'bible' => $request->bible,
+        'memorizing_bible' => $request->Memorizing,
+        'hymns' => $request->Hymns,
+        'five_times_prayer' => $request->TimesPrayer,
+        'personal_goals' => $request->pgoals,
+        'good_land' => $request->tp,
+        'prayer_book' => $request->bprayer,
+        'summary_of_ministry' => $request->sministry,
+        'fellowship' => $request->fellowship,
+        'script_ts_exhibition' => $request->script,
+        'agenda' => $request->agenda,
+        'finance' => $request->keuangan,
+        'total' => $total, // Menyimpan total poin
+    ]);
     
         // Redirect back with success message
         return redirect()->route('poin.index')->with('success', 'Input point successfully!');
@@ -129,6 +135,7 @@ class PoinController extends Controller
             'fellowship' => 'required|string',
             'script' => 'required|string',
             'agenda' => 'required|string',
+            'keuangan' => 'required|string',
         ]);
 
        
@@ -139,6 +146,7 @@ class PoinController extends Controller
     
         // Update the data with the new input values
       
+   
         $data->bible = $request->bible;
         $data->memorizing_bible = $request->Memorizing;
         $data->hymns = $request->Hymns;
@@ -150,9 +158,10 @@ class PoinController extends Controller
         $data->fellowship = $request->fellowship;
         $data->script_ts_exhibition = $request->script;
         $data->agenda = $request->agenda;
+        $data->finance = $request->keuangan;
     
         // Calculate the total points
-        $total = $request->bible + $request->Memorizing + $request->Hymns + $request->TimesPrayer + $request->pgoals + $request->tp + $request->bprayer + $request->sministry + $request->fellowship + $request->script + $request->agenda;
+        $total = $request->bible + $request->Memorizing + $request->Hymns + $request->TimesPrayer + $request->pgoals + $request->tp + $request->bprayer + $request->sministry + $request->fellowship + $request->script + $request->agenda + $request->keuangan;
         $data->total = $total;
     
         // Save the updated data to the database

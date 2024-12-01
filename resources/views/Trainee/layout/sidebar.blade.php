@@ -23,131 +23,64 @@
           </a>
         </li>
         
-        <!-- DAILY Section -->
-        <li class="nav-header bg-gradient-success rounded text-white">DAILY</li>
+        @php
+          $activeDailyItems = \App\Models\Itemjurnal::where('type', 'daily')->where('status', 'active')->get();
+        @endphp
+            <!-- Check if there are any active daily items -->
+        @if($activeDailyItems->isNotEmpty())
+          <li class="nav-header bg-gradient-success rounded text-white">DAILY</li>
+          
+          <!-- Loop through each active daily item -->
+          @foreach($activeDailyItems as $menu)
+            <li class="nav-item">
+              <a href="{{ route($menu->route) }}" class="nav-link {{ (request()->is(str_replace('.', '/', $menu->route))) ? 'active' : '' }}">
+                <i class="{{ $menu->icon }} nav-icon"></i>
+                <p>{{ $menu->name }}</p>
+              </a>
+            </li>
+          @endforeach
+        @endif
 
-        <li class="nav-item">
-          <a href="{{ route('BibleReading.index') }}" class="nav-link {{ ($title == "Bible Reading") ? 'active' :'' }}">
-            <i class="fas fa-book-reader nav-icon"></i>
-            <p>
-              Bible Reading
-            </p>
-          </a>
-        </li>
 
-        <li class="nav-item">
-          <a href="{{ route('MemorizingVerses.index') }}" class="nav-link {{ ($title == "Memorizing Verses") ? 'active' :'' }}">
-            <i class="fas fa-book nav-icon"></i>
-            <p>
-              Memorizing Verses
-            </p>
-          </a>
-        </li>
 
-        <li class="nav-item">
-          <a href="{{ route('Hymns.index') }}" class="nav-link {{ ($title == "My Hymns") ? 'active' :'' }}">
-            <i class="fas fa-music nav-icon"></i>
-            <p>
-              Hymns
-            </p>
-          </a>
-        </li>
+        @php
+          $activeWeeklyItems = \App\Models\Itemjurnal::where('type', 'weekly')->where('status', 'active')->get();
+        @endphp
 
-        <li class="nav-item">
-          <a href="{{ route('fiveTimesPrayer.index') }}" class="nav-link {{ ($title == "5 Times Prayer") ? 'active' :'' }}">
-            <i class="fas fa-praying-hands nav-icon"></i>
-            <p>
-              5 Times Prayer
-            </p>
-          </a>
-        </li>
+        <!-- Check if there are any active weekly items -->
+        @if($activeWeeklyItems->isNotEmpty())
+          <li class="nav-header bg-gradient-success rounded text-white">WEEKLY</li>
+          
+          <!-- Loop through each active weekly item -->
+          @foreach($activeWeeklyItems as $menu)
+            <li class="nav-item">
+              <a href="{{ route($menu->route) }}" class="nav-link {{ (request()->is(str_replace('.', '/', $menu->route))) ? 'active' : '' }}">
+                <i class="{{ $menu->icon }} nav-icon"></i>
+                <p>{{ $menu->name }}</p>
+              </a>
+            </li>
+          @endforeach
+        @endif
 
-        <li class="nav-item">
-          <a href="{{ route('personalgoal.index') }}" class="nav-link {{ ($title == "Personal Goals") ? 'active' :'' }}">
-            <i class="fas fa-tasks nav-icon"></i>
-            <p>
-              Personal Goals
-            </p>
-          </a>
-        </li>
 
-        <li class="nav-item">
-          <a href="{{ route('goodland.index') }}" class="nav-link {{ ($title == "Good Land") ? 'active' :'' }}">
-            <i class="fas fa-flag nav-icon"></i>
-            <p>
-              Good Land
-            </p>
-          </a>
-        </li>
+        @php
+          $activeReports = \App\Models\Itemjurnal::where('type', 'report')->where('status', 'active')->get();
+        @endphp
 
-        <li class="nav-item">
-          <a href="{{ route('prayerbook.index') }}" class="nav-link {{ ($title == "Prayer Book") ? 'active' :'' }}">
-          <i class="fas fa-book nav-icon"></i>
-            <p>
-              Prayer Book
-            </p>
-          </a>
-        </li>
-
-        <!-- WEEKLY Section -->
-        <li class="nav-header bg-gradient-success rounded text-white">WEEKLY</li>
-
-        <li class="nav-item">
-          <a href="{{ route('ministri.index') }}" class="nav-link {{ ($title == "Summary Of Ministry") ? 'active' :'' }}">
-            <i class="fas fa-clipboard-list nav-icon"></i>
-            <p>
-              Summary Of Ministry
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('fellowship.index') }}" class="nav-link {{ ($title == "Fellowship") ? 'active' :'' }}">
-            <i class="fas fa-users nav-icon"></i>
-            <p>
-              Fellowship
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('pameran.index') }}" class="nav-link {{ ($title == "Script") ? 'active' :'' }}">
-          <i class="fas fa-book-reader nav-icon"></i>
-            <p>
-              Script Ts & Exhibition
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('agenda.index') }}" class="nav-link {{ ($title == "Agenda") ? 'active' :'' }}">
-            <i class="fas fa-calendar-alt nav-icon"></i>
-            <p>
-              Agenda
-            </p>
-          </a>
-        </li>
-
-        <!-- REPORT Section -->
-        <li class="nav-header bg-gradient-success rounded text-white">REPORT</li>
-
-        <li class="nav-item">
-          <a href="{{ route('keuangan.index') }}" class="nav-link {{ ($title == "Financial Statements") ? 'active' :'' }}">
-            <i class="fas fa-file-invoice-dollar nav-icon"></i>
-            <p>
-              Financial Statements
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('report.index') }}" class="nav-link {{ ($title == "Journal Report") ? 'active' :'' }}">
-          <i class="fas fa-book nav-icon"></i>
-            <p>
-              Weekly Journal Report
-            </p>
-          </a>
-        </li>
+        <!-- Check if there are any active reports -->
+        @if($activeReports->isNotEmpty())
+          <li class="nav-header bg-gradient-success rounded text-white">REPORT</li>
+          
+          <!-- Loop through each active report item -->
+          @foreach($activeReports as $menu)
+            <li class="nav-item">
+              <a href="{{ route($menu->route) }}" class="nav-link {{ (request()->is(str_replace('.', '/', $menu->route))) ? 'active' : '' }}">
+                <i class="{{ $menu->icon }} nav-icon"></i>
+                <p>{{ $menu->name }}</p>
+              </a>
+            </li>
+          @endforeach
+        @endif
 
       </ul>
     </nav>

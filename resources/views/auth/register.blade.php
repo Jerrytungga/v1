@@ -67,17 +67,12 @@
                                 </div>
                                 <div class="mt-2">
                                     <label class="form-label">Please Select Your Batch</label>
-                                   <select name="angkatan" id="" class="form-control">
-                                    <option value="50">50</option>
-                                    <option value="51">51</option>
-                                    <option value="52">52</option>
-                                    <option value="53">53</option>
-                                    <option value="54">54</option>
-                                    <option value="55">55</option>
-                                    <option value="56">56</option>
-                                    <option value="57">57</option>
-                                    <option value="58">58</option>
-                                   </select>
+                                    <select name="angkatan" class="form-control">
+                                    <option value="">Select Batch</option>
+                                    @foreach ($batch as $batch)
+                                        <option value="{{ $batch->batch }}" {{ $batch->batch ? 'selected' : '' }}>{{ $batch->batch }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
                                 <div class="mt-2">
                                     <label class="form-label">Please Select Your Semester</label>

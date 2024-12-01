@@ -130,6 +130,12 @@
                             <input type="number" class="form-control" id="agenda" name="agenda" value="{{ old('agenda', $poinjurnal->agenda) }}" required placeholder="Enter Poin Agenda">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="agenda" class="col-sm-2 col-form-label">Financial</label>
+                            <div class="col-sm-10">
+                            <input type="number" class="form-control" id="agenda" name="keuangan" value="{{ old('keuangan', $poinjurnal->finance) }}" required placeholder="Enter Poin Agenda">
+                            </div>
+                        </div>
 
                     </div>
 

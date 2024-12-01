@@ -25,6 +25,10 @@ class Report_weekly extends Model
         'ministry',
         'fellowship',
         'ts',
+        'Agenda',
+        'Finance',
+        'Achievement',
+        'standart_poin',
         'status',
     ];
 }

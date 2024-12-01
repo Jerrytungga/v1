@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Asisten;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use App\Models\Trainee;
 use Illuminate\Support\Facades\Session;
 
@@ -36,9 +37,11 @@ class AdminController extends Controller
      
         // Ambil data dari tabel asisten
         $asistens = Asisten::all();
+        $batch = Batch::all();
         return view('Admin.content.trainee.create', [
             "title" => "TRAINEE",
             "asistens" => $asistens,
+            "batch" => $batch,
          
            
         ]);
@@ -83,11 +86,13 @@ class AdminController extends Controller
         
         // Ambil data asisten untuk dropdown
         $asistens = Asisten::all(); // Sesuaikan dengan model Assistant
+        $batch = Batch::all();
 
      
         return view('Admin.content.trainee.edit', [
             "title" => "TRAINEE",
             "asistens" => $asistens,
+            "batch" => $batch,
             "trainee" => $trainee,
          
            

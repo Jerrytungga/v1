@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('fellowship')->nullable();  // Fellowship progress
             $table->integer('script_ts_exhibition')->nullable();  // Script TS & Exhibition progress
             $table->integer('agenda')->nullable();  // Agenda progress
+            $table->integer('finance')->nullable();  // Agenda progress
             $table->integer('total')->nullable();  // Total of all the above
             $table->timestamps();
         });

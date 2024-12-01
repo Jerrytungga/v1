@@ -40,18 +40,12 @@
                     <div class="form-group row">
                         <label for="batch" class="col-sm-2 col-form-label">Batch</label>
                         <div class="col-sm-10">
-                          <select name="angkatan" required class="form-control">
-                            <option value="">Select Batch</option>
-                            <option value="50">50</option>
-                            <option value="51">51</option>
-                            <option value="52">52</option>
-                            <option value="53">53</option>
-                            <option value="54">54</option>
-                            <option value="55">55</option>
-                            <option value="56">56</option>
-                            <option value="57">57</option>
-                            <option value="58">58</option>
-                          </select>   
+                        <select name="angkatan" class="form-control">
+                                    <option value="">Select Batch</option>
+                                    @foreach ($batch as $batch)
+                                        <option value="{{ $batch->batch }}" {{ $batch->batch ? 'selected' : '' }}>{{ $batch->batch }}</option>
+                                    @endforeach
+                         </select>
                         </div>
                     </div>
 

@@ -42,16 +42,11 @@
                         <div class="form-group row">
                             <label for="batch" class="col-sm-2 col-form-label">Batch</label>
                             <div class="col-sm-10">
-                                <select name="angkatan" class="form-control">
+                            <select name="angkatan" class="form-control">
                                     <option value="">Select Batch</option>
-                                    <option value="50" {{ $trainee->angkatan == 50 ? 'selected' : '' }}>50</option>
-                                    <option value="52" {{ $trainee->angkatan == 52 ? 'selected' : '' }}>52</option>
-                                    <option value="53" {{ $trainee->angkatan == 53 ? 'selected' : '' }}>53</option>
-                                    <option value="54" {{ $trainee->angkatan == 54 ? 'selected' : '' }}>54</option>
-                                    <option value="55" {{ $trainee->angkatan == 55 ? 'selected' : '' }}>55</option>
-                                    <option value="56" {{ $trainee->angkatan == 56 ? 'selected' : '' }}>56</option>
-                                    <option value="57" {{ $trainee->angkatan == 57 ? 'selected' : '' }}>57</option>
-                                    <option value="58" {{ $trainee->angkatan == 58 ? 'selected' : '' }}>58</option>
+                                    @foreach ($batch as $batch)
+                                        <option value="{{ $batch->batch }}" {{ $batch->batch ? 'selected' : '' }}>{{ $batch->batch }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

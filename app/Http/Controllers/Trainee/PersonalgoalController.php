@@ -36,7 +36,14 @@ class PersonalgoalController extends Controller
             ->where('week', $dapat_minggu)
             ->orderBy('created_at', 'DESC')
             ->get(),
-            'tasks' => Taskpersonalgoal::where('nip', $nipTrainee)->orderBy('created_at', 'DESC')->get(),
+           'tasks' => Taskpersonalgoal::where('nip', $nipTrainee)
+                            ->where('status', 'active')
+                            ->orderBy('created_at', 'DESC')
+                            ->get(),
+            'taskCount' => Taskpersonalgoal::where('nip', $nipTrainee)
+                                ->where('status', 'active')
+                                ->count(), // Counting the active tasks
+
         ]);
        
     }

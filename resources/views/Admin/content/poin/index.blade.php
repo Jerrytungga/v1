@@ -44,6 +44,7 @@
                       <th>Fellowship</th>
                       <th>Script TS & Exhibition</th>
                       <th>Agenda</th>
+                      <th>financial</th>
                       <th>Total</th>
                       <th>Action</th>
                     </tr>
@@ -64,6 +65,7 @@
                         <td>{{ $data->fellowship }}</td> <!-- Kolom Nip rata kanan -->
                         <td>{{ $data->script_ts_exhibition }}</td> <!-- Kolom Nip rata kanan -->
                         <td>{{ $data->agenda }}</td> <!-- Kolom Nip rata kanan -->
+                        <td>{{ $data->finance }}</td> <!-- Kolom Nip rata kanan -->
                         <td>{{ $data->total }}</td> <!-- Kolom Nip rata kanan -->
                         <td>
                         <a href="{{ route('poin.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>

@@ -9,12 +9,15 @@ use App\Models\BibleReading;
 use Illuminate\Http\Request;
 use App\Models\Report_weekly;
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
 use App\Models\Fellowship;
 use App\Models\GoodLand;
 use App\Models\Hymns;
+use App\Models\Keuangan;
 use App\Models\MemorizingVerses;
 use App\Models\Ministri;
 use App\Models\Personalgoals;
+use App\Models\Poinjurnal;
 use App\Models\Prayers;
 use App\Models\Script;
 use App\Models\timeprayer;
@@ -77,16 +80,53 @@ class ReportController extends Controller
                 $endOfWeek = Carbon::now()->endOfWeek();      // Minggu
 
                 // Menghitung jumlah total entry dalam minggu ini
-                $bible = BibleReading::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $memorizing = MemorizingVerses::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $himns = Hymns::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $prayer5mnt = timeprayer::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $tp = GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $prayer = Prayers::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $personalgoals = Personalgoals::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $ministri = Ministri::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $fellowship = Fellowship::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
-                $ts = Script::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
+                // $bible = BibleReading::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
+                $bible = BibleReading::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');  // Menjumlahkan nilai poin yang ada
+                $memorizing = MemorizingVerses::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $himns = Hymns::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $prayer5mnt = timeprayer::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $tp = GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->sum('poin_verses') + GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->sum('poin_da') + GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin_dt') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin_ds') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('experience_1') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('experience_2') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('experience_3') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('experience_4') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('experience_5') + 
+                GoodLand::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('experience_6'); 
+
+                $prayer = Prayers::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin_topic') +
+                Prayers::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('light_poin') +
+                Prayers::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('appreciation_poin') +
+                Prayers::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('action_poin');
+
+                $personalgoals = Personalgoals::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $ministri = Ministri::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $fellowship = Fellowship::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $ts = Script::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin_verse') +
+                Script::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin_truth') +
+                Script::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin_experience');
+                $agenda = Agenda::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $keuangan = Keuangan::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('poin');
+                $semester = Session::get('semester');
+
+                // Ambil semua data yang sesuai dengan semester
+                $ambil_standart_poin = Poinjurnal::where('semester', $semester)->get();
+                
+                // Menjumlahkan total dari semua record yang ditemukan
+                $standar_poin = $ambil_standart_poin->sum('total');
+
+                $pencapaian = $bible + $memorizing + $himns + $prayer5mnt + $tp + $prayer + $personalgoals + $ministri + $fellowship + $ts + $agenda + $keuangan;
+
+
+            if($pencapaian > $standar_poin){
+                $total = $standar_poin;
+                $status = 'C';
+            } elseif($pencapaian < $standar_poin){
+                $total = $pencapaian;
+                $status = 'iC';
+            }
 
                 // Menyimpan data baru jika belum ada
                 Report_weekly::create([
@@ -104,7 +144,11 @@ class ReportController extends Controller
                     'ministry' => $ministri,
                     'fellowship' => $fellowship,
                     'ts' => $ts,
-                    'status' => $ministri,
+                    'Agenda' => $agenda,
+                    'Finance' => $keuangan,
+                    'Achievement' => $total,
+                    'standart_poin' => $standar_poin,
+                    'status' => $status,
                     'created_at' => $current_time,
                     'updated_at' => $current_time,
                 ]);

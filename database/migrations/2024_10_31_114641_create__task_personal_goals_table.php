@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nip'); // The text of the verse
             $table->string('asisten_id'); // The book name
-            $table->string('task'); // Chapter number
             $table->text('semester');
-            $table->string('start')->nullable();
-            $table->string('end')->nullable();
             $table->text('week')->nullable();
+            $table->string('Assignment')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps(); // Created at and updated at
         });
     }

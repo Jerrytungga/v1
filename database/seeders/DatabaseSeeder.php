@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             ViewReportSeeder::class,
             AdminSeeder::class,
             WeeklySeeder::class,
+            MenuSeeder::class,
+            MenuItemSeeder::class,
             // Add other seeders as needed
         ]);
     }

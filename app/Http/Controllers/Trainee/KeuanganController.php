@@ -26,10 +26,11 @@ class KeuanganController extends Controller
         $nipTrainee = Session::get('nip');
         $ambil_minggu = Weekly::where('status', 'active')->first();
         $dapat_minggu = $ambil_minggu ? $ambil_minggu->Week : null;
+
         
         $entrys = Keuangan::where('nip', $nipTrainee)
             ->where('week', $dapat_minggu)
-            ->orderBy('created_at', 'DESC') // Order by created_at in ascending order
+            ->orderBy('created_at', 'ASC') // Order by created_at in ascending order
             ->get();
         
         $noDataMessage = $entrys->isEmpty() ? 'No data found for this week' : null;
@@ -43,6 +44,7 @@ class KeuanganController extends Controller
             'name_asisten' => $nama_asisten,
             'noDataMessage' => $noDataMessage,
             'weekly' => $weekly,
+            // "saldokemarin" => $saldokemarin,
         ]);
     }
 

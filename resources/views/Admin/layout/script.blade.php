@@ -46,6 +46,34 @@
     });
   });
 </script>
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable({
+      "paging": true,             // Enable pagination
+      "lengthChange": true,       // Allow users to change the number of entries per page
+      "searching": true,          // Enable search
+      "ordering": true,           // Enable sorting
+      "info": true,               // Show information about data
+      "autoWidth": false,         // Disable automatic column width adjustment
+      "responsive": true,         // Enable responsive mode
+      "pageLength": 10,           // Set the default number of entries per page
+      "language": {
+        "lengthMenu": "Show _MENU_ entries per page",
+        "zeroRecords": "No matching records found",
+        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+        "infoEmpty": "Showing 0 to 0 of 0 entries",
+        "infoFiltered": "(filtered from _MAX_ total entries)",
+        "search": "Search:",
+        "paginate": {
+          "first": "First",
+          "previous": "Previous",
+          "next": "Next",
+          "last": "Last"
+        }
+      }
+    });
+  });
+</script>
 
 </body>
 </html>

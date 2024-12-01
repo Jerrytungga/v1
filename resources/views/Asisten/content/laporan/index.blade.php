@@ -6,24 +6,20 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Agenda | {{$ambil_trainee->name}}</h1>
+            <h1>Report | {{$ambil_trainee->name}}</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 
-   
-
-
-
-
+    
     <section class="content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card">
-          <div class="card-header text-center">
+          <div class="card-header">
             <a href="{{ route('htrainee.asisten') }}" class="btn text-light mb-1 bg-dark">Back To View Trainee</a>
           </div>
           <!-- /.card-header -->
@@ -41,7 +37,7 @@
                   </tr>
                   <tr>
                     <th>Description</th>
-                    <th>Standard Points</th>
+                    <th>Minimum score</th>
                     <th>Score</th>
                     <th>Status</th>
                   </tr>
@@ -308,4 +304,58 @@
   <!-- /.container-fluid -->
 </section>
 
+
+   <style>
+/* Memperkecil ukuran tabel */
+.table {
+    font-size: 1rem; /* Ukuran font standar yang nyaman dibaca di layar laptop */
+}
+
+.table th, .table td {
+    padding: 8px 12px; /* Padding yang lebih besar untuk tampilan di laptop */
+}
+
+.table th {
+    background-color: #f5f5f5; /* Memberikan latar belakang header yang lembut */
+    font-size: 1.1rem; /* Ukuran font header sedikit lebih besar */
+}
+
+.table tbody tr:hover {
+    background-color: #f2f2f2; /* Efek hover pada baris tabel */
+}
+
+/* Membuat tabel responsif di layar laptop */
+@media (max-width: 1024px) {
+    .table {
+        font-size: 0.9rem;  /* Mengurangi ukuran font untuk menyesuaikan dengan layar yang lebih kecil */
+    }
+
+    .table th, .table td {
+        padding: 8px 10px; /* Padding lebih kecil agar tabel lebih kompak */
+    }
+}
+
+/* Untuk layar yang lebih besar (desktop) */
+@media (min-width: 1025px) {
+    .table {
+        font-size: 1rem;  /* Ukuran font normal di desktop */
+    }
+}
+
+/* Membuat tabel lebih kompak di perangkat dengan lebar lebih kecil (mobile dan tablet) */
+@media (max-width: 767px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .table {
+        font-size: 0.8rem;  /* Ukuran font lebih kecil untuk perangkat mobile */
+    }
+
+    .table th, .table td {
+        padding: 6px;  /* Padding lebih kecil di perangkat mobile */
+    }
+}
+
+
+   </style>
 @endsection

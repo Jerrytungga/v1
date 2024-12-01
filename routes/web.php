@@ -4,6 +4,8 @@ use App\Http\Controllers\Ad_asistenController;
 use App\Http\Controllers\Admin\AdasistenController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\Batch_AController;
+use App\Http\Controllers\Admin\Item_JurnalController;
 use App\Http\Controllers\Admin\PoinController;
 use App\Http\Controllers\Admin\WeeklyController;
 use App\Http\Controllers\Asisten\Agenda_AsistenController;
@@ -21,8 +23,10 @@ use App\Http\Controllers\Asisten\five_timeprayerController;
 use App\Http\Controllers\Asisten\Hymns_AsistenController;
 use App\Http\Controllers\Asisten\Memorizing_Verses_AsistenController;
 use App\Http\Controllers\Asisten\Personal_Goals_AsistenController;
+use App\Http\Controllers\Asisten\Report_traineeController;
 use App\Http\Controllers\Asisten\Script_AsistenController;
 use App\Http\Controllers\Asisten\Summery_of_MinistryController;
+use App\Http\Controllers\Asisten\Task_personalgoalsController;
 use App\Models\Asisten;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -153,9 +157,15 @@ Route::get('Asisten/Agenda/{nip}/trainee', [Agenda_AsistenController::class, 'in
 Route::patch('/Asisten/Agenda/{id}/poin', [Agenda_AsistenController::class, 'Agendapoin'])->name('Agenda-poin');
 Route::post('/Asisten/{id}/Agenda', [Agenda_AsistenController::class, 'AgendaWeek'])->name('Agenda-week');
 
-Route::get('Asisten/Financial/{nip}/trainee', [Financial_AsistenController::class, 'index'])->name('Financial-Asisten');
-Route::patch('/Asisten/Financial/{id}/poin', [Financial_AsistenController::class, 'Agendapoin'])->name('Financial-poin');
-Route::post('/Asisten/{id}/Financial', [Financial_AsistenController::class, 'AgendaWeek'])->name('Financial-week');
+Route::get('Asisten/finance/{nip}/trainee', [Financial_AsistenController::class, 'index'])->name('Financial-Asisten');
+Route::patch('/Asisten/finance/{id}/poin', [Financial_AsistenController::class, 'Agendapoin'])->name('Financial-poin');
+Route::post('/Asisten/{id}/finance', [Financial_AsistenController::class, 'AgendaWeek'])->name('Financial-week');
+Route::get('Asisten/report/{nip}/trainee', [Report_traineeController::class, 'index'])->name('Report-Asisten');
+
+Route::get('Asisten/Assignment/{nip}/trainee', [Task_personalgoalsController::class, 'index'])->name('Assignment-Asisten');
+Route::post('/Asisten/Assignment', [Task_personalgoalsController::class, 'Add_Assignment'])->name('Add_Assignment-week');
+Route::put('/Asisten/Assignment/{id}/838827263', [Task_personalgoalsController::class, 'Inactive'])->name('Add_Assignment_Inactive');
+Route::put('/Asisten/Assignment/{id}/77482738', [Task_personalgoalsController::class, 'Active'])->name('Add_Assignment_Active');
 
 
 
@@ -177,7 +187,13 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::post('Admin/report', [WeeklyController::class, 'set'])->name('set');
     Route::resource('Admin/poin', PoinController::class);
     Route::resource('Admin/Announcement', AnnouncementController::class);
-
+    Route::resource('Admin/batch', Batch_AController::class);
+    Route::get('Admin/jurnal', [Item_JurnalController::class, 'index'])->name('item.jurnal');
+    Route::get('Admin/jurnal/{id}/837284', [Item_JurnalController::class, 'Inactive'])->name('Inactive.jurnal');
+    Route::get('Admin/jurnal/{id}/948539', [Item_JurnalController::class, 'Active'])->name('Active.jurnal');
+    Route::get('Admin/jurnal/{id}/42323224', [Item_JurnalController::class, 'Inactive_Menu'])->name('Inactive.jurnal_Asisten');
+    Route::get('Admin/jurnal/{id}/94853433439', [Item_JurnalController::class, 'Active_Menu'])->name('Active.jurnal_Asisten');
+  
 
 
 });

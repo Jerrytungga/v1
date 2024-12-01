@@ -63,7 +63,8 @@
           <div class="card-body">
             <table id="example2" class="table table-bordered table-hover">
               <thead class="text-center font-weight-bold bg-primary">
-                <tr>
+           
+              <tr>
                 <th class="col-1">Date</th>
                 <th class="col-3">Description</th>
                 <th class="col-1">Debit</th>
@@ -83,9 +84,9 @@
                 </blockquote>
                 @endif
                </td>
-               <td>Rp {{ number_format($data->debit, 0, ',', '.') }}</td>
-                <td>Rp {{ number_format($data->credit, 0, ',', '.') }}</td>
-                <td>Rp {{ number_format($data->saldo, 0, ',', '.') }}</td>
+               <td>Rp: {{ number_format($data->debit, 0, ',', '.') }}</td>
+                <td>Rp: {{ number_format($data->credit, 0, ',', '.') }}</td>
+                <td>Rp: {{ number_format($data->saldo, 0, ',', '.') }}</td>
                <td>
                @if($data && \Carbon\Carbon::parse($data->created_at)->isToday())
                             <a href="{{ route('keuangan.edit', $data->id) }}" class="btn btn-warning">Edit</a>
@@ -97,9 +98,9 @@
               <tfoot class="bg-info">
               <tr>
                 <td colspan="2" class="text-right"><strong>Total</strong></td>
-                <td>Rp {{ number_format($entrys->sum('debit'), 0, ',', '.') }}</td>
-                <td>Rp {{ number_format($entrys->sum('credit'), 0, ',', '.') }}</td>
-                <td>Rp 
+                <td>Rp: {{ number_format($entrys->sum('debit'), 0, ',', '.') }}</td>
+                <td>Rp: {{ number_format($entrys->sum('credit'), 0, ',', '.') }}</td>
+                <td>Rp: 
                   @if($entrys->isNotEmpty()) 
                     {{ number_format($entrys->last()->saldo, 0, ',', '.') }}
                   @else

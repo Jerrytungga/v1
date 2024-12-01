@@ -41,6 +41,10 @@
                     <th class="col-1">Ministry</th>
                     <th class="col-1">Fellowship</th>
                     <th class="col-1">Ts</th>
+                    <th class="col-1">Agenda</th>
+                    <th class="col-1">Finance</th>
+                    <th class="col-1">Achievement</th>
+                    <th class="col-1 bg-dark">Standard Points</th>
                     <th class="col-1">Status</th>
                   
                   </tr>
@@ -59,7 +63,18 @@
                       <td class="col-1">{{ $data->ministry }}</td>
                       <td class="col-1">{{ $data->fellowship }}</td>
                       <td class="col-1">{{ $data->ts }}</td>
-                      <td class="col-1">{{ $data->status }}</td>
+                      <td class="col-1">{{ $data->agenda }}</td>
+                      <td class="col-1">{{ $data->finance }}</td>
+                      <td class="col-1">{{ $data->achievement }}</td>
+                      <td class="col-1">{{ $data->standart_poin }}</td>
+                      <td class="col-1" 
+    style="background-color: {{ $data->status == 'iC' ? 'red' : ($data->status == 'C' ? 'green' : 'white') }}; color: white; text-align: center;">
+    {{ $data->status }}
+</td>
+
+
+
+
                      
                   </tr>
                     @endforeach
