@@ -14,6 +14,8 @@ class Report_weekly extends Model
         'nip',
         'asisten_id',
         'semester',
+        'batch',
+        'catatan',
         'week',
         'bible', 
         'memorizing',

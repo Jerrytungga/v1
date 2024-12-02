@@ -21,8 +21,41 @@
         <div class="card">
           <div class="card-header">
             <a href="{{ route('htrainee.asisten') }}" class="btn text-light mb-1 bg-dark">Back To View Trainee</a>
+          <form action="{{ route('Report_Asisten-week', $ambil_trainee->nip) }}" method="POST">
+              @csrf
+              <div class="form-inline flex-wrap">
+                <label for="semester" class="mr-2 ml-2">Chosen Semester & Week :</label>
+
+                <!-- Semester Dropdown -->
+                <select class="form-control col-12 col-md-2 mr-2 mb-2 bg-dark" required id="semester" name="semester">
+                  <option value="">Please select a semester</option>
+                  @foreach([1 => 'Semester 1', 2 => 'Semester 2', 3 => 'Semester 3', 4 => 'Semester 4'] as $value => $label)
+                    <option value="{{ $value }}" {{ old('semester') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                  @endforeach
+                </select>
+
+                <!-- Week Dropdown -->
+                <select name="week" class="form-control col-12 col-md-2 mr-2 mb-2 ml-md-2 bg-dark" required>
+                <option value="">Please select a week</option>
+                  @foreach ($weeklydropdown as $data)
+                    <option value="{{ $data->Week }}">{{ $data->Week }}</option>
+                  @endforeach
+                </select>
+
+                <!-- Submit and Reset Buttons -->
+                <button type="submit" class="btn btn-dark col-12 mr-2 col-md-auto mb-2">View</button>
+                <a href="{{ route('Report-Asisten', $ambil_trainee->nip) }}" class="btn btn-danger col-12 col-md-auto mb-2">Reset</a>
+              </div>
+            </form>
           </div>
           <!-- /.card-header -->
+
+          @if (session('alert'))
+              <div class="alert alert-warning m-3">
+                  {{ session('alert') }}
+              </div>
+          @endif
+
 
           <div class="card-body">
             <div class="table-responsive">
@@ -32,13 +65,13 @@
                     <th colspan="4" class="font-weight-bold">
                       <br>
                       <h2>WEEKLY JOURNAL REPORT</h2>
-                      JERRI CHRISTIAN GEDEON TUNGGA <br> SEMESTER 1 & WEEK 1
+                      {{$ambil_trainee->name}} <br> SEMESTER {{$ambil_report->semester}} & {{$ambil_report->week}}
                     </th>
                   </tr>
                   <tr>
                     <th>Description</th>
-                    <th>Minimum score</th>
-                    <th>Score</th>
+                    <th>Minimum Point</th>
+                    <th>Point</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -262,31 +295,18 @@
                   <tr>
                     <td colspan="4" class="text-left">
                       <span class="badge badge-warning">Catatan</span> <br>
+                      @if (!empty($ambil_report->catatan))
+                      <blockquote class="blockquote" >
+                      <p class="mb-0 text-danger">{{ $ambil_report->catatan }}</p>
+                      <footer class="blockquote-footer">Asisten {{ $namaAsisten }}</footer>
+                      </blockquote>
+                      @endif
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop">
-                        Add a note
-                      </button>
+                                      <!-- Button trigger modal -->
+                      <a href="javascript:void(0)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ipoin-{{ $ambil_report->id }}">Input Note</a>
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              ...
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Understood</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    
+
                     </td>
                   </tr>
                 </tbody>
@@ -303,6 +323,46 @@
   </div>
   <!-- /.container-fluid -->
 </section>
+
+  <div class="modal fade" id="ipoin-{{ $ambil_report->id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-scrollable" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header" style="background-color:#001F3F; color:#FFFf;">
+                                      <h5 class="modal-title" id="changePasswordModalLabel">Input Note</h5>
+                                      <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <!-- Form for editing note -->
+                                  <form action="{{ route('Report_Asisten', ['id' => $ambil_report->id]) }}" method="POST">
+                                      @csrf
+                                      @method('PATCH')
+                                      <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                                          <!-- Input Note Field -->
+                                          <div class="form-group">
+                                              <label for="Note">Note:</label>
+                                              <textarea name="note" class="form-control" required>{{ old('note', $ambil_report->catatan) }}</textarea>
+                                          </div>
+
+                                          <!-- Status Dropdown -->
+                                          <label for="status">Status:</label>
+                                          <select name="status" class="form-control">
+                                              <option value="C" {{ $ambil_report->status == 'C' ? 'selected' : '' }}>Completed</option>
+                                              <option value="IC" {{ $ambil_report->status == 'IC' ? 'selected' : '' }}>Incomplete</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                          <button type="submit" class="btn btn-success">Save</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+
+
+
 
 
    <style>

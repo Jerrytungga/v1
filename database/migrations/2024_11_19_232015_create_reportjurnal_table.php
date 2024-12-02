@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('asisten_id');  // ID Asisten sebagai string
             $table->text('semester');  // Semester sebagai text (jika ada format panjang)
             $table->string('week');  // Week sebagai string (lebih fleksibel jika minggu bisa berupa teks)
+            $table->string('catatan')->nullable();
+            $table->integer('batch')->default(0);  // Poin Bible
             
             // Kolom-kolom poin sebagai integer
             $table->integer('bible')->default(0);  // Poin Bible

@@ -55,6 +55,7 @@ class ReportController extends Controller
 
             $id_asisten = Session::get('asisten');
             $nipTrainee = Session::get('nip');
+           
             $weekly = Weekly::where('status', 'active')->first();
             $minggu = $weekly->Week;
             $semester = Session::get('semester');
@@ -118,16 +119,74 @@ class ReportController extends Controller
                 $standar_poin = $ambil_standart_poin->sum('total');
 
                 $pencapaian = $bible + $memorizing + $himns + $prayer5mnt + $tp + $prayer + $personalgoals + $ministri + $fellowship + $ts + $agenda + $keuangan;
+                $alkitab = $ambil_standart_poin->first()->bible;
+                $ayathafalan = $ambil_standart_poin->first()->memorizing_bible;
+                $kidung = $ambil_standart_poin->first()->hymns;
+                $doa5waktu = $ambil_standart_poin->first()->five_times_prayer;
+                $tanahpermai = $ambil_standart_poin->first()->good_land;
+                $doa = $ambil_standart_poin->first()->prayer_book;
+                $personalgoal = $ambil_standart_poin->first()->personal_goals;
+                $ringkasanMinistri = $ambil_standart_poin->first()->summary_of_ministry;
+                $persekutuan = $ambil_standart_poin->first()->fellowship;
+                $pameran = $ambil_standart_poin->first()->script_ts_exhibition;
+                $catatan = $ambil_standart_poin->first()->agenda;
+                $keuangan_ = $ambil_standart_poin->first()->finance;
 
+
+                if ($bible > $alkitab){
+                    $bible = $alkitab;
+                } 
+                
+                if ($memorizing > $ayathafalan){
+                    $memorizing = $ayathafalan;
+                }
+                
+                if ($himns > $kidung) {
+                    $himns = $kidung;
+                } 
+                
+                if ($prayer5mnt > $doa5waktu){
+                    $prayer5mnt = $doa5waktu;
+                } 
+                
+                if ($tp > $tanahpermai){
+                    $tp = $tanahpermai;
+                } 
+                
+                if ($prayer > $doa){
+                    $prayer = $doa;
+                }
+                
+                if ($personalgoals > $personalgoal){
+                    $personalgoals = $personalgoal;
+                } 
+                
+                if ($ministri > $ringkasanMinistri){
+                    $ministri = $ringkasanMinistri;
+                } 
+                
+                if ($fellowship > $persekutuan ){
+                    $fellowship = $persekutuan;
+                } 
+                
+                if ($ts > $pameran) {
+                    $ts = $pameran;
+                } 
+                
+                if ($agenda > $catatan){
+                    $agenda = $catatan;
+                }
+                
+                if ($keuangan > $keuangan_) {
+                    $keuangan = $keuangan_;
+                }
 
             if($pencapaian > $standar_poin){
-                $total = $standar_poin;
                 $status = 'C';
             } elseif($pencapaian < $standar_poin){
-                $total = $pencapaian;
-                $status = 'iC';
+                $status = 'IC';
             }
-
+                $angkatan = Session::get('batch');
                 // Menyimpan data baru jika belum ada
                 Report_weekly::create([
                     'nip' => $nipTrainee,
@@ -146,11 +205,13 @@ class ReportController extends Controller
                     'ts' => $ts,
                     'Agenda' => $agenda,
                     'Finance' => $keuangan,
-                    'Achievement' => $total,
                     'standart_poin' => $standar_poin,
                     'status' => $status,
                     'created_at' => $current_time,
                     'updated_at' => $current_time,
+                    $total_ = $bible + $memorizing + $himns + $prayer5mnt + $tp + $prayer + $personalgoals + $ministri + $fellowship + $ts + $agenda + $keuangan,
+                    'Achievement' => $total_,
+                    'batch' => $angkatan,
                 ]);
 
                 $nipTrainee = Session::get('nip');

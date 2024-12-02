@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\Batch_AController;
 use App\Http\Controllers\Admin\Item_JurnalController;
 use App\Http\Controllers\Admin\PoinController;
+use App\Http\Controllers\Admin\Report_jurnalController;
 use App\Http\Controllers\Admin\WeeklyController;
 use App\Http\Controllers\Asisten\Agenda_AsistenController;
 use App\Http\Controllers\Asisten\Announcement_AsistenController;
@@ -167,7 +168,8 @@ Route::post('/Asisten/Assignment', [Task_personalgoalsController::class, 'Add_As
 Route::put('/Asisten/Assignment/{id}/838827263', [Task_personalgoalsController::class, 'Inactive'])->name('Add_Assignment_Inactive');
 Route::put('/Asisten/Assignment/{id}/77482738', [Task_personalgoalsController::class, 'Active'])->name('Add_Assignment_Active');
 
-
+Route::patch('Asisten/report/{id}/5362526', [Report_traineeController::class, 'ReportAsisten'])->name('Report_Asisten');
+Route::post('/Asisten/report/{id}/4334526', [Report_traineeController::class, 'filterreport'])->name('Report_Asisten-week');
 
 });
 
@@ -197,6 +199,7 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('Admin/jurnal/{id}/948539', [Item_JurnalController::class, 'Active'])->name('Active.jurnal');
     Route::get('Admin/jurnal/{id}/42323224', [Item_JurnalController::class, 'Inactive_Menu'])->name('Inactive.jurnal_Asisten');
     Route::get('Admin/jurnal/{id}/94853433439', [Item_JurnalController::class, 'Active_Menu'])->name('Active.jurnal_Asisten');
+    Route::get('Admin/jurnal/report/', [Report_jurnalController::class, 'index'])->name('report_view_jurnal');
   
 
 

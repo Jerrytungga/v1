@@ -75,6 +75,12 @@
                         <p class="text-light">ITEM JOURNAL</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('report_view_jurnal') }}" class="nav-link {{ ($title == 'Report') ? 'active bg-info' : '' }}">
+                        <i class="fas fa-book nav-icon text-white"></i>
+                        <p class="text-light">REPORT JOURNAL</p>
+                    </a>
+                </li>
 
             </ul>
         </nav>
