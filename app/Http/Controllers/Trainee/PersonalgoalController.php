@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Trainee;
 
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Models\Personalgoals;
 use App\Models\Taskpersonalgoal;
@@ -79,7 +80,8 @@ class PersonalgoalController extends Controller
             'deskripsi' => 'required|string', ]);
          $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->personal_goals : null;
         if ($weekly) {
              Personalgoals::create([
             'nip' => $request->nip,
@@ -87,6 +89,7 @@ class PersonalgoalController extends Controller
             'personalgoals' => $request->deskripsi,
             'semester' => $semester, 
             'week' => $weekly->Week,
+            'poin' => $poin, 
         
         ]);
              return redirect()->route('personalgoal.index')->with('success', 'Input Personal Goals successfully!');

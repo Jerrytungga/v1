@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trainee;
 use Carbon\Carbon;
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use App\Models\Fellowship;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -101,6 +102,8 @@ public function store(Request $request)
     // Mengambil data minggu aktif
     $weekly = Weekly::where('status', 'active')->first();
     $semester = Session::get('semester'); // Mengambil semester dari sesi
+    $ambil_poin = Poindaily::where('semester', $semester)->first();
+    $poin = $ambil_poin ? $ambil_poin->fellowship : null;
     if ($weekly) {
     // Menyimpan data Fellowship baru
     Fellowship::create([
@@ -112,6 +115,7 @@ public function store(Request $request)
         'action' => $request->action,
         'semester' => $semester,
         'week' => $weekly->Week,
+        'poin' => $poin,
     ]);
 
     // Redirect ke halaman index dengan pesan sukses

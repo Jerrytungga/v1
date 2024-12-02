@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Ministri;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -96,7 +97,8 @@ class MinistriController extends Controller
             ]);
             $weekly = Weekly::where('status', 'active')->first();
             $semester = Session::get('semester');
-
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->summary_of_ministry : null;
             if ($weekly) {
                Ministri::create([
               'nip' => $request->nip,
@@ -107,6 +109,7 @@ class MinistriController extends Controller
               'category' => $request->kategori,
               'semester' => $semester,
               'week' => $weekly->Week,
+              'poin' => $poin,
             
             ]);
                return redirect()->route('ministri.index')->with('success', 'Input Summary Of Ministry successfully!');

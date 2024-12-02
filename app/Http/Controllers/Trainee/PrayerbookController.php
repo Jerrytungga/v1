@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trainee;
 use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Prayers;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -78,7 +79,8 @@ class PrayerbookController extends Controller
             ]);
             $weekly = Weekly::where('status', 'active')->first();
             $semester = Session::get('semester');
-
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->prayer_book : null;
             if ($weekly) {
                Prayers::create([
               'nip' => $request->nip,
@@ -90,6 +92,10 @@ class PrayerbookController extends Controller
               'semester' => $semester, 
               'prayer_date' => $today,
              'week' => $weekly->Week,
+             'poin_topic' => $poin,
+             'light_poin' => $poin,
+             'appreciation_poin' => $poin,
+             'action_poin' => $poin,
             
             ]);
                return redirect()->route('prayerbook.index')->with('success', 'Input Prayer Book successfully!');

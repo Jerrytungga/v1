@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Trainee;
 
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use App\Models\timeprayer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -78,7 +79,8 @@ class TimePrayerController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->five_times_prayer : null;
         if ($weekly) {
         timeprayer::create([
             'nip' => $request->nip,
@@ -86,6 +88,7 @@ class TimePrayerController extends Controller
             'poin_prayer' => $request->doa,
             'semester' => $semester,
             'week' => $weekly->Week,
+            'poin' => $poin,
            
         ]);
         return redirect()->route('fiveTimesPrayer.index')->with('success', 'Input 5 Time Prayer successfully!');

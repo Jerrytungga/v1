@@ -17,6 +17,7 @@ class timeprayer extends Model
         'catatan',
         'semester',
         'week',
+        'poin',
        
     ];
 }

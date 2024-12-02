@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Trainee;
 
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Models\MemorizingVerses;
 use Illuminate\Routing\Controller;
@@ -72,7 +73,8 @@ class MemorizingVersesController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->memorizing_bible : null;
         if ($weekly) {
         MemorizingVerses::create([
             'nip' => $request->nip,
@@ -81,6 +83,7 @@ class MemorizingVersesController extends Controller
             'paraf' => $request->paraf,
             'semester' => $semester,
             'week' => $weekly->Week,
+            'poin' => $poin,
            
         ]);
         return redirect()->route('MemorizingVerses.index')->with('success', 'Input Memorizing Verses successfully!');

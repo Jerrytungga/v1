@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trainee;
 use App\Models\Agenda;
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -70,6 +71,9 @@ class AgendaController extends Controller
         $weekly = Weekly::where('status', 'active')->first();
         // Mengambil semester dari session
         $semester = Session::get('semester');
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->agenda : null;
+
         if ($weekly) {
         // Menyimpan data agenda baru ke database
         Agenda::create([
@@ -79,6 +83,7 @@ class AgendaController extends Controller
             'light' => $request->terang, // Terang yang diinput (mungkin berupa boolean atau string)
             'semester' => $semester, // Semester yang diambil dari session
             'week' => $weekly->Week, // Minggu aktif yang diambil dari data Weekly
+            'poin' => $poin, // Minggu aktif yang diambil dari data Weekly
         ]);
         
         // Redirect ke halaman index agenda dengan pesan sukses

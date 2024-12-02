@@ -17,6 +17,7 @@ class Agenda extends Model
         'catatan',
         'week',
         'agenda',
+        'poin',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here
     ];

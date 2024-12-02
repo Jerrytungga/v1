@@ -17,49 +17,49 @@ class MenuItemSeeder extends Seeder
           MenuItem::create([
             'title' => 'Bible Reading',
             'route' => 'bible-asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
         MenuItem::create([
             'title' => 'Memorizing Verses',
             'route' => 'Memorizing_verses-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
         MenuItem::create([
             'title' => 'Hymns',
             'route' => 'Hymns-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
         MenuItem::create([
             'title' => '5 Times Prayer',
             'route' => 'Fivetimeprayer-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
         MenuItem::create([
             'title' => 'Personal Goals',
             'route' => 'personalgoals-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
         MenuItem::create([
             'title' => 'Good Land',
             'route' => 'Goodland-asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
         MenuItem::create([
             'title' => 'Prayer Book',
             'route' => 'Prayerbook-asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'daily',
         ]);
 
@@ -67,49 +67,49 @@ class MenuItemSeeder extends Seeder
         MenuItem::create([
             'title' => 'Ministry Summary',
             'route' => 'Ministry-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
 
         MenuItem::create([
             'title' => 'Fellowship',
             'route' => 'Fellowship-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
 
         MenuItem::create([
             'title' => 'Script Ts & Exhibition',
             'route' => 'Script-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
 
         MenuItem::create([
             'title' => 'Agenda',
             'route' => 'Agenda-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
 
         MenuItem::create([
             'title' => 'Financial Statements',
             'route' => 'Financial-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
 
         MenuItem::create([
             'title' => 'Journal Report',
             'route' => 'Report-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
 
         MenuItem::create([
             'title' => 'Personal Goals Assignment',
             'route' => 'Assignment-Asisten',
-            'status' => 'active',
+            'status' => 'inactive',
             'type' => 'weekly',
         ]);
     }

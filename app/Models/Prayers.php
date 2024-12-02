@@ -10,18 +10,24 @@ class Prayers extends Model
     use HasFactory;
     protected $table = 'prayers';
     protected $fillable = [
-        'id',
         'nip',
         'asisten_id',
         'semester',
         'week',
+        'catatan',
         'topic',
-        'prayer_date',       // Use 'pl_pb' instead of 'pl/pb'
+        'poin_topic',
+        'prayer_date',
         'light',
+        'light_poin',
         'appreciation',
+        'appreciation_poin',
         'action',
+        'action_poin',
         'prayer_answered_date',
         'prayer_answer',
+        'created_at',
+        'updated_at',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here
     ];

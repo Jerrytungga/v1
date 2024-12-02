@@ -186,6 +186,10 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('Admin/report', [WeeklyController::class, 'reportw'])->name('report.w');
     Route::post('Admin/report', [WeeklyController::class, 'set'])->name('set');
     Route::resource('Admin/poin', PoinController::class);
+    Route::get('Admin/report/73826273', [PoinController::class, 'form_target_daily'])->name('report.daily');
+    Route::post('Admin/report/P3627362', [PoinController::class, 'input_poin'])->name('report.inputdaily');
+    Route::get('Admin/report/{id}/E3627362', [PoinController::class, 'edit_poin_daily'])->name('report.formeditdaily');
+    Route::put('Admin/report/{id}/S3627362', [PoinController::class, 'update_poin_daily'])->name('report.method');
     Route::resource('Admin/Announcement', AnnouncementController::class);
     Route::resource('Admin/batch', Batch_AController::class);
     Route::get('Admin/jurnal', [Item_JurnalController::class, 'index'])->name('item.jurnal');

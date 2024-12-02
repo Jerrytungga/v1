@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trainee;
 use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\BibleReading;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
@@ -89,7 +90,8 @@ class BibleReadingController extends Controller
 
         // Tentukan kitab berdasarkan input
         $book = $request->kitab === 'Old Testament' ? $request->kitab_pl : $request->kitab_pb;
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->bible : null;
         // Simpan data BibleReading ke database
         BibleReading::create([
             'asisten_id' => $request->asisten,
@@ -100,6 +102,7 @@ class BibleReadingController extends Controller
             'phrase_light' => $request->terang,
             'semester' => $semester,
             'week' => $weekly->Week,
+            'poin' => $poin,
         ]);
 
         return redirect()->route('BibleReading.index')->with('success', 'Input Bible Reading successfully!');

@@ -20,6 +20,7 @@ class Keuangan extends Model
         'debit',
         'credit',
         'saldo',
+        'poin',
       
     ];
 }

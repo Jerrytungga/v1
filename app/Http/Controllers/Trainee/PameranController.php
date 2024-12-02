@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Script;
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -94,7 +95,8 @@ class PameranController extends Controller
       
       $weekly = Weekly::where('status', 'active')->first();
       $semester = Session::get('semester');
-
+      $ambil_poin = Poindaily::where('semester', $semester)->first();
+      $poin = $ambil_poin ? $ambil_poin->script_ts_exhibition : null;
       if ($weekly) {
       Script::create([
         'nip' => $request->nip,
@@ -106,6 +108,9 @@ class PameranController extends Controller
         'Experience' => $request->Experience,
         'semester' => $semester,
         'week' => $weekly->Week,
+        'poin_verse' => $poin,
+        'poin_truth' => $poin,
+        'poin_experience' => $poin,
       ]);
 
       return redirect()->route('pameran.index')->with('success', 'Input script successfully!');

@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="text-uppercase">form input target point weekly</h1>
+          <h1 class="text-uppercase">form input point daily</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -24,7 +24,7 @@
           </div>
           <!-- /.card-header --> 
           <div class="card-body">
-            <form action="{{ route('poin.store') }}" method="post">
+            <form action="{{ route('report.inputdaily') }}" method="post">
               @csrf
               <div class="modal-body">
                 

@@ -18,6 +18,7 @@ class MemorizingVerses extends Model
         'semester',
         'catatan',
         'week',
+        'poin',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here
     ];

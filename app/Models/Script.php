@@ -21,5 +21,8 @@ class Script extends Model
         'verse',
         'Truth',
         'Experience',
+        'poin_verse',
+        'poin_truth',
+        'poin_experience',
     ];
 }

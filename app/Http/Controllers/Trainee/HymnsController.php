@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trainee;
 use App\Models\Hymns;
 use App\Models\Weekly;
 use App\Models\Asisten;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
@@ -83,7 +84,8 @@ class HymnsController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->hymns : null;
         
         if ($weekly) {
         Hymns::create([
@@ -94,6 +96,7 @@ class HymnsController extends Controller
             'frase' => $request->frase,
             'semester' => $semester,
             'week' => $weekly->Week,
+            'poin' => $poin,
            
         ]);
         return redirect()->route('Hymns.index')->with('success', 'Input Hymns successfully!');

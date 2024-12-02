@@ -19,6 +19,7 @@ class Fellowship extends Model
         'topic',
         'notes_trainee',
         'action',
+        'poin',
         'asisten_trainer',
         
         // 'created_at' and 'updated_at' are automatically managed by Eloquent, so no need to include them here

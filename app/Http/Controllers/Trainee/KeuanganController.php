@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Keuangan;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -90,7 +91,8 @@ class KeuanganController extends Controller
                                 ->first();
 
         $saldoSebelumnya = $lastKeuangan ? $lastKeuangan->saldo : 0; // Jika tidak ada saldo sebelumnya, set ke 0
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->financial : null;
         // Tambahkan saldo baru ke saldo sebelumnya
         $saldoTotal = $saldoSebelumnya + $saldo;  // Total saldo baru
                 $weekly = Weekly::where('status', 'active')->first();
@@ -104,6 +106,7 @@ class KeuanganController extends Controller
             'saldo' => $saldoTotal, // Menyimpan saldo dalam format Rupiah
             'semester' => $semester,
             'week' => $weekly->Week,
+            'poin' => $poin,
            
         ]);
         return redirect()->route('keuangan.index')->with('success', 'Input Financial successfully!');

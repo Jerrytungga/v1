@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trainee;
 use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\GoodLand;
+use App\Models\Poindaily;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
@@ -81,7 +82,7 @@ class GoodlandController extends Controller
             }
         // Pengecekan form input
         $request->validate([
-            'nip' => 'required|string',
+        'nip' => 'required|string',
         'asisten' => 'required|string',
         'verses' => 'required|string',
         'da' => 'nullable|string',
@@ -90,7 +91,8 @@ class GoodlandController extends Controller
         ]);
         $weekly = Weekly::where('status', 'active')->first();
         $semester = Session::get('semester');
-
+        $ambil_poin = Poindaily::where('semester', $semester)->first();
+        $poin = $ambil_poin ? $ambil_poin->good_land : null;
         if ($weekly) {
         GoodLand::create([
             'nip' => $request->nip,
@@ -101,6 +103,10 @@ class GoodlandController extends Controller
             'ds' => $request->ds,
             'semester' => $semester,
             'week' => $weekly->Week,
+            'poin_verses' => $poin,
+            'poin_da' => $poin,
+            'poin_dt' => $poin,
+            'poin_ds' => $poin,
            
         ]);
         return redirect()->route('goodland.index')->with('success', 'Input Good Land successfully!');
@@ -128,9 +134,13 @@ class GoodlandController extends Controller
             'experience_1' => 'required|string',
             ]);
     
+            $semester = Session::get('semester');
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->good_land : null;
             // Temukan data berdasarkan ID
             $data = GoodLand::findOrFail($id);
             $data->experience_1 = $request->experience_1;
+            $data->poin_experience_1 = $poin;
             $data->experience_1_time = $request->experience_1 ? now() : null;
             // Simpan perubahan
             $data->save();
@@ -158,9 +168,13 @@ class GoodlandController extends Controller
             'experience_2' => 'required|string',
             ]);
     
+            $semester = Session::get('semester');
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->good_land : null;
             // Temukan data berdasarkan ID
             $data = GoodLand::findOrFail($id);
             $data->experience_2 = $request->experience_2;
+            $data->poin_experience_2 = $poin;
             $data->experience_2_time = $request->experience_2 ? now() : null;
             // Simpan perubahan
             $data->save();
@@ -188,10 +202,15 @@ class GoodlandController extends Controller
         $request->validate([
             'experience_3' => 'required|string',
             ]);
+            
+            $semester = Session::get('semester');
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->good_land : null;
     
             // Temukan data berdasarkan ID
             $data = GoodLand::findOrFail($id);
             $data->experience_3 = $request->experience_3;
+            $data->poin_experience_3 = $poin;
             $data->experience_3_time = $request->experience_3 ? now() : null;
             // Simpan perubahan
             $data->save();
@@ -220,10 +239,15 @@ class GoodlandController extends Controller
         $request->validate([
             'experience_4' => 'required|string',
             ]);
+            $semester = Session::get('semester');
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->good_land : null;
+    
     
             // Temukan data berdasarkan ID
             $data = GoodLand::findOrFail($id);
             $data->experience_4 = $request->experience_4;
+            $data->poin_experience_4 = $poin;
             $data->experience_4_time = $request->experience_4 ? now() : null;
             // Simpan perubahan
             $data->save();
@@ -252,9 +276,13 @@ class GoodlandController extends Controller
             'experience_5' => 'required|string',
             ]);
     
+            $semester = Session::get('semester');
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->good_land : null;
             // Temukan data berdasarkan ID
             $data = GoodLand::findOrFail($id);
             $data->experience_5 = $request->experience_5;
+            $data->poin_experience_5 = $poin;
             $data->experience_5_time = $request->experience_5 ? now() : null;
             // Simpan perubahan
             $data->save();
@@ -281,10 +309,16 @@ class GoodlandController extends Controller
         $request->validate([
             'experience_6' => 'required|string',
             ]);
+
+            
+            $semester = Session::get('semester');
+            $ambil_poin = Poindaily::where('semester', $semester)->first();
+            $poin = $ambil_poin ? $ambil_poin->good_land : null;
     
             // Temukan data berdasarkan ID
             $data = GoodLand::findOrFail($id);
             $data->experience_6 = $request->experience_6;
+            $data->poin_experience_6 = $poin;
             $data->experience_6_time = $request->experience_6 ? now() : null;
             // Simpan perubahan
             $data->save();
