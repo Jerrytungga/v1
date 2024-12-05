@@ -77,20 +77,24 @@
                   <tbody>
                   @foreach($entrys as $data)
                   <tr>
-                      <td class="col-1">{{ $data->prayer_date }}</td>
-                      <td class="col-4">{{ $data->topic }}
-                      @if (!empty($data->catatan))
+                      <td class="col-1">{{ \Carbon\Carbon::parse($data->prayer_date)->format('d-m-y') }}</td>
+                      <td class="col-2">{{ $data->topic }}
+                   
+
+                      </td>
+                      <td class="col-2">{{ $data->light }}</td>
+                      <td class="col-2">{{ $data->appreciation }}</td>
+                      <td class="col-4">{{ $data->action }}
+                         @if (!empty($data->catatan))
                         <blockquote class="blockquote" style="background-color: #FFF5E4;">
                         <p class="mb-0 text-danger">{{ $data->catatan }}</p>
                         <footer class="blockquote-footer">Asisten {{ $name_asisten }}</footer>
                         </blockquote>
                         @endif
-
                       </td>
-                      <td class="col-4">{{ $data->light }}</td>
-                      <td class="col-4">{{ $data->appreciation }}</td>
-                      <td class="col-4">{{ $data->action }}</td>
-                      <td class="col-4">{{ $data->prayer_answered_date }}</td>
+                      <!--<td class="col-4">{{ $data->prayer_answered_date }}</td>-->
+                      <td class="col-1">{{ \Carbon\Carbon::parse($data->prayer_answered_date)->format('d-m-y') }}</td>
+
                       <td class="col-4">{{ $data->prayer_answer }}</td>
                       <td class="col-8">
                       @if(empty($data->prayer_answer) && empty($data->prayer_answered_date))

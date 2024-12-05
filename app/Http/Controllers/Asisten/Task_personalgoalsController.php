@@ -22,11 +22,13 @@ class Task_personalgoalsController extends Controller
         ->where('nip', $nip)
         ->where('week', $minggu)
         ->get();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.task_personalgoals.index', [
             "title" => "Assignment",
             "Week" => $minggu,
             "ambil_trainee" => $ambil_trainee,
             "ambil_tugas" => $ambil_tugas,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
 
     }

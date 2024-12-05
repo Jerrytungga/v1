@@ -61,6 +61,15 @@ class AdminController extends Controller
             'asisten' => 'required|string',
         ]);
 
+        $existingTrainee = Trainee::where('name', $request->name)
+        ->where('nip', $request->nip)
+        ->first();
+
+        if ($existingTrainee) {
+            // Jika sudah ada, kembalikan dengan pesan error
+            return back()->withErrors(['name' => 'The combination of name and NIP has already been registered!'])->withInput();
+        }
+
         Trainee::create([
             'name' => $request->name,
             'batch' => $request->angkatan,

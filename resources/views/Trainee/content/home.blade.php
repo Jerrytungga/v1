@@ -39,17 +39,30 @@
 @endif
 
 
-@if($pesan_Asisten)
-    
-    <div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="
-        background-color: #FAF5E4;">
-      <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
-      <p>{{ $pesan_Asisten->pesan }}</p>
-      <hr>
-      <p class="mb-0 from-admin">From Asisten</p>
-    </div><br>
- 
-  @endif
+@if($pesan_Asisten->isNotEmpty())
+    @foreach($pesan_Asisten as $pesan)
+        <div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="background-color: #FAF5E4;">
+            <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
+            <p>{{ $pesan->pesan }}</p>
+            <hr>
+            <p class="mb-0 from-admin">From Asisten</p>
+        </div><br>
+    @endforeach
+@else
+    <p>No active messages from Asisten.</p>
+@endif
+@if($pesan_Asisten_All->isNotEmpty())
+    @foreach($pesan_Asisten_All as $pesan)
+        <div class="alert ml-3 mb-2 mr-3 mt-1" role="alert" style="background-color: #FAF5E4;">
+            <h4 class="alert-heading text-danger text-bold soft-blink">Announcement!</h4>
+            <p>{{ $pesan->pesan }}</p>
+            <hr>
+            <p class="mb-0 from-admin">From Asisten</p>
+        </div><br>
+    @endforeach
+@else
+    <p>No active messages from Asisten.</p>
+@endif
 
 
         <div class="row m-2">

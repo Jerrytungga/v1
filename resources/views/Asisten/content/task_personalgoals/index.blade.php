@@ -24,14 +24,14 @@
                 <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#staticBackdrop">
                 Add Assignment
                 </button>
-                <form action="{{ route('Hymns-week', $ambil_trainee->nip) }}" method="POST">
+                <form action="{{ route('Add_Assignment-week', $ambil_trainee->nip) }}" method="POST">
                   @csrf
                   <div class="form-inline">
                     <label for="semester" class="mr-2 ml-2">Chosen Week :</label>
                     <select class="form-control ml-2 col-12 col-sm-4 col-md-2" style="background-color:#001F3F; color:#FFF;" id="chosenWeek" name="week">
                     <option value="">Please select a week</option>
-                    @foreach (['PT 1', 'PT 2', 'PT 3', 'WEEK 1', 'WEEK 2', 'WEEK 3', 'WEEK 4', 'WEEK 5', 'WEEK 6', 'WEEK 7', 'WEEK 8', 'WEEK 9', 'WEEK 10', 'WEEK 11', 'WEEK 12', 'WEEK 13', 'WEEK 14', 'WEEK 15', 'WEEK 16', 'WEEK 17', 'EVALUASI 1', 'EVALUASI 2', 'EVALUASI 3'] as $week)
-                    <option value="{{ $week }}" {{ old('week') == $week ? 'selected' : '' }}>{{ $week }}</option>
+                    @foreach ($dropdown_weekly as $data)
+                    <option value="{{ $data->Week }}">{{ $data->Week }}</option>
                     @endforeach
                     </select>
                     <button type="submit" class="btn ml-2" style="background-color:#001F3F; color:#FFFf;">View</button>

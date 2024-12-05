@@ -180,10 +180,11 @@ class ReportController extends Controller
                 if ($keuangan > $keuangan_) {
                     $keuangan = $keuangan_;
                 }
+                $total_ = $bible + $memorizing + $himns + $prayer5mnt + $tp + $prayer + $personalgoals + $ministri + $fellowship + $ts + $agenda + $keuangan;
 
-            if($pencapaian > $standar_poin){
+            if($total_ >= $standar_poin){
                 $status = 'C';
-            } elseif($pencapaian < $standar_poin){
+            } elseif($total_ <= $standar_poin){
                 $status = 'IC';
             }
                 $angkatan = Session::get('batch');
@@ -206,12 +207,13 @@ class ReportController extends Controller
                     'Agenda' => $agenda,
                     'Finance' => $keuangan,
                     'standart_poin' => $standar_poin,
-                    'status' => $status,
                     'created_at' => $current_time,
                     'updated_at' => $current_time,
-                    $total_ = $bible + $memorizing + $himns + $prayer5mnt + $tp + $prayer + $personalgoals + $ministri + $fellowship + $ts + $agenda + $keuangan,
+                   
                     'Achievement' => $total_,
                     'batch' => $angkatan,
+                    
+                    'status' => $status,
                 ]);
 
                 $nipTrainee = Session::get('nip');

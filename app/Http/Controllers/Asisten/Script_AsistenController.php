@@ -23,12 +23,14 @@ class Script_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_Script->sum('poin_verse') + $ambil_Script->sum('poin_truth') + $ambil_Script->sum('poin_experience');
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Script_Asisten.index', [
             "title" => "Script Ts & Exhibition",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_Script" => $ambil_Script,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -70,7 +72,7 @@ class Script_AsistenController extends Controller
         $ambil_Script = $ambil_Script->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_Script->sum('poin_verse') + $ambil_Script->sum('poin_truth') + $ambil_Script->sum('poin_experience');
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Script_Asisten.index', [
             "title" => "Script Ts & Exhibition",
@@ -78,6 +80,7 @@ class Script_AsistenController extends Controller
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_Script" => $ambil_Script,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 }

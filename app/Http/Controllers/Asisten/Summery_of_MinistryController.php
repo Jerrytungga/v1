@@ -23,12 +23,14 @@ class Summery_of_MinistryController extends Controller
             ->get();
             $totalPoin = $ambil_ministri->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Summery_of_Ministry.index', [
             "title" => "Summary Of Ministry",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_ministri" => $ambil_ministri,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -66,7 +68,7 @@ class Summery_of_MinistryController extends Controller
         $ambil_ministri = $ambil_ministri->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_ministri->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Summery_of_Ministry.index', [
             "title" => "Summary Of Ministry",
@@ -74,6 +76,7 @@ class Summery_of_MinistryController extends Controller
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_ministri" => $ambil_ministri,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 }

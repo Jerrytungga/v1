@@ -21,13 +21,15 @@ class five_timeprayerController extends Controller
             ->where('nip', $nip)
             ->where('week', $minggu)
             ->get();
-            $totalPoin = $ambil_timeprayer->sum('poin');  
+            $totalPoin = $ambil_timeprayer->sum('poin'); 
+            $dropdown_weekly = Weekly::all(); 
         return view('Asisten.content.5_Time_Prayer.index', [
             "title" => "Hymns",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_timeprayer" => $ambil_timeprayer,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -65,7 +67,7 @@ class five_timeprayerController extends Controller
         $ambil_timeprayer = $ambil_timeprayer->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_timeprayer->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all(); 
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.5_Time_Prayer.index', [
             "title" => "Bible",
@@ -73,6 +75,7 @@ class five_timeprayerController extends Controller
             "totalPoin" => $totalPoin,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

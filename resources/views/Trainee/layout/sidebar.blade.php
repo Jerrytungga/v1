@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-light-dark elevation-4">
   <!-- Brand Logo -->
   <a href="{{ route('trainee.Home') }}" class="brand-link d-flex align-items-center">
-    <i class="fas fa-journal-whills fa-2x text-primary logo-icon"></i>  <!-- FontAwesome Icon -->
+  <i class="fas fa-book-open fa-2x logo-icon"></i>
     <h3 class="text-bold text-primary d-inline-block ml-2 brand-text">JURNAL FTTI</h3>  <!-- Brand Text -->
   </a>
 

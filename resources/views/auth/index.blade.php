@@ -47,19 +47,23 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">NIP</label>
-                            <input type="text" class="form-control" name="nip" id="nip" required>
+                            <input type="text" id="nip" class="form-control" name="nip" value="{{ old('nip', $nip) }}" required>
                             @if ($errors->has('nip'))
                                 <div class="text-danger">{{ $errors->first('nip') }}</div>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" value="{{ old('password', $password) }}" required>
                             @if ($errors->has('password'))
                                 <div class="text-danger">{{ $errors->first('password') }}</div>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-custom w-100">Login</button>
+                        <div>
+                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <label for="remember">Remember Me</label>
+                        </div>
+                        <button type="submit" class="btn mt-1 btn-custom w-100">Login</button>
                         <a class="btn btn-info w-100 mt-2" href="{{ route('auth.cek') }}">Check Data</a>
                     </form>
                     

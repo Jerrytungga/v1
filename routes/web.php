@@ -139,21 +139,42 @@ Route::post('/Asisten/{id}/Memorizing-verses', [Memorizing_Verses_AsistenControl
 Route::get('Asisten/Hymns/{nip}/trainee', [Hymns_AsistenController::class, 'index'])->name('Hymns-Asisten');
 Route::patch('/Asisten/Hymns/{id}/poin', [Hymns_AsistenController::class, 'Hymnspoin'])->name('HYMNS-poin');
 Route::post('/Asisten/{id}/Hymns', [Hymns_AsistenController::class, 'filterHymnsWeek'])->name('Hymns-week');
+
+
+// 5 Waktu doa
 Route::get('Asisten/fivetimeprayer/{nip}/trainee', [five_timeprayerController::class, 'index'])->name('Fivetimeprayer-Asisten');
 Route::patch('/Asisten/fivetimeprayer/{id}/poin', [five_timeprayerController::class, 'fivetimeprayerpoin'])->name('fivetimeprayer-poin');
 Route::post('/Asisten/{id}/fivetimeprayer', [five_timeprayerController::class, 'filterfivetimeprayerWeek'])->name('fivetimeprayer-week');
+
+
+// personal Goals
 Route::get('Asisten/personal-goals/{nip}/trainee', [Personal_Goals_AsistenController::class, 'index'])->name('personalgoals-Asisten');
 Route::patch('/Asisten/personal-goals/{id}/poin', [Personal_Goals_AsistenController::class, 'personalgoalspoin'])->name('personalgoals-poin');
 Route::post('/Asisten/{id}/personal-goals', [Personal_Goals_AsistenController::class, 'filterpersonalgoalsWeek'])->name('personalgoals-week');
+
+// summery of ministri
 Route::get('Asisten/Summery_of_Ministry/{nip}/trainee', [Summery_of_MinistryController::class, 'index'])->name('Ministry-Asisten');
 Route::patch('/Asisten/Summery_of_Ministry/{id}/poin', [Summery_of_MinistryController::class, 'Summery_of_Ministrypoin'])->name('Summery_of_Ministry-poin');
-Route::post('/Asisten/{id}/Summery_of_Ministry', [Summery_of_MinistryController::class, 'Summery_of_MinistryWeek'])->name('personalgoals-week');
+Route::post('/Asisten/{id}/Summery_of_Ministry', [Summery_of_MinistryController::class, 'Summery_of_MinistryWeek'])->name('Summery_of_Ministry-week');
+
+
+
+
+// fellowship
 Route::get('Asisten/Fellowship/{nip}/trainee', [Fellowship_AsistenController::class, 'index'])->name('Fellowship-Asisten');
 Route::patch('/Asisten/Fellowship/{id}/poin', [Fellowship_AsistenController::class, 'FellowshipAsistenpoin'])->name('Fellowship-poin');
-Route::post('/Asisten/{id}/Fellowship', [Fellowship_AsistenController::class, 'FellowshipAsistenWeek'])->name('personalgoals-week');
+Route::post('/Asisten/{id}/Fellowship', [Fellowship_AsistenController::class, 'FellowshipAsistenWeek'])->name('Fellowship-week');
+
+
+
+
+
+// Script
 Route::get('Asisten/Script/{nip}/trainee', [Script_AsistenController::class, 'index'])->name('Script-Asisten');
 Route::patch('/Asisten/Script/{id}/poin', [Script_AsistenController::class, 'Scriptpoin'])->name('Script-poin');
 Route::post('/Asisten/{id}/Script', [Script_AsistenController::class, 'ScriptWeek'])->name('Script-week');
+
+
 Route::get('Asisten/Agenda/{nip}/trainee', [Agenda_AsistenController::class, 'index'])->name('Agenda-Asisten');
 Route::patch('/Asisten/Agenda/{id}/poin', [Agenda_AsistenController::class, 'Agendapoin'])->name('Agenda-poin');
 Route::post('/Asisten/{id}/Agenda', [Agenda_AsistenController::class, 'AgendaWeek'])->name('Agenda-week');
@@ -161,6 +182,8 @@ Route::post('/Asisten/{id}/Agenda', [Agenda_AsistenController::class, 'AgendaWee
 Route::get('Asisten/finance/{nip}/trainee', [Financial_AsistenController::class, 'index'])->name('Financial-Asisten');
 Route::patch('/Asisten/finance/{id}/poin', [Financial_AsistenController::class, 'Agendapoin'])->name('Financial-poin');
 Route::post('/Asisten/{id}/finance', [Financial_AsistenController::class, 'AgendaWeek'])->name('Financial-week');
+
+
 Route::get('Asisten/report/{nip}/trainee', [Report_traineeController::class, 'index'])->name('Report-Asisten');
 
 Route::get('Asisten/Assignment/{nip}/trainee', [Task_personalgoalsController::class, 'index'])->name('Assignment-Asisten');

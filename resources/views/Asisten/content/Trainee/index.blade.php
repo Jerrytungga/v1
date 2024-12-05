@@ -4,7 +4,7 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-6" >
             <h1>My Trainee</h1>
           </div>
         </div>
@@ -24,7 +24,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2"  class="table table-bordered table-hover">
-                  <thead class="text-center" style="background-color: #001F3F; color:#fff;">
+                  <thead class="text-center" style="background-color: #4A4947; color:#ffff;">
                    
                   <tr>
                     <th rowspan="2" style="width: 50px;">No</th>

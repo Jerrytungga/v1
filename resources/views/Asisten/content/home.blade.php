@@ -7,7 +7,8 @@
           <div class="col-sm-6">
           {{-- Display session message if exists --}}
             @if (session('role'))
-            <div class="alert  m-2 alert-success alert-dismissible fade show" role="alert">
+            <div class="alert  m-2 alert-success alert-dismissible fade show" style="
+    background-color: #B17457; color:#fff;" role="alert">
          <strong>Congratulations!</strong>, you have successfully logged in as an {{ session('role') }}
          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

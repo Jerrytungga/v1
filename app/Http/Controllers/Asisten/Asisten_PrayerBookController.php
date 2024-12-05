@@ -23,13 +23,14 @@ class Asisten_PrayerBookController extends Controller
             ->where('week', $minggu)
             ->get();
             $totalPoin = $ambil_prayer->sum('poin_topic') + $ambil_prayer->sum('light_poin') + $ambil_prayer->sum('appreciation_poin') + $ambil_prayer->sum('action_poin'); 
-
+            $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Prayer_book.index', [
             "title" => "Prayer Book",
             "ambil_prayer" => $ambil_prayer,
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -77,7 +78,7 @@ class Asisten_PrayerBookController extends Controller
         // Ambil data sesuai filter
         $ambil_prayer = $ambil_prayer->orderBy('created_at', 'DESC')->get();
      
-    
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Prayer_book.index', [
             "title" => "Prayer Book",
@@ -85,6 +86,7 @@ class Asisten_PrayerBookController extends Controller
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 }

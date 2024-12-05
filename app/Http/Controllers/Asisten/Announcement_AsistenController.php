@@ -50,8 +50,8 @@ class Announcement_AsistenController extends Controller
            
         ]);
 
-        $ambi_tsemester = $request->traines;
-
+        $trainee = $request->traines;
+        
         // Mendapatkan data Weekly yang aktif
         $weekly = Weekly::where('status', 'active')->first();
         
@@ -59,12 +59,17 @@ class Announcement_AsistenController extends Controller
         $nipAsisten = Session::get('nip');
         
         // Mengambil data Trainee berdasarkan NIP yang dikirim
-        $ambil_trainee = Trainee::where('nip', $ambi_tsemester)->first();
         
-        // Pastikan data Trainee ditemukan sebelum melanjutkan
-        if ($ambil_trainee) {
+        if($trainee == 'all'){
+            $semester = 'all';
+        } else {
+            $trainee = $request->traines;
+            $ambil_trainee = Trainee::where('nip', $trainee)->first();
             $semester = $ambil_trainee->semester;
-        
+
+        }
+        // Pastikan data Trainee ditemukan sebelum melanjutkan
+      
             // Menyimpan pesan asisten
             PesanAsisten::create([
                 'nip' => $request->traines,
@@ -77,10 +82,7 @@ class Announcement_AsistenController extends Controller
         
             // Lakukan sesuatu jika data berhasil disimpan (misalnya redirect)
             return redirect()->route('notif.index')->with('success', 'Announcement successfully entered!');
-        } else {
-            // Menangani jika trainee tidak ditemukan
-            return redirect()->back()->with('error', 'Trainee not found.');
-        }
+       
         
     
         // Redirect back with a success message

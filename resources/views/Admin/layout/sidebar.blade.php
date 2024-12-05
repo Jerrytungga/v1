@@ -1,9 +1,11 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-white elevation-4" style="background-color: #006A67;">
     <!-- Brand Logo -->
-    <a href="" class="brand-link">
-        <h3 class="text-bold text-light text-center">JURNAL FTTI</h3>
-    </a>
+    <a href="" class="brand-link d-flex align-items-center">
+  <i class="fas fa-book-open text-light fa-2x logo-icon"></i>
+   
+    <h3 class="text-bold text-light d-inline-block ml-2 brand-text">JURNAL FTTI</h3>  <!-- Brand Text -->
+  </a>
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->

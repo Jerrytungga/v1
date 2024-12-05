@@ -23,12 +23,14 @@ class Financial_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_Financial->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Keuangan_Asisten.index', [
             "title" => "Agenda",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_Financial" => $ambil_Financial,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -67,7 +69,7 @@ class Financial_AsistenController extends Controller
         $ambil_Financial = $ambil_Financial->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_Financial->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Keuangan_Asisten.index', [
             "title" => "Agenda",
@@ -75,6 +77,7 @@ class Financial_AsistenController extends Controller
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_Financial" => $ambil_Financial,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

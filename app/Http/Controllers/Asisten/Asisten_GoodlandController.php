@@ -27,12 +27,13 @@ class Asisten_GoodlandController extends Controller
             ->get();
 
         $totalPoin = $ambil_goodland->sum('poin_verses') + $ambil_goodland->sum('poin_da') + $ambil_goodland->sum('poin_dt') + $ambil_goodland->sum('poin_ds') + $ambil_goodland->sum('poin_experience_1') + $ambil_goodland->sum('poin_experience_2') + $ambil_goodland->sum('poin_experience_3') + $ambil_goodland->sum('poin_experience_4') + $ambil_goodland->sum('poin_experience_5') + $ambil_goodland->sum('poin_experience_6');  // 
-
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Good_land.index', [
             "title" => "Good Land",
             "ambil_trainee" => $ambil_trainee,
             "ambil_goodland" => $ambil_goodland,
             "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -92,7 +93,7 @@ class Asisten_GoodlandController extends Controller
 
         // Ambil data sesuai filter
         $ambil_goodland = $ambil_goodland->orderBy('created_at', 'DESC')->get();
-     
+        $dropdown_weekly = Weekly::all();
     
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Good_land.index', [
@@ -100,6 +101,7 @@ class Asisten_GoodlandController extends Controller
             "ambil_trainee" => $ambil_trainee,
             "ambil_goodland" => $ambil_goodland,
             "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 }

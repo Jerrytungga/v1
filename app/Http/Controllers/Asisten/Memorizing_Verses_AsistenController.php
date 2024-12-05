@@ -24,12 +24,14 @@ class Memorizing_Verses_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_memorizing_verse->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Memorizing_verses.index', [
             "title" => "Memorizing Verses",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_memorizing_verse" => $ambil_memorizing_verse,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -69,7 +71,7 @@ class Memorizing_Verses_AsistenController extends Controller
         $ambil_memorizing_verse = $ambil_memorizing_verse->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_memorizing_verse->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Memorizing_verses.index', [
             "title" => "Bible",
@@ -77,6 +79,7 @@ class Memorizing_Verses_AsistenController extends Controller
             "totalPoin" => $totalPoin,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

@@ -18,7 +18,7 @@ class Report_traineeController extends Controller
         $weekly = Weekly::where('status', 'active')->first();
         $minggu = $weekly ? $weekly->Week : null;
         $ambil_trainee = Trainee::where('nip', $nip)->first();
-        $ambil_semester = $ambil_trainee->semester;
+        $ambil_semester =  $ambil_trainee->semester;
         $standart_poin = Poinjurnal::where('semester', $ambil_semester)
         ->first();
         $ambil_report = Report_weekly::where('asisten_id', $nipAsisten)

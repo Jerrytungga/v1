@@ -23,12 +23,14 @@ class Agenda_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_Agenda->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Agenda_Asisten.index', [
             "title" => "Agenda",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_Agenda" => $ambil_Agenda,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -66,7 +68,7 @@ class Agenda_AsistenController extends Controller
         $ambil_Agenda = $ambil_Agenda->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_Agenda->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Agenda_Asisten.index', [
             "title" => "Agenda",
@@ -74,6 +76,7 @@ class Agenda_AsistenController extends Controller
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_Agenda" => $ambil_Agenda,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

@@ -23,12 +23,14 @@ class Personal_Goals_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_personalgoals->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.PersonalGoals.index', [
             "title" => "Memorizing Verses",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_personalgoals" => $ambil_personalgoals,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -67,7 +69,7 @@ class Personal_Goals_AsistenController extends Controller
         $ambil_personalgoals = $ambil_personalgoals->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_personalgoals->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.PersonalGoals.index', [
             "title" => "Bible",
@@ -75,6 +77,7 @@ class Personal_Goals_AsistenController extends Controller
             "totalPoin" => $totalPoin,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

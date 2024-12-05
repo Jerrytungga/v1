@@ -30,12 +30,13 @@ class Bible_readingController extends Controller
 
         $totalPoin = $ambil_biblereading->sum('poin');  // Menghitung total poin
         $totaldata = $ambil_biblereading->count('verse');  // Menghitung total poin
-
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Bible_reading.index', [
             "title" => "Bible",
             "ambil_biblereading" => $ambil_biblereading,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
             "totalPoin" => $totalPoin,
             "totaldata" => $totaldata,
         ]);
@@ -79,7 +80,7 @@ class Bible_readingController extends Controller
         
         $totalPoin = $ambil_biblereading->sum('poin');  // Menghitung total poin
         $totaldata = $ambil_biblereading->count('verse'); 
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Bible_reading.index', [
             "title" => "Bible",
@@ -88,6 +89,7 @@ class Bible_readingController extends Controller
             "totaldata" => $totaldata,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

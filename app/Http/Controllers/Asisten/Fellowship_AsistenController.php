@@ -23,12 +23,14 @@ class Fellowship_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_fellowship->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Fellowship.index', [
             "title" => "Fellowship",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_fellowship" => $ambil_fellowship,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -66,7 +68,7 @@ class Fellowship_AsistenController extends Controller
         $ambil_fellowship = $ambil_fellowship->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_fellowship->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Fellowship.index', [
             "title" => "Fellowship",
@@ -74,6 +76,7 @@ class Fellowship_AsistenController extends Controller
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_fellowship" => $ambil_fellowship,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

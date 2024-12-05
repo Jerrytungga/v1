@@ -1,5 +1,6 @@
 
-  <footer class="main-footer">
+  <footer class="main-footer text-light" style="
+    background-color: #6B8A7A;">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.0
     </div>

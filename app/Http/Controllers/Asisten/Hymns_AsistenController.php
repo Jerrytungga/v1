@@ -23,12 +23,14 @@ class Hymns_AsistenController extends Controller
             ->get();
             $totalPoin = $ambil_hymns->sum('poin');  
         $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
         return view('Asisten.content.Hymns.index', [
             "title" => "Hymns",
             "ambil_trainee" => $ambil_trainee,
             "namaAsisten" => $namaAsisten,
             "totalPoin" => $totalPoin,
             "ambil_hymns" => $ambil_hymns,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 
@@ -67,7 +69,7 @@ class Hymns_AsistenController extends Controller
         $ambil_hymns = $ambil_hymns->orderBy('created_at', 'DESC')->get();
         
         $totalPoin = $ambil_hymns->sum('poin');  // Menghitung total poin
-      
+        $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Hymns.index', [
             "title" => "Bible",
@@ -75,6 +77,7 @@ class Hymns_AsistenController extends Controller
             "totalPoin" => $totalPoin,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
 

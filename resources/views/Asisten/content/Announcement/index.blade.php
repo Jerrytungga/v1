@@ -44,7 +44,7 @@
                       @php
                        $trainee = \App\Models\Trainee::where('nip', $data->nip)->first();
                        @endphp
-                      {{ $trainee ? $trainee->name : 'No Assistant' }}
+                      {{ $trainee ? $trainee->name : 'all' }}
 
                       </td>
                       <td>{{ $data->pesan }}</td>
@@ -96,6 +96,7 @@
           <label for="trainee">Trainee</label>
           <select name="traines" class="form-control" id="">
             <option value="">Select trainee</option>
+            <option value="all">All trainee</option>
           @foreach ($ambil_trainee as $trainee)
           <option value="{{ $trainee->nip }}">{{ $trainee->name }}</option>
           @endforeach
