@@ -82,4 +82,32 @@ class Task_personalgoalsController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect()->route('Assignment-Asisten', $message->nip)->with('success', 'Successfully activated!');
     }
+
+
+
+    public function Filter_Assignment(Request $request, $nip)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambilsemester = $ambil_trainee->semester;
+        $ambil_tugas = Taskpersonalgoal::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $ambilsemester);
+        $weekly = Weekly::where('status', 'active')->first();
+        $minggu = $weekly ? $weekly->Week : null;
+
+        // Ambil data sesuai filter
+        $ambil_tugas = $ambil_tugas->orderBy('created_at', 'DESC')->get();
+       // Menghitung total poin
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.task_personalgoals.index', [
+            "title" => "Assignment",
+            "Week" => $minggu,
+            "ambil_trainee" => $ambil_trainee,
+            "ambil_tugas" => $ambil_tugas,
+            "dropdown_weekly" => $dropdown_weekly,
+        ]);
+    }
 }

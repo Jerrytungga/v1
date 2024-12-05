@@ -31,6 +31,12 @@
             <p class="">Announcement</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('HaventCompletedtheJournal') }}" class="nav-link {{ ($title == 'Jurnal') ? 'active' : '' }}">
+            <i class="fas fa-book nav-icon"></i>
+            <p class="">Jurnal</p>
+          </a>
+        </li>
 
       </ul>
     </nav>

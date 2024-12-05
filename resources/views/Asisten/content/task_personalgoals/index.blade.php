@@ -24,7 +24,7 @@
                 <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#staticBackdrop">
                 Add Assignment
                 </button>
-                <form action="{{ route('Add_Assignment-week', $ambil_trainee->nip) }}" method="POST">
+                <form action="{{ route('Add_Assignment_Week', $ambil_trainee->nip) }}" method="POST">
                   @csrf
                   <div class="form-inline">
                     <label for="semester" class="mr-2 ml-2">Chosen Week :</label>
@@ -117,7 +117,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{ route('Add_Assignment-week') }}" method="post">
+      <form action="{{ route('Add_Assignment') }}" method="post">
       @csrf
       <div class="modal-body">
         <input type="hidden" name="nip" value="{{$ambil_trainee->nip}}">

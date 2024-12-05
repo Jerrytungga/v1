@@ -26,7 +26,7 @@
                 <h6 class="text-left mb-0">Total Poin: <span class="badge badge-pill badge-danger">{{ $totalPoin }}</span></h6>
                 </div>
 
-                <form action="{{ route('personalgoals-week', $ambil_trainee->nip) }}" method="POST">
+                <form action="{{ route('Summery_of_Ministry-week', $ambil_trainee->nip) }}" method="POST">
                   @csrf
                   <div class="form-inline">
                     <label for="semester" class="mr-2 ml-2">Chosen Week :</label>
