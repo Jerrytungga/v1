@@ -35,7 +35,7 @@
     <div>
      <input type="time" value="{{$viewreport->input_time}}" name="waktu" class="form-control mt-1">
     </div>
-    <button type="submit" class="btn btn-success mt-1">Set</button>
+    <button type="submit" class="btn mt-1" style="background-color: #006A67; color:floralwhite;">Set</button>
     </form>
   </div>
 </div>

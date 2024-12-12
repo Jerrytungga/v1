@@ -21,6 +21,41 @@ class Item_JurnalController extends Controller
         ]);
     }
 
+
+
+    public function allactive()
+    {
+        // Update all items where the status is 'inactive' to 'active'
+        Itemjurnal::where('status', 'inactive')->update(['status' => 'active']);
+    
+        // Redirect back with a success message
+        return redirect()->route('item.jurnal')->with('success', 'Successfully activated!');
+    }
+    
+    public function allinactive()
+    {
+        Itemjurnal::where('status', 'active')->update(['status' => 'inactive']);
+        return redirect()->route('item.jurnal')->with('success', 'Successfully deactivated!');
+    }
+    
+    public function allactive_asisten()
+    {
+        // Update all items where the status is 'inactive' to 'active'
+        MenuItem::where('status', 'inactive')->update(['status' => 'active']);
+        
+        // Redirect back with a success message
+        return redirect()->route('item.jurnal')->with('success', 'Successfully activated!');
+    }
+    
+    public function allinactive_asisten()
+    {
+        MenuItem::where('status', 'active')->update(['status' => 'inactive']);
+        return redirect()->route('item.jurnal')->with('success', 'Successfully deactivated!');
+    }
+
+
+
+
     public function Inactive($id)
     {
         // Cari pesan berdasarkan ID
@@ -33,6 +68,11 @@ class Item_JurnalController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect()->route('item.jurnal')->with('success', 'Successfully deactivated!');
     }
+
+
+
+
+
     public function Active($id)
     {
         // Cari pesan berdasarkan ID

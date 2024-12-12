@@ -63,6 +63,7 @@ class AtraineeController extends Controller
     // Loop melalui setiap trainee untuk menghitung data berdasarkan nip dan asisten_id
     foreach ($trainees as $trainee) {
         $nip = $trainee->nip;  // Ambil nip setiap trainee
+        $semester = $trainee->semester;  // Ambil nip setiap trainee
 
         // Menghitung jumlah total entri berdasarkan NIP dan Asisten ID dalam minggu ini
         $traineeData[] = [
@@ -71,60 +72,170 @@ class AtraineeController extends Controller
             'semester' => $trainee->semester,
             'bible' => BibleReading::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'memorizing' => MemorizingVerses::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'hymns' => Hymns::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'prayer5mnt' => Timeprayer::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'tp' => GoodLand::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'prayer' => Prayers::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'personalgoals' => Personalgoals::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'ministri' => Ministri::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'fellowship' => Fellowship::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'ts' => Script::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'agenda' => Agenda::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
             'keuangan' => Keuangan::where('nip', $nip)
                 ->where('asisten_id', $nipAsisten)
-               ->where('week', $minggu) // Filter berdasarkan minggu
+               ->where('week', $minggu)
+               ->where('semester', $semester) // Filter berdasarkan minggu
                 ->count(),
         ];
     }
 
+    $weeklydropdown = Weekly::all();
     // Mengirim data ke view
     return view('Asisten.content.Track_record.index', [
         "title" => "Jurnal",
         "traineeData" => $traineeData,  // Mengirim data hasil hitung
+        "weeklydropdown" => $weeklydropdown,
     ]);
+
+    }
+
+
+
+
+    public function filter_week_report(Request $request){
+
+    $selectedWeek = $request->input('week');
+
+    $nipAsisten = Session::get('nip');
+
+    // Mengambil data trainee berdasarkan asisten_id (nipAsisten)
+    $trainees = Trainee::where('asisten_id', $nipAsisten)->get();
+
+
+    $traineeData = [];
+
+    // Loop melalui setiap trainee untuk menghitung data berdasarkan nip dan asisten_id
+    foreach ($trainees as $trainee) {
+        $nip = $trainee->nip;  // Ambil nip setiap trainee
+        $semester = $trainee->semester; 
+        // Menghitung jumlah total entri berdasarkan NIP dan Asisten ID dalam minggu ini
+        $traineeData[] = [
+            'name' => $trainee->name,
+            'batch' => $trainee->batch,
+            'semester' => $trainee->semester,
+            'bible' => BibleReading::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'memorizing' => MemorizingVerses::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'hymns' => Hymns::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'prayer5mnt' => Timeprayer::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'tp' => GoodLand::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'prayer' => Prayers::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'personalgoals' => Personalgoals::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'ministri' => Ministri::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'fellowship' => Fellowship::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'ts' => Script::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'agenda' => Agenda::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+            'keuangan' => Keuangan::where('nip', $nip)
+                ->where('asisten_id', $nipAsisten)
+               ->where('week', $selectedWeek)
+                ->where('semester', $semester)  // Filter berdasarkan minggu
+                ->count(),
+        ];
+    }
+    $traineeData = collect($traineeData);
+        $weeklydropdown = Weekly::all();
+        return view('Asisten.content.Track_record.index', [
+            "title" => "Jurnal",
+            "traineeData" => $traineeData,  // Mengirim data hasil hitung
+            "weeklydropdown" => $weeklydropdown,
+        ]);
 
     }
 }

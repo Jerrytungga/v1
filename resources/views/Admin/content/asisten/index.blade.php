@@ -22,7 +22,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-            <a href="{{route('asisten.create')}}" class="btn btn-success">Input Asisten</a>
+            <a href="{{route('asisten.create')}}" class="btn" style="background-color: #006A67; color:floralwhite;">
+            <i class="fas fa-user-plus"></i>
+            </a>
             </div>
         
               <!-- /.card-header -->
@@ -49,9 +51,12 @@
                         <td>{{ $data->status }}</td> <!-- Kolom Nip rata kanan -->
                         <td class="text-center">
                           <!-- Tombol Aksi (Edit dan Hapus) -->
-                          <a href="{{ route('asisten.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                          <!-- <a href="{{ route('trainee.show', $data->id) }}" class="btn btn-primary btn-sm">View</a> -->
-                         
+                          <a href="{{ route('asisten.edit', $data->id) }}" class="btn btn-warning btn-sm">
+                          <i class="fas fa-edit"></i>
+                          </a>
+                          <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $data->id }}">
+                            <i class="fas fa-trash-alt"></i> <!-- Ikon untuk Delete -->
+                        </button>
                         </td>
                       </tr>
                     @endforeach
@@ -73,5 +78,34 @@
     </section>
    
 
+    @foreach($asisten as $data)
+   <!-- Delete Confirmation Modal -->
+   <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color: #006A67; color:floralwhite;">
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete Asisten</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this asisten?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- Cancel Button -->
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        
+                                        <!-- Delete Form -->
+                                        <form action="{{ route('asisten.destroy', $data->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
 
 @endsection

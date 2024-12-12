@@ -2,8 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Hymns;
+use App\Models\Agenda;
+use App\Models\Script;
 use App\Models\Asisten;
+use App\Models\Prayers;
+use App\Models\GoodLand;
+use App\Models\Ministri;
+use App\Models\Fellowship;
+use App\Models\timeprayer;
+use App\Models\BibleReading;
 use Illuminate\Http\Request;
+use App\Models\Personalgoals;
+use App\Models\MemorizingVerses;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
@@ -19,7 +30,7 @@ class AdasistenController extends Controller
             return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
         }
 
-        $asisten = Asisten::all();
+        $asisten = Asisten::latest()->get();
         return view('Admin.content.asisten.index', [
             "title" => "ASISTEN",
             "asisten" => $asisten,
@@ -123,11 +134,37 @@ class AdasistenController extends Controller
     return redirect()->route('asisten.index')->with('success', 'Asisten updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Retrieve the trainee record
+        $asisten = Asisten::findOrFail($id);
+        $nip = $asisten->nip;
+    
+        // Count related data
+        $bible = BibleReading::where('asisten_id', $nip)->count();
+        $memorizing = MemorizingVerses::where('asisten_id', $nip)->count();
+        $himns = Hymns::where('asisten_id', $nip)->count();
+        $prayer5mnt = timeprayer::where('asisten_id', $nip)->count();
+        $tp = GoodLand::where('asisten_id', $nip)->count();
+        $prayer = Prayers::where('asisten_id', $nip)->count();
+        $personalgoals = Personalgoals::where('asisten_id', $nip)->count();
+        $ministri = Ministri::where('asisten_id', $nip)->count();
+        $fellowship = Fellowship::where('asisten_id', $nip)->count();
+        $ts = Script::where('asisten_id', $nip)->count();
+        $agenda = Agenda::where('asisten_id', $nip)->count();
+    
+        // Check if all related data counts are zero
+        if ($bible == 0 && $memorizing == 0 && $himns == 0 && $prayer5mnt == 0 && $tp == 0 &&
+            $prayer == 0 && $personalgoals == 0 && $ministri == 0 && $fellowship == 0 && 
+            $ts == 0 && $agenda == 0) {
+            
+            // If no related data exists, delete the trainee
+            $asisten->delete();
+    
+            return redirect()->route('asisten.index')->with('success', 'asisten deleted successfully.');
+        } else {
+            // If there is related data, prevent deletion and show a message
+            return redirect()->route('asisten.index')->with('error', 'Cannot delete asisten with associated data.');
+        }
     }
 }

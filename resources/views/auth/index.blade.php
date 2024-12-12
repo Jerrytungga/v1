@@ -43,6 +43,14 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title custom-title text-center">JURNAL <br> FTTI</h1>
+
+                    <!-- Alert for errors (such as inactive account) -->
+                    @if(session('status'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
                     <form action="{{ route('auth.login') }}" method="post">
                         @csrf
                         <div class="mb-3">
@@ -60,7 +68,7 @@
                             @endif
                         </div>
                         <div>
-                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label for="remember">Remember Me</label>
                         </div>
                         <button type="submit" class="btn mt-1 btn-custom w-100">Login</button>

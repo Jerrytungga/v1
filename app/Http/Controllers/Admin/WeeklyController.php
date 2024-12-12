@@ -20,7 +20,7 @@ class WeeklyController extends Controller
           if (!Session::has('role') || Session::get('role') !== 'admin') {
             return redirect()->route('auth.index')->withErrors('Anda tidak memiliki akses ke halaman ini.');
         }
-        $week = Weekly::all();
+        $week = Weekly::latest()->get();
         return view('Admin.content.weekly.index', [
             "title" => "Week",
             "Week" => $week,

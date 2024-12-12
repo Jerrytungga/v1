@@ -22,7 +22,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-            <a href="{{ route('Announcement.create') }}" class="btn btn-success">Input Announcement</a>
+            <a href="{{ route('Announcement.create') }}" class="btn" style="background-color: #006A67; color:floralwhite;">
+            <i class="fas fa-file-signature"></i>  
+            Input Announcement</a>
             </div>
         
               <!-- /.card-header -->
@@ -47,7 +49,7 @@
                         <td>{{ $data->status }}</td> <!-- Kolom Nip rata kanan -->
                         <td class="text-center">
                           <!-- Tombol Aksi (Edit dan Hapus) -->
-                          <a href="{{ route('Announcement.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                          <a href="{{ route('Announcement.edit', $data->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                           <!-- <a href="{{ route('trainee.show', $data->id) }}" class="btn btn-primary btn-sm">View</a> -->
                          
                         </td>

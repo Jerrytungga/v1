@@ -23,7 +23,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-            <a href="{{ route('batch.create') }}" class="btn btn-success">Input batch</a>
+            <a href="{{ route('batch.create') }}" class="btn" style="background-color: #006A67; color:floralwhite;">
+            <i class="fas fa-file-signature"></i>  
+            Input batch</a>
             </div>
         
               <!-- /.card-header -->
@@ -44,7 +46,7 @@
                         <td>{{ $data->batch }}</td> <!-- Kolom Name rata kiri -->
                         <td>
                           <!-- Tombol Aksi (Edit dan Hapus) -->
-                          <a href="{{ route('batch.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                          <a href="{{ route('batch.edit', $data->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                           <!-- <a href="{{ route('trainee.show', $data->id) }}" class="btn btn-primary btn-sm">View</a> -->
                          
                         </td>

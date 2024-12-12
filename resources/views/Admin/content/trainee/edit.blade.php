@@ -22,7 +22,9 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header" style="background-color: #6A9C89;">
-                <a href="{{ route('trainee.index') }}" class="btn text-light bg-dark">Back To View Trainee</a>
+                <a href="{{ route('trainee.index') }}" class="btn text-light bg-dark">
+                <i class="fas fa-arrow-left"></i>      
+                Back To View Trainee</a>
               </div>
               <!-- /.card-header --> 
               <div class="card-body">
@@ -109,7 +111,7 @@
 
                     <!-- Submit Button -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #006A67; color:floralwhite;"><i class="fas fa-pencil-alt"></i></button>
                     </div>
                 </form>
               </div>

@@ -49,7 +49,7 @@
         </div><br>
     @endforeach
 @else
-    <p>No active messages from Asisten.</p>
+  
 @endif
 @if($pesan_Asisten_All->isNotEmpty())
     @foreach($pesan_Asisten_All as $pesan)
@@ -61,7 +61,7 @@
         </div><br>
     @endforeach
 @else
-    <p>No active messages from Asisten.</p>
+   
 @endif
 
 

@@ -154,6 +154,7 @@ Route::group(['middleware' => ['role:asisten']], function() {
     Route::get('/Asisten', [AsistenController::class, 'index'])->name('asisten.Home');
     Route::get('Asisten/trainee', [AtraineeController::class, 'strainee'])->name('htrainee.asisten');
     Route::get('Asisten/trainee/4626372', [AtraineeController::class, 'report_jurnal_tidak_dikerjakan'])->name('HaventCompletedtheJournal');
+    Route::post('Asisten/trainee/4626372', [AtraineeController::class, 'filter_week_report'])->name('HaventCompletedtheJournal_week');
 
     // Bible Reading
     Route::get('Asisten/Bible/{nip}', [Bible_readingController::class, 'index'])->name('bible-asisten');
@@ -243,6 +244,11 @@ Route::group(['middleware' => ['role:admin']], function() {
     })->name('admin.Home');
 
     Route::resource('Admin/trainee', AdminController::class);
+    Route::post('Admin/trainee/update/semester', [AdminController::class, 'ubasemester'])->name('ubasemester_admin');
+    Route::post('Admin/trainee/update/6473628', [AdminController::class, 'ubastatus'])->name('ubastatus_admin');
+
+
+
     Route::resource('Admin/asisten', AdasistenController::class);
     Route::resource('Admin/weekly', WeeklyController::class);
     Route::get('Admin/report', [WeeklyController::class, 'reportw'])->name('report.w');
@@ -260,6 +266,10 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('Admin/jurnal/{id}/42323224', [Item_JurnalController::class, 'Inactive_Menu'])->name('Inactive.jurnal_Asisten');
     Route::get('Admin/jurnal/{id}/94853433439', [Item_JurnalController::class, 'Active_Menu'])->name('Active.jurnal_Asisten');
     Route::get('Admin/jurnal/report/', [Report_jurnalController::class, 'index'])->name('report_view_jurnal');
+    Route::post('Admin/jurnal/342344', [Item_JurnalController::class, 'allactive'])->name('Active_all.jurnal');
+    Route::post('Admin/jurnal/334434', [Item_JurnalController::class, 'allinactive'])->name('Inactive_all.jurnal');
+    Route::post('Admin/jurnal/3353244', [Item_JurnalController::class, 'allactive_asisten'])->name('Active_all_asisten.jurnal');
+    Route::post('Admin/jurnal/886233', [Item_JurnalController::class, 'allinactive_asisten'])->name('Inactive_all_asisten.jurnal');
   
 
 

@@ -23,7 +23,25 @@
       <div class="col-12 col-sm-6 col-md-6">
           <div class="card">
             <div class="card-header">
-            <h4 class="text-bold text-success">Trainee</h4>
+            <h4 class="text-bold text-success">Trainee
+            @php
+            // Check if any item in $jurnal has an 'inactive' status
+            $hasInactiveItems = $jurnal->contains('status', 'inactive');
+           @endphp
+
+            @if($hasInactiveItems)
+                <form action="{{ route('Active_all.jurnal') }}" method="post">
+                    @csrf
+                    <button type="submit" name="active" value="active" class="btn btn-success">Activate All Items</button>
+                </form>
+            @else
+                <form action="{{ route('Inactive_all.jurnal') }}" method="post">
+                    @csrf
+                    <button type="submit" name="inactive" value="inactive" class="btn btn-danger">Deactivate All Items</button>
+                </form>
+            @endif
+     
+            </h4>
             </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -79,7 +97,25 @@
       <div class="col-12 col-sm-6 col-md-6">
           <div class="card">
             <div class="card-header">
-            <h4 class="text-bold text-success">Asisten</h4>
+            <h4 class="text-bold text-success">Asisten
+
+            @php
+            // Check if any item in $itemMenu has an 'inactive' status
+            $hasInactiveItems_asisten = $itemMenu->contains('status', 'inactive');
+           @endphp
+
+            @if($hasInactiveItems_asisten)
+                <form action="{{ route('Active_all_asisten.jurnal') }}" method="post">
+                    @csrf
+                    <button type="submit" name="active" value="active" class="btn btn-success">Activate All Items asisten</button>
+                </form>
+            @else
+                <form action="{{ route('Inactive_all_asisten.jurnal') }}" method="post">
+                    @csrf
+                    <button type="submit" name="inactive" value="inactive" class="btn btn-danger">Deactivate All asisten</button>
+                </form>
+            @endif
+            </h4>
             </div>
               <!-- /.card-header -->
               <div class="card-body">

@@ -21,7 +21,9 @@
           <div class="card">
             <div class="card-header" style="
             background-color: #6A9C89;">
-           <a href="{{ route('Announcement.index') }}" class="btn text-light bg-dark ">Back To View Announcement</a>
+           <a href="{{ route('Announcement.index') }}" class="btn text-light bg-dark ">
+           <i class="fas fa-arrow-left"></i>    
+           Back To View Announcement</a>
             </div>
               <!-- /.card-header --> 
               <div class="card-body">
@@ -72,7 +74,7 @@
 
                     <!-- Submit Button -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn" style="background-color: #006A67; color:floralwhite;"><i class="fas fa-save"></i></button>
                     </div>
                 </form>
 

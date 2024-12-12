@@ -23,7 +23,9 @@
           <div class="card">
             <div class="card-header">
               <h6 class="font-italic text-bold text-danger">This is a table of weekly target points summarized for 1 week in filling out the trainee journal, this point determines the status of the weekly journal report.</h6>
-              <a href="{{ route('poin.create') }}" class="btn btn-success">Enter weekly target points</a>
+              <a href="{{ route('poin.create') }}" class="btn" style="background-color: #006A67; color:floralwhite;">
+              <i class="fas fa-file-signature"></i>
+              Enter weekly target points</a>
             </div>
         
               <!-- /.card-header -->
@@ -69,7 +71,7 @@
                         <td>{{ $data->finance }}</td> <!-- Kolom Nip rata kanan -->
                         <td>{{ $data->total }}</td> <!-- Kolom Nip rata kanan -->
                         <td>
-                        <a href="{{ route('poin.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('poin.edit', $data->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                         </td> <!-- Kolom Nip rata kanan -->
                         
                       </tr>
@@ -89,7 +91,9 @@
           <div class="card">
             <div class="card-header">
             <h6 class="font-italic text-bold text-danger">This is a table of daily target points for the trainee journal. This table is filled in if the assistant accidentally forgets to give points to the trainee journal. This table will automatically give an assessment to the trainee journal.</h6>
-            <a href="{{ route('report.daily') }}" class="btn btn-info">Enter daily target points</a>
+            <a href="{{ route('report.daily') }}" class="btn btn-info">
+            <i class="fas fa-file-signature"></i>  
+            Enter daily target points</a>
             </div>
         
               <!-- /.card-header -->
@@ -133,7 +137,7 @@
                         <td>{{ $data->agenda }}</td> <!-- Kolom Nip rata kanan -->
                         <td>{{ $data->financial }}</td> <!-- Kolom Nip rata kanan -->
                         <td>
-                        <a href="{{ route('report.formeditdaily', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('report.formeditdaily', $data->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                         </td> <!-- Kolom Nip rata kanan -->
                         
                       </tr>

@@ -1,25 +1,51 @@
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light-white elevation-4" style="background-color: #006A67;">
-    <!-- Brand Logo -->
-    <a href="" class="brand-link d-flex align-items-center">
-  <i class="fas fa-book-open text-light fa-2x logo-icon"></i>
-   
-    <h3 class="text-bold text-light d-inline-block ml-2 brand-text">JURNAL FTTI</h3>  <!-- Brand Text -->
-  </a>
+<style>
+    /* Menyesuaikan ukuran dan margin logo di sidebar dan navbar */
+.brand-link, .navbar-brand {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    padding: 6.7px;
+    margin-left: 10px;
+}
+
+.logo-icon {
+    font-size: 2rem; /* Ukuran ikon sama di sidebar dan navbar */
+}
+
+.brand-text {
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.navbar .brand-text {
+    font-size: 1.75rem; /* Menyesuaikan ukuran di navbar jika perlu */
+}
+
+</style>
+
+<aside class="main-sidebar sidebar-light-white elevation-4" style="background-color: #006A67; position: fixed; top: 0; left: 0; height: 100%; width: 250px;">
+<a href="" class="brand-link d-flex align-items-center">
+    <i class="fas fa-book-open text-light fa-2x logo-icon"></i>
+    <h3 class="text-bold text-center text-light d-inline-block ml-2 brand-text">JURNAL</h3>
+</a>
+
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info">
-                <a href="{{ route('admin.Home') }}" class="d-block text-light">ADMINISTRATOR</a>
-            </div>
-        </div>
 
+        
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                 <!-- User Section -->
-                <li class="nav-header rounded" style="background-color: #EAD8B1;">USER</li>
+                <li class="nav-header rounded mb-3" style="background-color: #ffff; color:black;">
+                <a href="{{ route('admin.Home') }}" class="d-block ">ADMINISTRATOR</a>
+                </li>
+
+
+
+                <li class="nav-header rounded mb-1" style="background-color: #EAD8B1;">USER</li>
                 <li class="nav-item">
                     <a href="{{ route('trainee.index') }}" class="nav-link {{ ($title == 'TRAINEE') ? 'active bg-info' : '' }}">
                         <i class="fas fa-user-graduate nav-icon text-white"></i>
@@ -77,13 +103,13 @@
                         <p class="text-light">ITEM JOURNAL</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('report_view_jurnal') }}" class="nav-link {{ ($title == 'Report') ? 'active bg-info' : '' }}">
                         <i class="fas fa-book nav-icon text-white"></i>
                         <p class="text-light">REPORT JOURNAL</p>
                     </a>
                 </li>
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -100,5 +126,5 @@
     @endif
 </aside>
 
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<!-- External Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">

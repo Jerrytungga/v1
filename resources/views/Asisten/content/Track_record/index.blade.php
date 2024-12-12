@@ -17,8 +17,25 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <!-- /.card-header -->
+            <div class="card">
+            <div class="card-header">
+                <form action="{{ route('HaventCompletedtheJournal_week') }}" method="POST">
+                  @csrf
+                  <div class="form-inline">
+                    <label for="semester" class="mr-2 ml-2">Chosen Week :</label>
+                    <select class="form-control ml-2 col-12 col-sm-4 col-md-2" style="background-color:#001F3F; color:#FFF;" id="chosenWeek" name="week">
+                    <option value="">Please select a week</option>
+                    @foreach ($weeklydropdown as $data)
+                    <option value="{{ $data->Week }}">{{ $data->Week }}</option>
+                    @endforeach
+                    </select>
+                    <button type="submit" class="btn ml-2" style="background-color:#001F3F; color:#FFFf;">View</button>
+                    <a href="{{ route('HaventCompletedtheJournal') }}" class="btn btn-danger ml-2">Reset</a>
+                  </div>
+                </form>
+              </div>
+          
+            
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example2" class="table table-bordered table-hover">
@@ -41,6 +58,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                             
                                     @foreach($traineeData as $index => $data)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
@@ -111,6 +129,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                  
                                 </tbody>
                             </table>
                         </div> <!-- /.table-responsive -->
@@ -120,7 +139,6 @@
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
 </section>
-@endsection
 
 <style>
  /* Agar teks di dalam tabel rata tengah (center) */
@@ -217,3 +235,4 @@ td.col-finance {
 }
 
 </style>
+@endsection

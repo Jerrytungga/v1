@@ -73,27 +73,35 @@ class AuthController extends Controller
     
         // Mencari trainee berdasarkan NIP
         $trainee = Trainee::where('nip', $request->nip)->first();
-    
-        if ($trainee && $request->password == $trainee->password) {
-            // Simpan role di session
-            Session::put('role', 'trainee');
-            Session::put('nip', $trainee->nip);
-            Session::put('asisten', $trainee->asisten_id);
-            Session::put('semester', $trainee->semester);
-            Session::put('name', $trainee->name);
-            Session::put('batch', $trainee->batch);
-    
-            // Jika "Remember Me" dicentang, simpan cookie untuk nip dan password
-            if ($request->remember) {
-                Cookie::queue('nip', $trainee->nip, 60 * 24 * 30);  // 30 hari
-                Cookie::queue('password', $trainee->password, 60 * 24 * 30);  // 30 hari
+
+        if ($trainee) {
+            // Check if the trainee is inactive
+            if ($trainee->status == 'inactive') {
+                return redirect()->back()->with('status', 'Your account is inactive. Please contact admin.');
             }
-    
-            return redirect()->route('trainee.Home');
-        } elseif ($trainee && $request->password != $trainee->password) {
-            return redirect()->back()->withErrors(['password' => 'Password salah.']);
-        }
-    
+
+            // Check if the password matches
+            if ($request->password == $trainee->password) {
+                // Simpan role di session
+                Session::put('role', 'trainee');
+                Session::put('nip', $trainee->nip);
+                Session::put('asisten', $trainee->asisten_id);
+                Session::put('semester', $trainee->semester);
+                Session::put('name', $trainee->name);
+                Session::put('batch', $trainee->batch);
+
+                // Jika "Remember Me" dicentang, simpan cookie untuk nip dan password
+                if ($request->remember) {
+                    Cookie::queue('nip', $trainee->nip, 60 * 24 * 30);  // 30 hari
+                    Cookie::queue('password', $trainee->password, 60 * 24 * 30);  // 30 hari
+                }
+
+                return redirect()->route('trainee.Home');
+            } else {
+                return redirect()->back()->withErrors(['password' => 'Password salah.']);
+            }
+        } 
+
         // Cek di tabel Asisten
         $asisten = Asisten::where('nip', $request->nip)->first();
     
