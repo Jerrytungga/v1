@@ -50,11 +50,22 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 // alur login
 Route::get('/', [AuthController::class, 'Halaman_Login'])->name('auth.index');
 Route::post('/', [AuthController::class, 'login'])->name('auth.login');
-Route::get('/Checking-Data', [AuthController::class, 'cek'])->name('auth.cek');
-Route::post('/Checking-Data', [AuthController::class, 'cekNip'])->name('cek.nip');
-Route::get('/Register', [AuthController::class, 'regis'])->name('auth.register');
-Route::post('/Register', [TraineeController::class, 'register'])->name('auth.form');
+Route::get('/checking-data', [AuthController::class, 'cek'])->name('auth.cek');
+Route::post('/checking-data', [AuthController::class, 'cekNip'])->name('cek.nip');
+Route::get('/register', [AuthController::class, 'regis'])->name('auth.register');
+Route::post('/register', [TraineeController::class, 'register'])->name('auth.form');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+
+// Route::prefix('auth')->group(function () {
+//     Route::get('/auth', [AuthController::class, 'Halaman_Login'])->name('auth.index');
+//     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+//     Route::get('/checking-data', [AuthController::class, 'cek'])->name('auth.cek');
+//     Route::post('/checking-data', [AuthController::class, 'cekNip'])->name('cek.nip');
+//     Route::get('/register', [AuthController::class, 'regis'])->name('auth.register');
+//     Route::post('/register', [TraineeController::class, 'register'])->name('auth.form');
+//     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+// });
 
 
 
@@ -266,6 +277,12 @@ Route::group(['middleware' => ['role:admin']], function() {
     Route::get('Admin/jurnal/{id}/42323224', [Item_JurnalController::class, 'Inactive_Menu'])->name('Inactive.jurnal_Asisten');
     Route::get('Admin/jurnal/{id}/94853433439', [Item_JurnalController::class, 'Active_Menu'])->name('Active.jurnal_Asisten');
     Route::get('Admin/jurnal/report/', [Report_jurnalController::class, 'index'])->name('report_view_jurnal');
+    Route::post('Admin/jurnal/report/884934', [Report_jurnalController::class, 'filter_report_view'])->name('report_fil_jurnal');
+    Route::post('Admin/jurnal/report/generate-pdf', [Report_jurnalController::class, 'generatePDF'])->name('generatePDF');
+
+
+
+
     Route::post('Admin/jurnal/342344', [Item_JurnalController::class, 'allactive'])->name('Active_all.jurnal');
     Route::post('Admin/jurnal/334434', [Item_JurnalController::class, 'allinactive'])->name('Inactive_all.jurnal');
     Route::post('Admin/jurnal/3353244', [Item_JurnalController::class, 'allactive_asisten'])->name('Active_all_asisten.jurnal');

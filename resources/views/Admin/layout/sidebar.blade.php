@@ -24,8 +24,8 @@
 }
 
 </style>
+<aside class="main-sidebar elevation-4" style="background-color: #006A67; position: fixed;">
 
-<aside class="main-sidebar sidebar-light-white elevation-4" style="background-color: #006A67; position: fixed; top: 0; left: 0; height: 100%; width: 250px;">
 <a href="" class="brand-link d-flex align-items-center">
     <i class="fas fa-book-open text-light fa-2x logo-icon"></i>
     <h3 class="text-bold text-center text-light d-inline-block ml-2 brand-text">JURNAL</h3>
@@ -34,7 +34,6 @@
     <!-- Sidebar -->
     <div class="sidebar">
 
-        
         <!-- Sidebar Menu -->
         <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
@@ -42,7 +41,7 @@
                 <li class="nav-header rounded mb-3" style="background-color: #ffff; color:black;">
                 <a href="{{ route('admin.Home') }}" class="d-block ">ADMINISTRATOR</a>
                 </li>
-
+       
 
 
                 <li class="nav-header rounded mb-1" style="background-color: #EAD8B1;">USER</li>

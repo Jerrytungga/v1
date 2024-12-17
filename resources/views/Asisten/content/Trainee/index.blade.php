@@ -23,6 +23,7 @@
           <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
+              <div class="table-responsive">
                 <table id="example2"  class="table table-bordered table-hover">
                   <thead class="text-center" style="background-color: #4A4947; color:#ffff;">
                    
@@ -81,6 +82,7 @@
                  
                 </table>
               </div>
+              </div>
               <!-- /.card-body -->
             </div>
     
@@ -92,4 +94,12 @@
       <!-- /.container-fluid -->
     </section>
 
+<script>
+  
+
+  let table = new DataTable('#example3', {
+    responsive: true
+});
+
+</script>
 @endsection

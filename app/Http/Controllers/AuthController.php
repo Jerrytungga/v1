@@ -8,6 +8,7 @@ use App\Models\Weekly;
 use App\Models\Asisten;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
+use Closure;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
@@ -148,24 +149,28 @@ class AuthController extends Controller
 
    
 
-    public function logout()
-    {
-        // Menghapus session role
-        Session::forget('role');
-     // Menghapus session role dan informasi login
-     Session::forget('role');
-     Session::forget('nip');
-     Session::forget('asisten');
-     Session::forget('semester');
-     Session::forget('name');
-     Session::forget('batch');
- 
- 
-     // Redirect ke halaman login
-     return redirect()->route('auth.index')->with('success', 'Anda telah logout.');
+  
+public function logout()
+{
+    // Hapus semua session
+    Session::flush();
+
+    // Hapus semua cookie
+    Cookie::queue(Cookie::forget('nip'));
+    Cookie::queue(Cookie::forget('password'));
+
+    // Redirect ke halaman login
+    return redirect()->route('auth.index')->with('success', 'Anda telah logout.');
+}
+
+public function handle($request, Closure $next)
+{
+    if (!Session::has('role')) {
+        return redirect()->route('auth.index')->with('error', 'Silakan login terlebih dahulu.');
     }
 
-
+    return $next($request);
+}
 
     
 }

@@ -46,11 +46,11 @@
                   <thead class="text-center font-weight-bold" style="background-color: #001F3F; color:#fff;">
                   <tr>
                      <th style="width: 15%;">Prayer Date</th>
-                     <th style="width: 15%;">Topic</th>
+                     <th style="width: 10%;">Topic</th>
                      <th style="width: 15%;">Light</th>
                      <th style="width: 20%;">Appreciation</th>
                      <th style="width: 20%;">Action</th>
-                     <th style="width: 10%;">Prayer Answered Date</th>
+                     <th style="width: 20%;">Prayer Answered Date</th>
                      <th style="width: 25%;">Prayer Answer</th>
                      <th style="width: 10%;">Action</th>
                      </tr>

@@ -1,9 +1,8 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-Success sticky-top" style="background-color: #006A67;">
         <ul class="navbar-nav">
-        <li class="nav-item d-block d-sm-none">
-    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-        <i class="fas fa-bars text-light"></i>
-    </a>
+        <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="
+    color: #fff;"></i></a>
 </li>
 
             <li class="nav-item d-none d-sm-inline-block">

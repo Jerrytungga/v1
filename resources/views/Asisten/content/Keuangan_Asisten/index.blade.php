@@ -40,7 +40,7 @@
               <!-- /.card-header -->
               
               <div class="card-body">
-                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                <div class="table-responsive">
                   <table id="example2" class="table table-bordered table-hover">
                     <thead class="text-center font-weight-bold" style="background-color: #001F3F; color:#fff;">
                     <tr>
