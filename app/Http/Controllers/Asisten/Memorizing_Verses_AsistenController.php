@@ -74,11 +74,60 @@ class Memorizing_Verses_AsistenController extends Controller
         $dropdown_weekly = Weekly::all();
         // Return view dengan hasil yang sudah difilter
         return view('Asisten.content.Memorizing_verses.index', [
-            "title" => "Bible",
+            "title" => "Memorizing Verses",
             "ambil_memorizing_verse" => $ambil_memorizing_verse,
             "totalPoin" => $totalPoin,
             "namaAsisten" => $namaAsisten,
             "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+        ]);
+    }
+
+    public function view_memorizing_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_memorizing_verse = MemorizingVerses::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_memorizing_verse = $ambil_memorizing_verse->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_memorizing_verse->sum('poin');  // Menghitung total poin
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Memorizing_verses.view', [
+            "title" => "Memorizing Verses",
+            "ambil_memorizing_verse" => $ambil_memorizing_verse,
+            "totalPoin" => $totalPoin,
+            "namaAsisten" => $namaAsisten,
+            "semester" => $semester,
+            "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+        ]);
+    }
+
+
+    public function tampil($nip, $semester){
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_memorizing_verse = MemorizingVerses::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_memorizing_verse->sum('poin');  
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Memorizing_verses.view', [
+            "title" => "Memorizing Verses",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "semester" => $semester,
+            "ambil_memorizing_verse" => $ambil_memorizing_verse,
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }

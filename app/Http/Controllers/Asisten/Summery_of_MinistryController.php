@@ -79,4 +79,53 @@ class Summery_of_MinistryController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    public function view_summery_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_ministri = Ministri::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_ministri = $ambil_ministri->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_ministri->sum('poin');  // Menghitung total poin
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Summery_of_Ministry.view', [
+            "title" => "Summary Of Ministry",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_ministri" => $ambil_ministri,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+    public function tampil($nip, $semester){
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $weekly = Weekly::where('status', 'active')->first();
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_ministri = Ministri::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_ministri->sum('poin');  
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Summery_of_Ministry.view', [
+            "title" => "Summary Of Ministry",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_ministri" => $ambil_ministri,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 }

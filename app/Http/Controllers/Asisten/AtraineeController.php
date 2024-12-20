@@ -238,4 +238,62 @@ class AtraineeController extends Controller
         ]);
 
     }
+
+    public function alltrainee(){
+        $trainee = Trainee::all();
+        $nipAsisten = Session::get('nip');
+        return view('Asisten.content.Trainee.all_trainee', [
+            "title" => "myTrainee",
+            "trainee" => $trainee,
+            "nipAsisten" => $nipAsisten,
+           
+        ]);
+
+
+    }
+
+    public function updateSelected(Request $request)
+{
+    // Ambil data yang dipilih dan data asisten
+    $selectedRows = $request->input('selectedRows');
+    $assistantName = Session::get('nip');
+
+    // Proses untuk menyimpan data ke database
+    foreach ($selectedRows as $row) {
+        // Update atau simpan data di database
+        $trainee = Trainee::find($row['id']);
+        if ($trainee) {
+            $trainee->asisten_id = $assistantName; // Gunakan asisten yang diambil dari session
+            $trainee->save();
+        }
+    }
+
+    // Mengirimkan respon
+    return response()->json(['success' => true]);
+}
+
+
+    public function pengembalaan()
+    {
+        //
+        $nipAsisten = Session::get('nip');
+        $trainee = BibleReading::where('asisten_id', $nipAsisten)
+        ->groupBy('nip','semester')
+        ->orderBy('nip')
+        ->get(['nip', 'semester']);
+        $dailyItems = MenuItem::where('status', 'active')
+        ->where('type', 'daily')
+        ->get();
+        $weeklyItems = MenuItem::where('status', 'active')
+        ->where('type', 'weekly')
+        ->get();
+        return view('Asisten.content.Trainee.traineepengembalaan', [
+            "title" => "myTrainee",
+            "traines" => $trainee,
+            "dailyItems" => $dailyItems,
+            "weeklyItems" => $weeklyItems,
+            "nipAsisten" => $nipAsisten,
+        ]);
+
+    }
 }

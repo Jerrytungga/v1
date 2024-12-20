@@ -104,4 +104,64 @@ class Asisten_GoodlandController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    
+    
+    public function view_goodland_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_goodland = GoodLand::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+
+        $totalPoin = $ambil_goodland->sum('poin_verses') + $ambil_goodland->sum('poin_da') + $ambil_goodland->sum('poin_dt') + $ambil_goodland->sum('poin_ds') + $ambil_goodland->sum('poin_experience_1') + $ambil_goodland->sum('poin_experience_2') + $ambil_goodland->sum('poin_experience_3') + $ambil_goodland->sum('poin_experience_4') + $ambil_goodland->sum('poin_experience_5') + $ambil_goodland->sum('poin_experience_6');  //
+
+
+        // Ambil data sesuai filter
+        $ambil_goodland = $ambil_goodland->orderBy('created_at', 'DESC')->get();
+        $dropdown_weekly = Weekly::all();
+    
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Good_land.view', [
+            "title" => "Good Land",
+            "ambil_trainee" => $ambil_trainee,
+            "ambil_goodland" => $ambil_goodland,
+            "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+
+
+
+
+    public function tampil($nip, $semester)
+    {
+        // You can still retrieve the `nipAsisten` from session if necessary
+        // But you don't need to pass it as a parameter to the view if it's not needed in the view
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $weekly = Weekly::where('status', 'active')->first();
+        $minggu = $weekly ? $weekly->Week : null;
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_goodland = GoodLand::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+
+        $totalPoin = $ambil_goodland->sum('poin_verses') + $ambil_goodland->sum('poin_da') + $ambil_goodland->sum('poin_dt') + $ambil_goodland->sum('poin_ds') + $ambil_goodland->sum('poin_experience_1') + $ambil_goodland->sum('poin_experience_2') + $ambil_goodland->sum('poin_experience_3') + $ambil_goodland->sum('poin_experience_4') + $ambil_goodland->sum('poin_experience_5') + $ambil_goodland->sum('poin_experience_6');  // 
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Good_land.view', [
+            "title" => "Good Land",
+            "ambil_trainee" => $ambil_trainee,
+            "ambil_goodland" => $ambil_goodland,
+            "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 }

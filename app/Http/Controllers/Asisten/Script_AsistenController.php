@@ -83,4 +83,61 @@ class Script_AsistenController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    
+    
+    public function view_script_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_Script = Script::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_Script = $ambil_Script->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_Script->sum('poin_verse') + $ambil_Script->sum('poin_truth') + $ambil_Script->sum('poin_experience');
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Script_Asisten.view', [
+            "title" => "Script Ts & Exhibition",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_Script" => $ambil_Script,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+
+
+
+
+
+
+    public function tampil($nip, $semester){
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $weekly = Weekly::where('status', 'active')->first();
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_Script = Script::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_Script->sum('poin_verse') + $ambil_Script->sum('poin_truth') + $ambil_Script->sum('poin_experience');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Script_Asisten.view', [
+            "title" => "Script Ts & Exhibition",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_Script" => $ambil_Script,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 }

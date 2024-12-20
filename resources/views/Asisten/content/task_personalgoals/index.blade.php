@@ -132,8 +132,8 @@
             <label for="">Status :</label>
             <select name="status" class="form-control" id="">
                 <option value="">Pleace select a status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
             </select>
         </div>
       </div>

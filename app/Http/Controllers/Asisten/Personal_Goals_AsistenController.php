@@ -80,6 +80,62 @@ class Personal_Goals_AsistenController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    
+    public function view_personalgoals_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_personalgoals = Personalgoals::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_personalgoals = $ambil_personalgoals->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_personalgoals->sum('poin');  // Menghitung total poin
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.PersonalGoals.view', [
+            "title" => "Bible",
+            "ambil_personalgoals" => $ambil_personalgoals,
+            "totalPoin" => $totalPoin,
+            "namaAsisten" => $namaAsisten,
+            "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 
+
+
+
+
+
+
+
+
+    public function tampil($nip, $semester){
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_personalgoals = Personalgoals::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_personalgoals->sum('poin');  
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.PersonalGoals.view', [
+            "title" => "Memorizing Verses",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_personalgoals" => $ambil_personalgoals,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
     
 }

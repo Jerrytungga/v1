@@ -93,4 +93,62 @@ class Bible_readingController extends Controller
         ]);
     }
 
+
+    public function view_bible_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_biblereading = BibleReading::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_biblereading = $ambil_biblereading->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_biblereading->sum('poin');  // Menghitung total poin
+        $totaldata = $ambil_biblereading->count('verse'); 
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Bible_reading.view', [
+            "title" => "Bible",
+            "ambil_biblereading" => $ambil_biblereading,
+            "totalPoin" => $totalPoin,
+            "totaldata" => $totaldata,
+            "namaAsisten" => $namaAsisten,
+            "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+
+
+    public function tampil($nip, $semester)
+    {
+        // You can still retrieve the `nipAsisten` from session if necessary
+        // But you don't need to pass it as a parameter to the view if it's not needed in the view
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_biblereading = BibleReading::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+
+        $totalPoin = $ambil_biblereading->sum('poin');  // Menghitung total poin
+        $totaldata = $ambil_biblereading->count('verse');  // Menghitung total poin
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Bible_reading.view', [
+            "title" => "Bible Reading",
+            "ambil_biblereading" => $ambil_biblereading,
+            "namaAsisten" => $namaAsisten,
+            "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+            "totalPoin" => $totalPoin,
+            "totaldata" => $totaldata,
+            "semester" => $semester,
+        ]);
+    }
+
 }

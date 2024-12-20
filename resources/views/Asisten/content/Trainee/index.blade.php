@@ -21,6 +21,11 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
+          <div class="card-header">
+          <a href="{{ route('all-trainee') }}" class="btn text-light mb-1" style="background-color: #B17457;">Select Trainees</a>
+          <a href="{{ route('pengembalaan-trainee') }}" class="btn text-light mb-1 bg-dark ">Trainees Who Have Been Shepherded</a>
+
+          </div>
               <!-- /.card-header -->
               <div class="card-body">
               <div class="table-responsive">

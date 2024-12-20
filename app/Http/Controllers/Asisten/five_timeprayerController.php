@@ -78,5 +78,57 @@ class five_timeprayerController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    
+    public function view_filter_fivetimeprayer(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_timeprayer = timeprayer::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_timeprayer = $ambil_timeprayer->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_timeprayer->sum('poin');  // Menghitung total poin
+        $dropdown_weekly = Weekly::all(); 
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.5_Time_Prayer.view', [
+            "title" => "Bible",
+            "ambil_timeprayer" => $ambil_timeprayer,
+            "totalPoin" => $totalPoin,
+            "namaAsisten" => $namaAsisten,
+            "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+
+
+
+
+    public function tampil($nip, $semester){
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_timeprayer = timeprayer::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_timeprayer->sum('poin'); 
+            $dropdown_weekly = Weekly::all(); 
+        return view('Asisten.content.5_Time_Prayer.view', [
+            "title" => "Hymns",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_timeprayer" => $ambil_timeprayer,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 
 }

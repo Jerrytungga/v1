@@ -80,5 +80,61 @@ class Hymns_AsistenController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    
+    public function view_filter_hymns(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_hymns = Hymns::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        // Ambil data sesuai filter
+        $ambil_hymns = $ambil_hymns->orderBy('created_at', 'DESC')->get();
+        
+        $totalPoin = $ambil_hymns->sum('poin');  // Menghitung total poin
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Hymns.view', [
+            "title" => "Bible",
+            "ambil_hymns" => $ambil_hymns,
+            "totalPoin" => $totalPoin,
+            "namaAsisten" => $namaAsisten,
+            "ambil_trainee" => $ambil_trainee,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+
+
+
+
+
+
+
+    public function tampil($nip, $semester){
+        $nipAsisten = Session::get('nip');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_hymns = Hymns::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_hymns->sum('poin');  
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Hymns.view', [
+            "title" => "Hymns",
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "ambil_hymns" => $ambil_hymns,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 
 }

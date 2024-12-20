@@ -89,4 +89,62 @@ class Asisten_PrayerBookController extends Controller
             "dropdown_weekly" => $dropdown_weekly,
         ]);
     }
+    
+    public function view_prayerbook_filter(Request $request, $nip, $semester)
+    {
+        $selectedWeek = $request->input('week');
+        $namaAsisten = Session::get('nama');
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_prayer = Prayers::where('nip', $nip)
+                            ->where('week', $selectedWeek)
+                            ->where('semester', $semester);
+    
+        $totalPoin = $ambil_prayer->sum('poin_topic') + $ambil_prayer->sum('light_poin') + $ambil_prayer->sum('appreciation_poin') + $ambil_prayer->sum('action_poin'); 
+      
+
+        // Ambil data sesuai filter
+        $ambil_prayer = $ambil_prayer->orderBy('created_at', 'DESC')->get();
+     
+        $dropdown_weekly = Weekly::all();
+        // Return view dengan hasil yang sudah difilter
+        return view('Asisten.content.Prayer_book.view', [
+            "title" => "Prayer Book",
+            "ambil_prayer" => $ambil_prayer,
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+    public function tampil($nip, $semester){
+        $namaAsisten = Session::get('nama');
+        $nipAsisten = Session::get('nip');
+        $weekly = Weekly::where('status', 'active')->first();
+        $ambil_trainee = Trainee::where('nip', $nip)->first();
+        $ambil_prayer = Prayers::where('asisten_id', $nipAsisten)
+            ->where('nip', $nip)
+            ->where('semester', $semester)
+            ->get();
+            $totalPoin = $ambil_prayer->sum('poin_topic') + $ambil_prayer->sum('light_poin') + $ambil_prayer->sum('appreciation_poin') + $ambil_prayer->sum('action_poin'); 
+            $dropdown_weekly = Weekly::all();
+        return view('Asisten.content.Prayer_book.view', [
+            "title" => "Prayer Book",
+            "ambil_prayer" => $ambil_prayer,
+            "ambil_trainee" => $ambil_trainee,
+            "namaAsisten" => $namaAsisten,
+            "totalPoin" => $totalPoin,
+            "dropdown_weekly" => $dropdown_weekly,
+            "semester" => $semester,
+        ]);
+    }
 }
