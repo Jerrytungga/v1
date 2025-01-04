@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Asisten;
 
+use App\Models\Batch;
 use App\Models\Weekly;
 use App\Models\Trainee;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Poinjurnal;
+use Illuminate\Http\Request;
 use App\Models\Report_weekly;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class Report_traineeController extends Controller
@@ -109,6 +110,23 @@ class Report_traineeController extends Controller
     ]);
 }
 
-    
+    public function view_report(Request $request){
+        $weekly = Weekly::all();
+        $batch = Batch::all();
+        $angkatan = $request->angkatan;
+        $week = $request->week;
+        $report = Report_weekly::where('batch', $angkatan)
+        ->where('week', $week)->get();
+
+        return view('Asisten.content.laporan.view_report', [
+            "title" => "Report",
+                "report" => $report,
+                'weekly' => $weekly,
+                "batch" => $batch,
+                'request' => $request,
+          
+        ]);
+
+    }
 
 }

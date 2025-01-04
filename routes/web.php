@@ -268,6 +268,7 @@ Route::group(['middleware' => ['role:asisten']], function() {
     Route::get('Asisten/report/{nip}/trainee', [Report_traineeController::class, 'index'])->name('Report-Asisten');
     Route::patch('Asisten/report/{id}/5362526', [Report_traineeController::class, 'ReportAsisten'])->name('Report_Asisten');
     Route::post('/Asisten/report/{id}/4334526', [Report_traineeController::class, 'filterreport'])->name('Report_Asisten-week');
+    Route::get('Asisten/report', [Report_traineeController::class, 'view_report'])->name('Report-All');
 
 });
 
